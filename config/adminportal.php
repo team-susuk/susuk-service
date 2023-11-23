@@ -45,9 +45,9 @@ return [
         'banner_description' => "Use your access in the ".config('app.name')." application and login to your dashboard account.",
         
         'limiter' => ['throttle:60perMinute'],
-        'url' => 'admin/auth/login',
-        'forgot_password_url' => 'admin/auth/forgot-password',
-        'register_url' => 'admin/auth/register',
+        'url' => 'management/auth/login',
+        'forgot_password_url' => 'management/auth/forgot-password',
+        'register_url' => 'management/auth/register',
     ],
 
     /*
@@ -64,7 +64,7 @@ return [
      */
     'auth' => [
         'session_name_prefix' => 'admin.auth',
-        'logout_url' => 'admin/logout'
+        'logout_url' => 'management/logout'
     ],
 
     /*
@@ -72,7 +72,7 @@ return [
      | For profile url location
      | --------------------------------------------
      */
-    'profile_url' => 'admin/profile',
+    'profile_url' => 'management/profile',
 
 
     /*
@@ -82,7 +82,7 @@ return [
      */
     'notification' => [
         'display' => true,
-        'interval' => 120,
+        'interval' => null,
         'path' => 'admin.notification.index',
         'ajax_path' => 'notification-admin/list'
     ],
