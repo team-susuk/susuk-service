@@ -6,11 +6,14 @@ import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import route from '../../vendor/tightenco/ziggy/dist/index.m';
 import Alpine from 'alpinejs';
+
+window.route = (name?: string, params?: RouteParamsWithQueryOverload | RouteParam, absolute?: boolean) => route(name, params, absolute, Ziggy)
+Alpine.start()
 
 window.Alpine = Alpine
 
-Alpine.start()
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -30,6 +33,6 @@ createInertiaApp({
             .mount(el);
     },
     progress: {
-        color: '#4B5563',
+        color: '#0D5CAB',
     },
 });

@@ -4,3 +4,10 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.has-error input{
+    border-color: red !important;
+}
+.has-error .error-text{
+    color: red !important;
+}

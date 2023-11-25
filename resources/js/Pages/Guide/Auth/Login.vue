@@ -1,6 +1,6 @@
 <template>
     <Head title="Login" />
-    <section class="">
+    <section class="" x-data="{popup: false}">
         <div class="flex items-center justify-between">
             <ButtonOutline
                 :href="route('welcome')"
@@ -24,7 +24,7 @@
                 placeholder="Input Nomor WA contoh: 6281...."
                 id="phone"
                 name="phone"
-                v-model=form.phone_number
+                v-model="form.phone_number"
             />
             <Password
                 label="Password"
@@ -33,12 +33,13 @@
                 name="password"
                 v-model="form.password"
             />
-            <Link :href="route('guide.login')" class="text-sm font-medium text-neutral-dark-gray text-end">
+            <a class="text-sm font-medium text-neutral-dark-gray text-end cursor-pointer" x-on:click="popup=true">
                 Lupa Password?
-            </Link>
+            </a>
             <ButtonSolidBlue
                 bg-color="blue" text-color="white" class="w-full flex-center mt-8"
                 :disabled="!form.phone_number || !form.password"
+                @click="submit"
             >
                 Masuk
             </ButtonSolidBlue>
@@ -46,19 +47,80 @@
                 Belum punya akun? <Link :href="route('guide.register')" class="text-blue font-semibold">Registrasi sekarang</Link>
             </p>
         </form>
+
+
+        <a x-on:click="popup=false" id="close-forgot"></a>
+        <Popup :close="true">
+            <form class="">
+                <icForgotPassword class="mx-auto mb-3" />
+                <h2 class="text-center mb-8 font-semibold text-base">
+                    Lupa Password
+                </h2>
+                <Input
+                    label="Nama Lengkap"
+                    type="text"
+                    placeholder="Input Nama Lengkap"
+                    id="forgot_name"
+                    name="forgot_name"
+                    v-model="formForgot.name"
+                />
+                <InputNumber
+                    label="Nomor WA"
+                    type="text"
+                    placeholder="Input Nomor WA contoh: 6281...."
+                    id="forgot_phone"
+                    name="forgot_phone"
+                    v-model="formForgot.phone_number"
+                />
+
+                <ButtonSolidBlue
+                    :disabled="!formForgot.name || !formForgot.phone_number"
+                    class="mx-auto mt-6 min-w-[200px] justify-center"
+                    @click="submitForgot"
+                >
+                    Submit
+                </ButtonSolidBlue>
+            </form>
+        </Popup>
     </section>
+
+
+    <div x-data="{popup: false}">
+        <a x-on:click="popup=true" id="open-popup"></a>
+        <PopupSuccess :close="true" title="Mohon Tunggu" sub-title="Kami akan segera mengirimkan Password baru anda" />
+    </div>
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm } from '@inertiajs/vue3';
     import Logo from '@/Components/Icon/Etc/Logo.vue';
     import ButtonOutline from '@/Components/Button/Outline.vue';
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
     import InputNumber from '@/Components/Input/InputNumber.vue';
     import Password from '@/Components/Input/Password.vue';
+    import Input from '@/Components/Input/Index.vue';
+
+    import Popup from '@/Components/Popup/Popup.vue';
+    import PopupSuccess from '@/Components/Popup/PopupSuccess.vue';
+    import icForgotPassword from '@/Components/Icon/Image/ForgotPassword.vue';
+    import { clickId } from '@/plugins/functions/global';
 
     const form = useForm({
         phone_number: '',
         password: ''
     })
+
+    const formForgot = useForm({
+        name: '',
+        phone_number: ''
+    })
+
+    const submitForgot = () => {
+        clickId('close-forgot')
+        clickId('open-popup')
+    }
+
+    const submit = () => {
+        router.visit(route("guide.home"))
+    }
 </script>

@@ -10,6 +10,8 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Guide/Auth/Register');
+        return Inertia::render('Guide/Auth/Register', [
+            
+        ]);
     }
 }

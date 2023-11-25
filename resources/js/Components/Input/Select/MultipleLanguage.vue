@@ -59,14 +59,14 @@
                         type="text"
                         v-model="search"
                         class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-xs outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
-                        placeholder="Search Category"
+                        placeholder="Cari Bahasa"
                     />
                 </div>
                 <ul class="flex-1 overflow-auto">
                     <li v-for="item in filterCategory()" :key="item.code">
                         <a
                             href="javascript:;"
-                            class="flex gap-3 p-[5px] px-2 rounded-md hover:bg-[#dddddd52] text-[11px] text-[#7B7B7B]"
+                            class="flex gap-3 p-[5px] px-2 rounded-md hover:bg-neutral-light-gray text-sm text-dark transition-all"
                             x-on:click="dropdownOpen=false"
                             @click="addItem(item)"
                         >
@@ -146,7 +146,7 @@ onMounted(() => {
 
 const filterCategory = () => {
     let searchValue = search.value.toLowerCase()
-    return props.category.filter(function (row) {
+    return props.category.filter(function (row: any) {
         return row.name.toLowerCase().includes(searchValue);
     });
 }

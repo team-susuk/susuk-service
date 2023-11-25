@@ -1,6 +1,6 @@
 <template>
     <Head title="Login" />
-    <section class="">
+    <section class="" x-data="{popup: false}">
         <div class="flex items-center justify-between">
             <ButtonOutline
                 :href="route('guide.login')"
@@ -80,6 +80,10 @@
                     label="Freelance"
                     v-model="form.profession"
                 />
+                <InputRadio
+                    name="profession"
+                    hidden
+                />
             </div>
             <MultipleLanguage
                 label="Bahasa"
@@ -110,9 +114,11 @@
                     !form.phone_number ||
                     !form.image ||
                     !form.profession ||
+                    !form.languages.length ||
                     !form.password ||
                     !form.password_confirmation
                 "
+                @click="submit"
             >
                 Registrasi
             </ButtonSolidBlue>
@@ -120,11 +126,14 @@
                 Sudah punya akun? <Link :href="route('guide.login')" class="text-blue font-semibold">Login</Link>
             </p>
         </form>
+
+        <a x-on:click="popup=true" id="open-popup"></a>
+        <PopupSuccess :close="true" title="Registrasi Berhasil" @action="toLogin" />
     </section>
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm } from '@inertiajs/vue3';
     import Logo from '@/Components/Icon/Etc/Logo.vue';
     import ButtonOutline from '@/Components/Button/Outline.vue';
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
@@ -136,6 +145,8 @@
     import InputRadio from '@/Components/Input/InputRadio.vue';
     import { languages } from '@/plugins/etc/languages'
     import MultipleLanguage from '@/Components/Input/Select/MultipleLanguage.vue';
+    import PopupSuccess from '@/Components/Popup/PopupSuccess.vue';
+    import { clickId } from '@/plugins/functions/global';
 
 
     const form = useForm({
@@ -149,4 +160,12 @@
         password: '',
         password_confirmation: '',
     })
+
+    const toLogin = () => {
+        router.visit(route('guide.login'))
+    }
+
+    const submit = () => {
+        clickId('open-popup')
+    }
 </script>

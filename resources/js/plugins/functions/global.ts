@@ -135,3 +135,10 @@ export const showAlert = (message: string, type = 'success') => {
         }, 3000);
     }
 }
+
+export const clickId = (id: string) => {
+    let element = document.getElementById(id) as any
+    if (element) {
+        element?.click()
+    }
+}

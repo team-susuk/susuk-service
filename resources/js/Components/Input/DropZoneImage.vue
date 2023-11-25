@@ -122,6 +122,7 @@
             const acceptedFormats = ["image/png", "image/jpeg", "image/jpg"];
             if (!acceptedFormats.includes(dropzoneFile.value.type)) {
                 (document.getElementById(props.id) as HTMLInputElement).value = ""
+                dropzoneFile.value = undefined
                 emit("update:modelValue", null)
                 showAlert("Invalid image format. Please upload a PNG or JPEG image.", "error")
             }

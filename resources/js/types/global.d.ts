@@ -9,16 +9,17 @@ declare global {
         axios: AxiosInstance;
         route : ziggyRoute;
         Alpine : Alpine
-        page : any,
     }
 
     var route: typeof ziggyRoute;
+    var $t : any;
     var Ziggy: ZiggyConfig;
 }
 
 declare module 'vue' {
     interface ComponentCustomProperties {
         route: typeof ziggyRoute;
+        $t : any
     }
 }
 
