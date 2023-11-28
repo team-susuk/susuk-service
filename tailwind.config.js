@@ -28,6 +28,7 @@ export default {
                 'neutral-light-gray': '#F2F2F2',
                 'neutral-gray-2': '#667687',
                 'neutral-gray-3': '#99A4AF',
+                'neutral-gray-5': '#E0E0E0',
                 'gold-2': '#E8AA42',
                 'blue-2': '#094793',
                 'orange': '#F86F03',

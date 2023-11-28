@@ -44,15 +44,15 @@
         },
         {
             name: 'Merchant',
-            route: null,
-            active: "guide.merchant",
+            route: route('guide.merchants.index'),
+            active: "guide.merchants.index",
             icon: shallowRef(Merchant),
             iconActive: shallowRef(MerchantActive),
             center: false
         },
         {
             name: '',
-            route: null,
+            route: route('guide.qrcode.index'),
             active: "",
             icon: shallowRef(QrCode),
             iconActive: shallowRef(QrCode),

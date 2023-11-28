@@ -1,0 +1,36 @@
+<template>
+    <div class="flex w-full ">
+        <Link
+            v-for="menu in menus"
+            :href="menu.route"
+            class="w-full text-center border-b pb-2 hover:border-blue transition-all"
+            :class="{
+                'border-blue': menu.key === active,
+                'border-neutral-gray-5': menu.key !== active
+            }"
+        >
+            {{ menu.name }}
+        </Link>
+    </div>
+</template>
+
+<script setup lang="ts">
+    import { Link } from '@inertiajs/vue3';
+    defineProps<{
+        active: string
+    }>()
+
+    const menus = [
+        {
+            name: 'QR Code',
+            key: 'qrcode',
+            route: route('guide.qrcode.index')
+        },
+        {
+            name: 'Histori',
+            key: 'history',
+            route: route('guide.qrcode.histories')
+        }
+    ]
+
+</script>
