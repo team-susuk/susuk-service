@@ -10,6 +10,9 @@
                 >
             </div>
         </div>
+        <Swiper
+            :images="banners"
+        />
         <h2
             class="font-bold text-lg mb-3"
         >Kategori Merchant</h2>
@@ -124,6 +127,7 @@
     import OutlineGray from '@/Components/Button/OutlineGray.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import { ref, onMounted } from 'vue'
+    import Swiper from '@/Components/Others/Swiper.vue'
 
     interface MerchantCategory {
         name: string;
@@ -132,6 +136,7 @@
 
     const merchantCategories = ref<MerchantCategory[]>([])
     const merchantCategory = ref('')
+    const banners = ref<any>([])
 
     onMounted(() => {
         merchantCategories.value = [
@@ -158,6 +163,12 @@
         ]
 
         merchantCategory.value = merchantCategories.value.length > 0 ? merchantCategories.value[0].key : ''
+
+        banners.value = [
+            'https://images.unsplash.com/photo-1580670029149-5c00eec8bb66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1580670029149-5c00eec8bb66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1680859126181-6f85456f864e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        ]
     })
 
     const changeCategory = (key: string) => {
