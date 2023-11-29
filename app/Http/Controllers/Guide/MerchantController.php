@@ -12,4 +12,9 @@ class MerchantController extends Controller
     {
         return Inertia::render('Guide/Merchant/Index');
     }
+
+    public function detail($id)
+    {
+        return Inertia::render('Guide/Merchant/Detail');
+    }
 }

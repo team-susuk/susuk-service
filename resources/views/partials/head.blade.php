@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://muhammadlailil.github.io/iconsax/style/iconsax.css" />
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
 <!-- Scripts -->
 @if (config("app.env") == 'development')
     @routes

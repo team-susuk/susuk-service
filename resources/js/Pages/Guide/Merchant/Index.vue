@@ -1,5 +1,5 @@
 <template>
-    <Head title="Beranda" />
+    <Head title="Merchant" />
     <AuthLayout>
         <HeaderBlue title="Merchant" />
         <h2
@@ -27,6 +27,6 @@
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
 
     import CardMerchant from '@/Components/Card/CardMerchant.vue'
-    import HeaderBlue from '@/Components/Navigation/Guide/HeaderBlue.vue'
+    import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
 
 </script>

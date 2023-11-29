@@ -20,6 +20,7 @@ Route::prefix("guide")
         ->name("merchants.")
         ->group(function () {
             Route::get('/', 'index')->name("index");
+            Route::get('/detail/{id}', 'detail')->name("detail");
         });
 
         Route::controller(QrCodeController::class)

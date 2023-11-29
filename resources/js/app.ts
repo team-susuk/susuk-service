@@ -10,8 +10,9 @@ import route from '../../vendor/tightenco/ziggy/dist/index.m';
 import Alpine from 'alpinejs';
 
 window.route = (name?: string, params?: RouteParamsWithQueryOverload | RouteParam, absolute?: boolean) => route(name, params, absolute, Ziggy)
-Alpine.start()
 
+
+Alpine.start()
 window.Alpine = Alpine
 
 

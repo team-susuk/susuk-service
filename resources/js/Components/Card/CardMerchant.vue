@@ -11,8 +11,11 @@
         </div>
         <p class="mb-0 text-xxs text-neutral-gray-2 line-clamp-2 whitespace-pre-wrap">Jl. Kutai no 20, Kel. Manguharjo, Kec. Bebekan Timur, Surabaya</p>
         <p class="mb-1 text-xs text-orange whitespace-pre-wrap font-semibold">Komisi: 10% - 20%</p>
-        <SolidBlue class="!font-semibold !text-xs !md:text-sm !px-4 !py-2 justify-center">
-            Lihat merchant
+        <SolidBlue
+            :href="route('guide.merchants.detail', 'random')"
+            class="!font-semibold !text-xs md:!text-sm !px-4 !py-2 justify-center"
+        >
+            Lihat Merchant
         </SolidBlue>
     </div>
 </template>

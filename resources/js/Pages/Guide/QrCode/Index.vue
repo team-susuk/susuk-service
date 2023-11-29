@@ -1,5 +1,5 @@
 <template>
-    <Head title="Beranda" />
+    <Head title="Qr Code" />
     <AuthLayout>
         <HeaderBlue title="Qr Code" />
         <TabMenu active="qrcode" />
@@ -19,7 +19,7 @@
 <script setup lang="ts">
     import { Head, Link } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
-    import HeaderBlue from '@/Components/Navigation/Guide/HeaderBlue.vue'
+    import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import TabMenu from './TabMenu.vue';
 
 </script>

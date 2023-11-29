@@ -76,4 +76,8 @@
     .w-screen-4xs {
         width: 200px;
     }
+
+    .shadow-navbar {
+        box-shadow: 0px 6px 15px 0px rgba(197, 204, 205, 0.20);
+    }
 }
