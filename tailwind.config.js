@@ -32,7 +32,8 @@ export default {
                 'gold-2': '#E8AA42',
                 'blue-2': '#094793',
                 'orange': '#F86F03',
-                'orange-thin': 'rgba(248, 111, 3, 0.05)'
+                'orange-thin': 'rgba(248, 111, 3, 0.05)',
+                'gray-stroke': '#F2F6FE'
             },
             fontSize: {
                 xxs: '0.625rem'

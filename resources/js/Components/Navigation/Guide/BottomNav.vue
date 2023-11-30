@@ -68,8 +68,8 @@
         },
         {
             name: 'Profil',
-            route: null,
-            active: "guide.profile",
+            route: route('guide.profile.index'),
+            active: "guide.profile.index",
             icon: shallowRef(Profile),
             iconActive: shallowRef(ProfileActive),
             center: false,

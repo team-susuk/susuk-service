@@ -34,7 +34,7 @@
             <CardMerchant />
             <CardMerchant />
         </div>
-        <OutlineBlue class="mt-5 mx-auto font-medium">
+        <OutlineBlue v-if="merchantCategory" class="w-fit mt-5 mx-auto font-medium" :href="route('guide.merchants.category', merchantCategory)">
             Lihat Semua
         </OutlineBlue>
 
@@ -44,7 +44,7 @@
                     class="font-bold text-lg"
                 >Top Merchants</h2>
 
-                <Link :href="''" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.merchants.category', 'top-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>
@@ -63,7 +63,7 @@
                     class="font-bold text-lg"
                 >New Merchants</h2>
 
-                <Link :href="''" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.merchants.category', 'new-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>

@@ -4,11 +4,11 @@
         <HeaderBlue title="Pesan" />
         <TabMenu active="admin" />
 
-        <template v-for="i in 3">
+        <div v-for="i in 3" class="mt-4">
             <CardInboxAdmin class="mb-3" />
             <CardInboxAdmin class="mb-3" type="image" />
             <CardInboxAdmin class="mb-3" type="file" />
-        </template>
+        </div>
 
         <Pagination />
     </AuthLayout>

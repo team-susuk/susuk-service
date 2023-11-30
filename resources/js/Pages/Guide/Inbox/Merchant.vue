@@ -4,10 +4,10 @@
         <HeaderBlue title="Pesan" />
         <TabMenu active="merchant" />
 
-        <template v-for="i in 10">
+        <div v-for="i in 10" class="mt-4">
             <CardInboxMerchant class="mb-3" />
             <CardInboxProduct class="mb-3" />
-        </template>
+        </div>
 
         <Pagination />
     </AuthLayout>
