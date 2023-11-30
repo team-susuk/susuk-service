@@ -23,7 +23,8 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="relative w-full py-4 bg-white px-6 sm:max-w-md sm:rounded-lg max-h-screen overflow-y-auto"
+            class="relative w-full py-4 bg-white px-6 sm:max-w-md lg:max-w-lg xl:max-w-2xl sm:rounded-lg max-h-screen overflow-y-auto"
+            v-bind:class="class"
         >
             <div
                 v-if="title || close"
@@ -42,5 +43,6 @@ import ClosePopup from "@/Components/Icon/Etc/CloseGrey.vue";
 defineProps<{
     title?: string;
     close?: boolean;
+    class?: any
 }>();
 </script>

@@ -60,8 +60,8 @@
         },
         {
             name: 'Pesan',
-            route: null,
-            active: "guide.inbox",
+            route: route('guide.inbox.merchant'),
+            active: "guide.inbox.*",
             icon: shallowRef(Message),
             iconActive: shallowRef(MessageActive),
             center: false,

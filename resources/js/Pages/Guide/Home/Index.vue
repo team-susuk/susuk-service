@@ -88,10 +88,10 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
             </div>
         </section>
 
@@ -107,10 +107,10 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
-                <CardProduct class="w-screen-4xs" :with-action="true" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
             </div>
         </section>
     </AuthLayout>

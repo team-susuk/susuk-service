@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Guide\HomeController;
+use App\Http\Controllers\Guide\InboxController;
+use App\Http\Controllers\Guide\QrCodeController;
+use App\Http\Controllers\Guide\MerchantController;
 use App\Http\Controllers\Guide\Auth\LoginController;
 use App\Http\Controllers\Guide\Auth\RegisterController;
-use App\Http\Controllers\Guide\HomeController;
-use App\Http\Controllers\Guide\MerchantController;
-use App\Http\Controllers\Guide\QrCodeController;
-use Illuminate\Support\Facades\Route;
 
 Route::prefix("guide")
     ->as("guide.")
@@ -29,5 +30,13 @@ Route::prefix("guide")
         ->group(function () {
             Route::get('/', 'index')->name("index");
             Route::get('/histories', 'histories')->name("histories");
+        });
+
+        Route::controller(InboxController::class)
+        ->prefix("inbox")
+        ->name("inbox.")
+        ->group(function () {
+            Route::get('/merchant', 'merchant')->name("merchant");
+            Route::get('/admin', 'admin')->name("admin");
         });
     });

@@ -69,10 +69,10 @@
                 >List Produk</h2>
             </div>
             <div class="grid grid-cols-3 gap-4">
-                <CardProduct :with-action="true" />
-                <CardProduct :with-action="true" />
-                <CardProduct :with-action="true" />
-                <CardProduct :with-action="true" />
+                <CardProduct />
+                <CardProduct />
+                <CardProduct />
+                <CardProduct />
             </div>
         </section>
 
