@@ -12,5 +12,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     flash: {
         error?: string;
         success?: string;
-    }
+    },
+    logo_bca: string
 };

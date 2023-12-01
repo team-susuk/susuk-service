@@ -15,6 +15,7 @@
             <a hidden ref="trigger_popup" x-on:click="popup=true"></a>
             <Popup
                 title="Detail Produk"
+                class="lg:max-w-lg xl:max-w-2xl"
             >
                 <div class="flex flex-col lg:flex-row gap-5">
                     <div class="flex-shrink-0">

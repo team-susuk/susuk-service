@@ -7,6 +7,7 @@ use App\Http\Controllers\Guide\QrCodeController;
 use App\Http\Controllers\Guide\MerchantController;
 use App\Http\Controllers\Guide\Auth\LoginController;
 use App\Http\Controllers\Guide\Auth\RegisterController;
+use App\Http\Controllers\Guide\ProductController;
 use App\Http\Controllers\Guide\ProfileController;
 
 Route::prefix("guide")
@@ -23,6 +24,13 @@ Route::prefix("guide")
         ->group(function () {
             Route::get('/', 'index')->name("index");
             Route::get('/detail/{id}', 'detail')->name("detail");
+            Route::get('/category/{category}', 'category')->name("category");
+        });
+
+        Route::controller(ProductController::class)
+        ->prefix("products")
+        ->name("products.")
+        ->group(function () {
             Route::get('/category/{category}', 'category')->name("category");
         });
 
@@ -47,5 +55,7 @@ Route::prefix("guide")
         ->name("profile.")
         ->group(function () {
             Route::get('/', 'index')->name("index");
+            Route::get('/detail', 'detail')->name("detail");
+            Route::get('/edit', 'edit')->name("edit");
         });
     });

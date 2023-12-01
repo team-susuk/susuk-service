@@ -23,7 +23,7 @@
             v-bind:class="icon ? 'ps-12' : ''"
             x-model="input"
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-            class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
+            class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray disabled:bg-light-gray"
             :class="class"
         />
         <div class="mb-4" v-if="$attrs.maxlength">

@@ -56,8 +56,8 @@
         </div>
 
         <SolidBlue
-            :href="route('guide.merchants.detail', 'random')"
             class="!font-semibold !text-xs md:!text-sm !px-9 !py-2 justify-center !w-fit"
+            @click="() => clickId('popup-booking')"
         >
             Booking
         </SolidBlue>
@@ -76,6 +76,7 @@
             </div>
         </section>
 
+        <PopupBooking />
     </AuthLayout>
 </template>
 
@@ -89,6 +90,8 @@
     import OutlineOrange from '@/Components/Button/OutlineOrange.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import CardProduct from '@/Components/Card/CardProduct.vue'
+    import PopupBooking from '@/Components/Popup/PopupBooking.vue';
+    import { clickId } from '@/plugins/functions/global';
 
 
 </script>

@@ -14,7 +14,6 @@
                 x-model="input"
                 @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
                 class="w-5 h-5 text-white bg-white border-gray-600 300 focus:ring-green focus:ring-1 cursor-pointer transition-all checked:text-green"
-                :checked="checked ? true : false"
             />
         </div>
         <div class="mb-4" v-if="$attrs.maxlength">
@@ -35,7 +34,7 @@ export default {
         "error",
         "id",
         "modelValue",
-        "checked"
+        "defaultValue"
     ],
     emits: ['update:modelValue'],
     computed: {

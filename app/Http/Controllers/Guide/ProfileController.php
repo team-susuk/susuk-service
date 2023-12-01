@@ -12,4 +12,14 @@ class ProfileController extends Controller
     {
         return Inertia::render("Guide/Profile/Index");
     }
+
+    public function detail()
+    {
+        return Inertia::render("Guide/Profile/Detail");
+    }
+
+    public function edit()
+    {
+        return Inertia::render("Guide/Profile/Edit");
+    }
 }

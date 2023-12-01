@@ -18,6 +18,7 @@ export default {
             colors: {
                 'red': '#E20000',
                 'dark': '#0E0F10',
+                'dark-gray': '#565A5D',
                 'blue': '#0D5CAB',
                 'graphite': '#292D32',
                 'silver': '#DFE5ED',
@@ -29,6 +30,7 @@ export default {
                 'neutral-gray-2': '#667687',
                 'neutral-gray-3': '#99A4AF',
                 'neutral-gray-5': '#E0E0E0',
+                'gold-1': '#F79700',
                 'gold-2': '#E8AA42',
                 'blue-2': '#094793',
                 'orange': '#F86F03',

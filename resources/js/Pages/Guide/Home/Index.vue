@@ -14,7 +14,7 @@
             :images="banners"
         />
         <h2
-            class="font-bold text-lg mb-3"
+            class="font-bold text-lg mb-3 mt-6"
         >Kategori Merchant</h2>
         <div class="flex gap-3 justify-start items-start overflow-x-auto mb-4">
             <template v-for="category in merchantCategories">
@@ -82,7 +82,7 @@
                     class="font-bold text-lg"
                 >Special This Month</h2>
 
-                <Link :href="''" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.products.category', 'special-this-month')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>
@@ -101,7 +101,7 @@
                     class="font-bold text-lg"
                 >Favorite Produk</h2>
 
-                <Link :href="''" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.products.category', 'favorite-produk')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>
@@ -114,6 +114,16 @@
             </div>
         </section>
     </AuthLayout>
+
+    <PopupBank />
+    <section>
+        <PopupHome
+            v-for="(image, id) in advertisement"
+            :image="image"
+            :id="'popup-advertisement-'+id"
+            @action="closeAndOpenAds(id)"
+        />
+    </section>
 </template>
 
 <script setup lang="ts">
@@ -128,6 +138,9 @@
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import { ref, onMounted } from 'vue'
     import Swiper from '@/Components/Others/Swiper.vue'
+    import PopupHome from '@/Components/Popup/PopupHome.vue';
+    import PopupBank from '@/Components/Popup/PopupBank.vue';
+    import { clickId } from '@/plugins/functions/global';
 
     interface MerchantCategory {
         name: string;
@@ -137,6 +150,7 @@
     const merchantCategories = ref<MerchantCategory[]>([])
     const merchantCategory = ref('')
     const banners = ref<any>([])
+    const advertisement = ref([])
 
     onMounted(() => {
         merchantCategories.value = [
@@ -169,9 +183,26 @@
             'https://images.unsplash.com/photo-1580670029149-5c00eec8bb66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             'https://plus.unsplash.com/premium_photo-1680859126181-6f85456f864e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         ]
+
+        advertisement.value = [
+            'https://images.unsplash.com/photo-1604140971585-3616fc2b97e5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        ]
+
+        setTimeout(() => {
+            closeAndOpenAds(-1)
+        }, 100)
     })
 
     const changeCategory = (key: string) => {
         merchantCategory.value = key
+    }
+
+    const closeAndOpenAds = (id: number) => {
+        let element = document.getElementById('popup-advertisement-'+(id+1)) as any
+        if (element) {
+            element?.click()
+        } else {
+            clickId("popup-bank")
+        }
     }
 </script>

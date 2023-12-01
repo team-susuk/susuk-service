@@ -5,13 +5,13 @@ import MainLayout from './Layouts/MainLayout.vue'
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import { Ziggy } from "./ziggy"
 import route from '../../vendor/tightenco/ziggy/dist/index.m';
 import Alpine from 'alpinejs';
 
 window.route = (name?: string, params?: RouteParamsWithQueryOverload | RouteParam, absolute?: boolean) => route(name, params, absolute, Ziggy)
-
-
 Alpine.start()
 window.Alpine = Alpine
 
