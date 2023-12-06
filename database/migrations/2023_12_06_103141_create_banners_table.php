@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('merchant_id')->references('id')->on('merchants')->cascadeOnDelete();
-            $table->string('name');
             $table->string('image');
-            $table->text('description');
-            $table->double('price')->nullable();
-            $table->double('commission')->nullable();
-            $table->integer('viewer');
+            $table->foreignId('merchant_id')->nullable()->references('id')->on('merchants')->cascadeOnDelete();
+            $table->date('expired_at')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('sorting')->default(1)->index();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('banners');
     }
 };
