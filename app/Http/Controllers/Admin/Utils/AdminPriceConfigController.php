@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Utils;
 
+use App\Enums\PriceType;
 use Illuminate\Http\Request;
 use App\Services\Utils\PriceConfigService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
@@ -19,19 +20,33 @@ class AdminPriceConfigController extends AdminController
         ["label" => "Type", "name" => "type"],
         ["label" => "Price", "name" => "price"],
         ["label" => "Discount", "name" => "discount"],
-        ["label" => "Discount Type", "name" => "discount_type"],
-        ["label" => "Benefit Value", "name" => "benefit_value"],
-        ["label" => "Benefit Type", "name" => "benefit_type"],
+        ["label" => "Benefit", "name" => "benefit_value"],
     ];
 
     protected $rules = [
         "name" => "required|min:3|max:150",
-        "description" => "required|min:3|max:150",
-        "type" => "required|min:3|max:150",
-        "price" => "required|min:3|max:150",
-        "discount" => "required|min:3|max:150",
-        "discount_type" => "required|min:3|max:150",
-        "benefit_value" => "required|min:3|max:150",
-        "benefit_type" => "required|min:3|max:150",
+        "description" => "required|min:3",
+        "type" => "required|min:3",
+        "price" => "required",
+        "discount" => "required",
+        "discount_type" => "required|min:3",
+        "benefit_value" => "required",
+        "benefit_type" => "required|min:3",
     ];
+
+    public function create(Request $request)
+    {
+        $this->data = [
+            'price_types' => PriceType::cases()
+        ];
+        return parent::create($request);
+    }
+
+    public function edit(Request $request,$id)
+    {
+        $this->data = [
+            'price_types' => PriceType::cases()
+        ];
+        return parent::edit($request,$id);
+    }
 }

@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('type');
             $table->double('price');
             $table->double('discount');
-            $table->enum('discount_type', ['percent', 'price']);
+            $table->enum('discount_type', ['percent', 'nominal']);
             $table->integer('benefit_value');
             $table->enum('benefit_type', ['day', 'month', 'product']);
             $table->timestamps();

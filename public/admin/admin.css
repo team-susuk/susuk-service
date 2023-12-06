@@ -1,0 +1,9 @@
+.select-input {
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     background-image: url('./img/select-dropdown.svg');
+     background-repeat: no-repeat;
+     background-position-y: 16px;
+     background-position-x: calc(100% - 17px);
+     background-size: 10px;
+}

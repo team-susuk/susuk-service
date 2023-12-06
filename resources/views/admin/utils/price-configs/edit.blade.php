@@ -1,8 +1,44 @@
-<x-portal::input type="text" name="name" label="Name" placeholder="Name" horizontal>{{$row->name}}</x-portal::input>
-<x-portal::input type="text" name="description" label="Description" placeholder="Description" horizontal>{{$row->description}}</x-portal::input>
-<x-portal::input type="text" name="type" label="Type" placeholder="Type" horizontal>{{$row->type}}</x-portal::input>
-<x-portal::input type="text" name="price" label="Price" placeholder="Price" horizontal>{{$row->price}}</x-portal::input>
-<x-portal::input type="text" name="discount" label="Discount" placeholder="Discount" horizontal>{{$row->discount}}</x-portal::input>
-<x-portal::input type="text" name="discount_type" label="Discount Type" placeholder="Discount Type" horizontal>{{$row->discount_type}}</x-portal::input>
-<x-portal::input type="text" name="benefit_value" label="Benefit Value" placeholder="Benefit Value" horizontal>{{$row->benefit_value}}</x-portal::input>
-<x-portal::input type="text" name="benefit_type" label="Benefit Type" placeholder="Benefit Type" horizontal>{{$row->benefit_type}}</x-portal::input>
+<x-portal::input type="text" name="name" label="Name" placeholder="Name"
+    horizontal>{{ $row->name }}</x-portal::input>
+<x-portal::input type="text" name="description" label="Description" placeholder="Description"
+    horizontal>{{ $row->description }}</x-portal::input>
+<x-portal::input.select name="type" label="Type" horizontal class="select-input">
+    <option value="">Pilih Type</option>
+    @foreach ($price_types as $type)
+        <option @selected($row->type->value === $type->value) value="{{ $type->value }}">{{ $type->label()  }}</option>
+    @endforeach
+</x-portal::input.select>
+<x-portal::input type="text" name="price" label="Price" placeholder="Price"
+    horizontal>{{ $row->price }}</x-portal::input>
+<div class="form-group row ">
+    <label for="" class="label col-sm-2">
+        Discount
+        <span class="required">*</span>
+    </label>
+    <div class="col-sm-6 d-flex gap-2">
+        <input type="number" name="discount"placeholder="Discount" horizontal="horizontal" required="required"
+            id="discount" class="form-control " value="{{ $row->discount }}">
+        <select name="discount_type" id="discount_type" class="form-control wide nice-select2 select-input"
+            required="" style="width: 30%">
+            <option @selected($row->discount_type == 'nominal') value="nominal">Nominal</option>
+            <option @selected($row->discount_type == 'percent') value="percent">Percent</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group row ">
+    <label for="" class="label col-sm-2">
+        Benefit
+        <span class="required">*</span>
+    </label>
+    <div class="col-sm-6 d-flex gap-2">
+        <input type="number" name="benefit_value" label="Benefit" placeholder="Benefit" horizontal="horizontal"
+            required="required" id="benefit_value" class="form-control " value="{{ $row->benefit_value }}">
+        <select name="benefit_type" id="benefit_type" class="form-control wide nice-select2 select-input" required=""
+            style="width: 30%">
+            <option @selected($row->benefit_type == 'day') value="day">Hari</option>
+            <option @selected($row->benefit_type == 'month') value="month">Bulan</option>
+            <option @selected($row->benefit_type == 'product') value="product">Product</option>
+        </select>
+    </div>
+</div>

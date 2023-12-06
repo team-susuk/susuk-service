@@ -34,16 +34,9 @@ class PriceConfigService extends AdminService
 
     public function store(Request $request)
     {
-        return $this->model::create([
-            "name" => $request->name,
-            "description" => $request->description,
-            "type" => $request->type,
-            "price" => $request->price,
-            "discount" => $request->discount,
-            "discount_type" => $request->discount_type,
-            "benefit_value" => $request->benefit_value,
-            "benefit_type" => $request->benefit_type,
-        ]);
+
+        $data = $request->only(['name', 'description', 'type', 'price', 'discount', 'discount_type', 'benefit_value', 'benefit_type']);
+        return $this->model::create($data);
     }
 
     public function update(Request $request, $uuid)

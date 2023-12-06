@@ -13,4 +13,10 @@ enum PriceType: string
      case Blast_Merchant = "blast_merchant";
      case Favorite_Product = "favorite_product";
      case Add_Product = "add_product";
+
+     public function label(): string
+     {
+          return str($this->name)->replace('_', ' ')->title()->__toString();
+     }
+
 }
