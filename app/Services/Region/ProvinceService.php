@@ -1,14 +1,14 @@
 <?php
-namespace App\Services\Master;
+namespace App\Services\Region;
 
 use Illuminate\Http\Request;
-use App\Models\Master\Language;
+use App\Models\Region\Province;
 use Laililmahfud\Adminportal\Services\AdminService;
 
-class LanguageService extends AdminService
+class ProvinceService extends AdminService
 {
     public function __construct(
-        public $model = Language::class,
+        public $model = Province::class,
     ) {
     }
 
@@ -17,22 +17,25 @@ class LanguageService extends AdminService
         $search = $request->search ?? '';
 
         return $this->model::where(function ($q) use ($search) {
-            $q->orWhere("lang", "like", "%" . $search . "%");
+            $q->orWhere("name", "like", "%" . $search . "%");
+            $q->orWhere("code", "like", "%" . $search . "%");
         })
-            ->datatable($perPage, "languages.created_at");
+            ->datatable($perPage, "provinces.created_at");
 
     }
 
     public function store(Request $request)
     {
         return $this->model::create([
-            "lang" => $request->lang,
+            "name" => $request->name,
+            "code" => $request->code,
         ]);
     }
 
     public function update(Request $request, $uuid)
     {
-        $data = $request->only(['lang']);
+        $data = $request->only(['name', 'code']);
+
         return $this->model::whereUuid($uuid)->update($data);
     }
 }

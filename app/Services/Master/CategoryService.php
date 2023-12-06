@@ -18,7 +18,6 @@ class CategoryService extends AdminService
         return $this->model::where(function ($q) use ($search) {
                 $q->orWhere("name", "like", "%" . $search . "%");;
             })
-            ->select("*")
             ->datatable($perPage, "categories.created_at");
 
     }

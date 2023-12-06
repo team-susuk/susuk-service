@@ -18,7 +18,6 @@ class ProfessionService extends AdminService
         return $this->model::where(function ($q) use ($search) {
                 $q->orWhere("name", "like", "%" . $search . "%");;
             })
-            ->select("*")
             ->datatable($perPage, "professions.created_at");
 
     }
