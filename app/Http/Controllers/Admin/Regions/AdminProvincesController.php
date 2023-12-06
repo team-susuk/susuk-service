@@ -1,8 +1,8 @@
 <?php
-namespace App\Http\Controllers\Admin\Region;
+namespace App\Http\Controllers\Admin\Regions;
 
-use App\Services\Region\ProvinceService;
 use Illuminate\Http\Request;
+use App\Services\Regions\ProvinceService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
 
 class AdminProvincesController extends AdminController

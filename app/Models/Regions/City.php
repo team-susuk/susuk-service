@@ -1,31 +1,23 @@
 <?php
-namespace App\Models\Region;
+namespace App\Models\Regions;
 
 
-use App\Models\Region\City;
-use App\Models\Region\Province;
+use App\Models\Regions\Province;
 use Illuminate\Database\Eloquent\Model;
 use Laililmahfud\Adminportal\Traits\HasUuid;
 use Laililmahfud\Adminportal\Traits\HasDatatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SubDistrict extends Model
+class City extends Model
 {
-    use HasFactory,HasUuid,HasDatatable;
+    use HasFactory, HasUuid, HasDatatable;
 
-    protected $table = "subdistricts";
+    protected $table = "cities";
 
     protected $guarded = [];
 
-    
     public function province()
     {
          return $this->belongsTo(Province::class, 'province_id', 'id');
-    }
-
-    
-    public function city()
-    {
-         return $this->belongsTo(City::class, 'city_id', 'id');
     }
 }

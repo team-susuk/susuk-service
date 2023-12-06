@@ -1,8 +1,8 @@
 <?php
-namespace App\Services\Util;
+namespace App\Services\Utils;
 
-use App\Models\Util\Setting;
 use Illuminate\Http\Request;
+use App\Models\Utils\Setting;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class SettingService extends AdminService

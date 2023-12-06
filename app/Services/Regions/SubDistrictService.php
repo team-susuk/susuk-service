@@ -1,8 +1,8 @@
 <?php
-namespace App\Services\Region;
+namespace App\Services\Regions;
 
 use Illuminate\Http\Request;
-use App\Models\Region\SubDistrict;
+use App\Models\Regions\SubDistrict;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class SubDistrictService extends AdminService

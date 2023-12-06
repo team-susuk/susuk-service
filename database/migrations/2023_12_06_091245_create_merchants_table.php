@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->integer('viewer')->default(0)->comment('increment if guest see profile');
             $table->boolean('is_member')->default(false);
             $table->dateTime('expired_member_at')->nullable();
+            $table->string('code');
             $table->string('password');
             $table->softDeletes();
             $table->timestamps();

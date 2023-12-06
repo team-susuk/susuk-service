@@ -1,7 +1,7 @@
 <?php
-namespace App\Services\Region;
+namespace App\Services\Regions;
 
-use App\Models\Region\City;
+use App\Models\Regions\City;
 use Illuminate\Http\Request;
 use Laililmahfud\Adminportal\Services\AdminService;
 

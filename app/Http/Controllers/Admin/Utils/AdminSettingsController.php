@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Controllers\Admin\Util;
+namespace App\Http\Controllers\Admin\Utils;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Util\SettingService;
+use App\Services\Utils\SettingService;
 
 class AdminSettingsController extends Controller
 {
@@ -21,7 +21,7 @@ class AdminSettingsController extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.util.settings', [
+        return view('admin.utils.settings', [
             'setting' => $this->settingService->findAll($this->allowed),
         ]);
     }

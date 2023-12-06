@@ -1,8 +1,8 @@
 <?php
-namespace App\Services\Region;
+namespace App\Services\Regions;
 
 use Illuminate\Http\Request;
-use App\Models\Region\Province;
+use App\Models\Regions\Province;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class ProvinceService extends AdminService

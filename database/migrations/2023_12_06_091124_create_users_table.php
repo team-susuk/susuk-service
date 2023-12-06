@@ -24,6 +24,9 @@ return new class extends Migration {
             $table->enum('status', ['waiting_approval', 'rejected', 'active', 'non_active'])->default('waiting_approval');
             $table->dateTime('register_at');
             $table->dateTime('verification_at')->nullable();
+            $table->boolean('is_member')->default(false);
+            $table->dateTime('expired_member_at')->nullable();
+            $table->string('code');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Controllers\Admin\Region;
+namespace App\Http\Controllers\Admin\Regions;
 
 use Illuminate\Http\Request;
+use App\Services\Regions\CityService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
-use App\Services\Region\CityService;
 
 class AdminCitiesController extends AdminController
 {
