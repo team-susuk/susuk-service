@@ -93,7 +93,7 @@ return [
      | popup | alert
      | --------------------------------------------
      */
-    'alert_message_type' => 'popup',
+    'alert_message_type' => 'alert',
     
 
 
