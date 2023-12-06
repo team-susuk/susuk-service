@@ -1,0 +1,1 @@
+<x-portal::input type="text" name="lang" label="Language" placeholder="Lang" horizontal>{{$row->lang}}</x-portal::input>

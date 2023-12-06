@@ -13,7 +13,7 @@ return [
      | Your application icon
      | --------------------------------------------
      */
-    'app_icon' => 'admin/img/admin-logo.svg',
+    'app_icon' => 'admin/img/logo-white.png',
 
     /*
      | --------------------------------------------
@@ -55,7 +55,7 @@ return [
      | For the sidebar admin color
      | --------------------------------------------
      */
-    'theme_color' => '#0A0A0A',
+    'theme_color' => '#0D5CAB',
 
     /*
      | --------------------------------------------

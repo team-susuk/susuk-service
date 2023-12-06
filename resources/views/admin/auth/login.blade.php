@@ -4,7 +4,7 @@
             <form action="{{ url(portalconfig('login.url')) }}" method="post" class="content">
                 @csrf
                <center>
-                    <img src="{{ asset(portalconfig('app_icon')) }}" alt="" width="170px" class="mb-4">
+                    <img src="{{ asset('admin/img/logo-blue.png') }}" alt="" width="170px" class="mb-4">
                </center>
                 <x-portal::input type="email" label="{{ __('adminportal.email') }}" name="email"
                     placeholder="your@email.com">{{ old('email') }}</x-portal::input>
