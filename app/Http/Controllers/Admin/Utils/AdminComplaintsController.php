@@ -9,7 +9,7 @@ class AdminComplaintsController extends AdminController
 {
     protected $routePath = "admin.complaint";
     protected $pageTitle = "Complaint";
-    protected $resourcePath = "admin.complaint";
+    protected $resourcePath = "admin.utils.complaint";
     protected $moduleService = ComplaintService::class;
     protected $add = false;
     protected $filter = true;
