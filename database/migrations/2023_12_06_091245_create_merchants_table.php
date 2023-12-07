@@ -35,6 +35,9 @@ return new class extends Migration {
             $table->dateTime('expired_member_at')->nullable();
             $table->string('code');
             $table->string('password');
+            $table->dateTime('register_at');
+            $table->dateTime('verification_at')->nullable();
+            $table->enum('status', ['waiting_approval', 'rejected', 'active', 'non_active'])->default('waiting_approval');
             $table->softDeletes();
             $table->timestamps();
         });
