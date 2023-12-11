@@ -1,0 +1,1 @@
+<x-portal::input type="text" name="name" label="Name" placeholder="Name" horizontal>{{old('name')}}</x-portal::input>
