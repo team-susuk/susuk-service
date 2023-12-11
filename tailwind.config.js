@@ -16,7 +16,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'red': '#E20000',
+                'red': '#FB4141',
                 'dark': '#0E0F10',
                 'dark-gray': '#565A5D',
                 'blue': '#0D5CAB',
@@ -35,6 +35,7 @@ export default {
                 'blue-2': '#094793',
                 'orange': '#F86F03',
                 'orange-thin': 'rgba(248, 111, 3, 0.05)',
+                'red-thin': 'rgba(251, 65, 65, 0.10)',
                 'gray-stroke': '#F2F6FE'
             },
             fontSize: {

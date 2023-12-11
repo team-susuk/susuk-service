@@ -30,6 +30,7 @@
             <div
                 class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
                 x-on:click="dropdownOpen=true"
+                @click="updateDropdownWidth"
                 v-bind:class="{ 'text-[#ddd]': selected.length }"
             >
                 Pilih Kategori
@@ -44,15 +45,19 @@
             </p>
         </div>
         <div
-            class="absolute w-full z-10"
+            class="fixed w-full z-10"
             x-transition:enter="transition ease-out duration-50"
             x-transition:enter-start="opacity-0 -translate-y-1"
             x-transition:enter-end="opacity-100"
             x-show="dropdownOpen"
             x-on:click.away="dropdownOpen = false"
+            :class="{ 'bottom-0': !bottomPlacement }"
         >
             <div
                 class="bg-white border rounded-lg w-full max-h-60 p-2 flex flex-col"
+                :style="{
+                    width: dropdownWidth
+                }"
             >
                 <div>
                     <input
@@ -105,6 +110,8 @@ const props = defineProps<{
 
 const search = ref("");
 const selected = ref([]);
+const dropdownWidth = ref("auto")
+const bottomPlacement = ref(true)
 
 const addItem = (row: any) => {
     const selectedIds = selected.value.map((val: any) => val.id);
@@ -142,7 +149,26 @@ onMounted(() => {
         });
         selected.value = itemSelected
     }
+
+    updateDropdownWidth();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', updateDropdownWidth)
 });
+
+const updateDropdownWidth = () => {
+    const wrapper = document.getElementById(`wrapper_${props.id}`);
+    if (wrapper) {
+        dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
+        if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
+            bottomPlacement.value = false;
+        } else {
+            bottomPlacement.value = true;
+        }
+    } else {
+        dropdownWidth.value = "auto";
+    }
+}
 
 const filterCategory = () => {
     let searchValue = search.value.toLowerCase()

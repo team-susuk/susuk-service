@@ -34,7 +34,7 @@
                 </span>
             </div>
         </div>
-        <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4">
+        <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4 !cursor-default">
             Komisi: 15%
         </OutlineOrange>
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>

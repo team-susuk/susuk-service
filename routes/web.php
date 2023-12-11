@@ -21,3 +21,4 @@ Route::get('/', function () {
 })->name("welcome");
 
 require __DIR__.'/guide/guide.php';
+require __DIR__.'/merchant/merchant.php';

@@ -1,5 +1,5 @@
 <template>
-    <section x-data="{popup: true}">
+    <section x-data="{popup: false}">
         <a x-on:click="popup=true" id="popup-booking"></a>
         <Popup title="Reservasi">
             <DatePicker

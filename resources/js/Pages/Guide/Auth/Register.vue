@@ -1,5 +1,5 @@
 <template>
-    <Head title="Login" />
+    <Head title="Register" />
     <section class="" x-data="{popup: false}">
         <div class="flex items-center justify-between">
             <ButtonOutline

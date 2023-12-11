@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="ms-auto">
-                    <OutlineOrange class="!font-semibold !text-xxs !px-0 !w-24 !h-6 justify-center !rounded-full">
+                    <OutlineOrange class="!font-semibold !text-xxs !px-0 !w-24 !h-6 justify-center !rounded-full !cursor-default">
                         Komisi: 15%
                     </OutlineOrange>
                 </div>
@@ -50,7 +50,7 @@
                     Detail
                 </OutlineBlue>
                 <SolidBlue
-                    :href="route('guide.merchants.detail', 'random')"
+                    @click="confirmAction"
                     class="!font-semibold !text-xs md:!text-sm !h-8 justify-center !w-fit"
                 >
                     Booking
@@ -67,4 +67,12 @@
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import OutlineOrange from '@/Components/Button/OutlineOrange.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
+
+    const emit = defineEmits(["action"])
+
+    const confirmAction = () => {
+        emit("action", () => {
+
+        });
+    }
 </script>

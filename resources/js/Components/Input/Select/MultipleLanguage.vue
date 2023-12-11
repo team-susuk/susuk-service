@@ -15,6 +15,7 @@
     >
         <div
             class="border border-light-gray rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] flex gap-2 flex-wrap outline-none py-2 w-full mb-2 items-center"
+            :id="'wrapper_'+id"
         >
             <span
                 class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full"
@@ -30,6 +31,7 @@
             <div
                 class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
                 x-on:click="dropdownOpen=true"
+                @click="updateDropdownWidth"
                 v-bind:class="{ 'text-[#ddd]': selected.length }"
             >
                 Pilih Bahasa
@@ -44,15 +46,19 @@
             </p>
         </div>
         <div
-            class="absolute w-full z-10"
+            class="fixed w-full z-10"
             x-transition:enter="transition ease-out duration-50"
             x-transition:enter-start="opacity-0 -translate-y-1"
             x-transition:enter-end="opacity-100"
             x-show="dropdownOpen"
             x-on:click.away="dropdownOpen = false"
+            :class="{ 'bottom-0': !bottomPlacement }"
         >
             <div
                 class="bg-white border rounded-lg w-full max-h-60 p-2 flex flex-col"
+                :style="{
+                    width: dropdownWidth
+                }"
             >
                 <div>
                     <input
@@ -105,6 +111,8 @@ const props = defineProps<{
 
 const search = ref("");
 const selected = ref([]);
+const dropdownWidth = ref("auto")
+const bottomPlacement = ref(true)
 
 const addItem = (row: any) => {
     const selectedIds = selected.value.map((val: any) => val.code);
@@ -125,8 +133,22 @@ const removeItem = (id: string) => {
     emit(
         "update:modelValue",
         selected.value.map((row: any) => row.code)
-    );
+    )
 };
+
+const updateDropdownWidth = () => {
+    const wrapper = document.getElementById(`wrapper_${props.id}`);
+    if (wrapper) {
+        dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
+        if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
+            bottomPlacement.value = false;
+        } else {
+            bottomPlacement.value = true;
+        }
+    } else {
+        dropdownWidth.value = "auto";
+    }
+}
 
 onMounted(() => {
     if (props.selected) {
@@ -141,7 +163,12 @@ onMounted(() => {
             }
         });
         selected.value = itemSelected
+
     }
+    updateDropdownWidth();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', updateDropdownWidth)
 });
 
 const filterCategory = () => {

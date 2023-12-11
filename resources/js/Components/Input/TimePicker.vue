@@ -19,7 +19,7 @@
                 x-model="input"
                 v-bind="$attrs"
                 v-bind:class="name"
-                placeholder="yyyy-mm-dd"
+                placeholder="00:00"
                 class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
             />
             <i

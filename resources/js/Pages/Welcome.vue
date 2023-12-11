@@ -8,7 +8,7 @@
         <ButtonOutline border-color="blue" text-color="blue" bg-color="transparent" class="w-full flex-center mt-14 gap-3" :href="route('guide.login')">
             <UserGuide /> Login Guide
         </ButtonOutline>
-        <ButtonOutline border-color="blue" text-color="blue" bg-color="transparent" class="w-full flex-center mt-6 gap-3">
+        <ButtonOutline border-color="blue" text-color="blue" bg-color="transparent" class="w-full flex-center mt-6 gap-3" :href="route('merchant.login')">
             <UserMerchant /> Login Merchant
         </ButtonOutline>
     </section>

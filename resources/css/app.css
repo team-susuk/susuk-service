@@ -80,4 +80,8 @@
     .shadow-navbar {
         box-shadow: 0px 6px 15px 0px rgba(197, 204, 205, 0.20);
     }
+
+    .shadow-card {
+        box-shadow: 0px 4px 18px 0px rgba(109, 120, 143, 0.10);
+    }
 }

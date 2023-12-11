@@ -7,7 +7,7 @@
             <p class="mb-1 font-medium text-base whitespace-pre-wrap">Tas bahan kayu rotan</p>
             <p class="mb-1 text-lg text-neutral-dark-gray whitespace-pre-wrap font-bold">Rp150.000</p>
             <p class="mb-2 text-xxs text-neutral-gray-2 line-clamp-2 whitespace-pre-wrap">Tas Selempang Bulat berbentuk Kendi/Bola Decoupage BUNGA SESUAI FOTO Diameter 20cm</p>
-            <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full">
+            <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full !cursor-default">
                 Komisi: 15%
             </OutlineOrange>
         </div>
@@ -26,7 +26,7 @@
                     <div>
                         <p class="mb-3 font-semibold text-lg">Tas bahan kayu rotan</p>
                         <p class="mb-3 font-bold text-xl">Rp150.000</p>
-                        <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mb-4">
+                        <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mb-4 !cursor-default">
                             Komisi: 15%
                         </OutlineOrange>
                         <p class="mb-2 text-xs text-neutral-dark-gray">Deskripsi Toko</p>

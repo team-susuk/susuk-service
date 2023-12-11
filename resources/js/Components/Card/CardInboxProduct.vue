@@ -39,7 +39,7 @@
             <div class="flex gap-2 justify-between items-center pt-2 border-t border-silver mt-2">
                 <p class="text-sm font-medium">Tas bahan kayu rotan</p>
                 <div class="ms-auto">
-                    <OutlineOrange class="!font-semibold !text-xxs !px-0 !w-24 !h-6 justify-center !rounded-full">
+                    <OutlineOrange class="!font-semibold !text-xxs !px-0 !w-24 !h-6 justify-center !rounded-full !cursor-default">
                         Komisi: 15%
                     </OutlineOrange>
                 </div>

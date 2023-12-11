@@ -15,12 +15,12 @@
     >
         <i
             v-bind:class="icon"
-            class="absolute top-[11px] left-4 text-[18px] text-dark"
+            class="absolute top-[11px] right-4 text-[18px] text-dark"
             v-if="icon"
         ></i>
         <input
             v-bind="$attrs"
-            v-bind:class="icon ? 'ps-10' : ''"
+            v-bind:class="icon ? 'pe-10' : ''"
             x-model="input"
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
             class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray disabled:bg-light-gray"
