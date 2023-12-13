@@ -11,34 +11,39 @@
             </div>
         </div>
         <Swiper
-            :images="banners"
+            :images="popupBanners"
         />
         <h2
             class="font-bold text-lg mb-3 mt-6"
         >Kategori Merchant</h2>
         <div class="flex gap-3 justify-start items-start overflow-x-auto mb-4">
-            <template v-for="category in merchantCategories">
-                <SolidBlue class="!text-xs !px-3 !py-[6px] !rounded-full" v-if="category.key === merchantCategory">
+            <template v-for="category in categories">
+                <SolidBlue class="!text-xs !px-3 !py-[6px] !rounded-full" v-if="category.uuid === merchantCategory">
                     {{ category.name }}
                 </SolidBlue>
-                <OutlineGray class="!text-xs !px-3 !py-[6px] !rounded-full" v-if="category.key !== merchantCategory" @click="changeCategory(category.key)">
+                <OutlineGray class="!text-xs !px-3 !py-[6px] !rounded-full" v-if="category.uuid !== merchantCategory" @click="changeCategory(category.uuid)">
                     {{ category.name }}
                 </OutlineGray>
             </template>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <CardMerchant />
-            <CardMerchant />
-            <CardMerchant />
-            <CardMerchant />
-            <CardMerchant />
-            <CardMerchant />
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" v-if="loading">
+            <CardMerchantLoading />
+            <CardMerchantLoading />
+            <CardMerchantLoading />
         </div>
-        <OutlineBlue v-if="merchantCategory" class="w-fit mt-5 mx-auto font-medium" :href="route('guide.merchants.category', merchantCategory)">
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" v-if="!loading && merchantCategories?.length > 0">
+            <CardMerchant
+                v-for="merchant in merchantCategories"
+                :data="merchant"
+            />
+        </div>
+
+        <OutlineBlue v-if="merchantCategory && !loading && merchantCategories?.length > 0" class="w-fit mt-5 mx-auto font-medium" :href="route('guide.merchants.category', merchantCategory)">
             Lihat Semua
         </OutlineBlue>
 
-        <section class="mt-8">
+        <section class="mt-8" v-if="top_merchants?.length > 0">
             <div class="flex items-center justify-between mb-3">
                 <h2
                     class="font-bold text-lg"
@@ -50,14 +55,15 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
+                <CardMerchant
+                    class="w-screen-3xs"
+                    v-for="merchant in top_merchants"
+                    :data="merchant"
+                />
             </div>
         </section>
 
-        <section class="mt-8">
+        <section class="mt-8" v-if="new_merchants?.length > 0">
             <div class="flex items-center justify-between mb-3">
                 <h2
                     class="font-bold text-lg"
@@ -69,14 +75,15 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
-                <CardMerchant class="w-screen-3xs" />
+                <CardMerchant
+                    class="w-screen-3xs"
+                    v-for="merchant in new_merchants"
+                    :data="merchant"
+                />
             </div>
         </section>
 
-        <section class="mt-8">
+        <section class="mt-8" v-if="special_products?.length > 0">
             <div class="flex items-center justify-between mb-3">
                 <h2
                     class="font-bold text-lg"
@@ -88,14 +95,16 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct
+                    class="w-screen-4xs"
+                    v-for="product in special_products"
+                    :data="product"
+                    :href="route('guide.merchants.detail', product.merchant_id)"
+                />
             </div>
         </section>
 
-        <section class="mt-8">
+        <section class="mt-8" v-if="favorite_products?.length > 0">
             <div class="flex items-center justify-between mb-3">
                 <h2
                     class="font-bold text-lg"
@@ -107,10 +116,12 @@
                 </Link>
             </div>
             <div class="grid grid-flow-col gap-4 overflow-auto flex-nowrap whitespace-nowrap">
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
-                <CardProduct class="w-screen-4xs" :href="route('guide.merchants.detail', 'random')" />
+                <CardProduct
+                    class="w-screen-4xs"
+                    v-for="product in favorite_products"
+                    :data="product"
+                    :href="route('guide.merchants.detail', product.merchant_id)"
+                />
             </div>
         </section>
     </AuthLayout>
@@ -132,6 +143,7 @@
     import Logo from '@/Components/Icon/Etc/LogoLg.vue';
 
     import CardMerchant from '@/Components/Card/CardMerchant.vue'
+    import CardMerchantLoading from '@/Components/Card/CardMerchantLoading.vue'
     import CardProduct from '@/Components/Card/CardProduct.vue'
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import OutlineGray from '@/Components/Button/OutlineGray.vue';
@@ -141,60 +153,45 @@
     import PopupHome from '@/Components/Popup/PopupHome.vue';
     import PopupBank from '@/Components/Popup/PopupBank.vue';
     import { clickId } from '@/plugins/functions/global';
+    import axios from 'axios';
+    
 
-    interface MerchantCategory {
-        name: string;
-        key: string;
-    }
+    const props = defineProps([
+        "banners",
+        "categories",
+        "top_merchants",
+        "new_merchants",
+        "favorite_products",
+        "special_products",
+        "top_advertisements"
+    ])
 
-    const merchantCategories = ref<MerchantCategory[]>([])
     const merchantCategory = ref('')
-    const banners = ref<any>([])
-    const advertisement = ref([])
+    const popupBanners = ref<any>([])
+    const advertisement = ref<any>([])
+    const merchantCategories = ref<any>([])
+    const loading = ref(false)
 
     onMounted(() => {
-        merchantCategories.value = [
-            {
-                name: 'Shopping',
-                key: 'shopping'
-            },
-            {
-                name: 'Culinary',
-                key: 'culinary'
-            },
-            {
-                name: 'Leisure',
-                key: 'leisure'
-            },
-            {
-                name: 'Activities',
-                key: 'activities'
-            },
-            {
-                name: 'Others',
-                key: 'others'
-            },
-        ]
+        merchantCategory.value = props.categories.length > 0 ? props.categories[0].uuid : ''
 
-        merchantCategory.value = merchantCategories.value.length > 0 ? merchantCategories.value[0].key : ''
+        props.banners.map((row: any) => {
+            popupBanners.value.push(row.image)
+        })
 
-        banners.value = [
-            'https://images.unsplash.com/photo-1580670029149-5c00eec8bb66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1580670029149-5c00eec8bb66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://plus.unsplash.com/premium_photo-1680859126181-6f85456f864e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        ]
-
-        advertisement.value = [
-            'https://images.unsplash.com/photo-1604140971585-3616fc2b97e5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        ]
+        props.top_advertisements.map((row: any) => {
+            advertisement.value.push(row.image_url)
+        })
 
         setTimeout(() => {
             closeAndOpenAds(-1)
+            getMerchantCategories()
         }, 100)
     })
 
     const changeCategory = (key: string) => {
         merchantCategory.value = key
+        getMerchantCategories()
     }
 
     const closeAndOpenAds = (id: number) => {
@@ -204,5 +201,13 @@
         } else {
             clickId("popup-bank")
         }
+    }
+
+    const getMerchantCategories = () => {
+        loading.value = true
+        axios.get(route("guide.home.merchant-categories", merchantCategory.value))
+        .then((res: any) => {
+            merchantCategories.value = res.data.merchants
+        }).finally(() => loading.value = false)
     }
 </script>

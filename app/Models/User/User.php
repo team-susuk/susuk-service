@@ -2,12 +2,17 @@
 
 namespace App\Models\User;
 
+use Carbon\Carbon;
 use App\Enums\UserStatus;
+use Illuminate\Support\Str;
+use App\Models\Master\Profession;
 use Illuminate\Database\Eloquent\Model;
 use Laililmahfud\Adminportal\Traits\HasUuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laililmahfud\Adminportal\Traits\HasDatatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Model
 {
@@ -20,4 +25,23 @@ class User extends Model
         'languages' => 'array',
         'status' => UserStatus::class
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (User $user) {
+            $tanggal = now()->format('Ymd');
+            $nomorUrutan = User::whereDate("created_at", $tanggal)->count();
+            $nomorUrutan = intval(substr($nomorUrutan, 2));
+            $nomorUrutan++;
+            $user->code = "G-$tanggal-" . str_pad($nomorUrutan, 3, '0', STR_PAD_LEFT);
+            $user->register_at = Carbon::now();
+            $user->uuid = Str::uuid()->toString();
+        });
+    }
+
+    public function profession(): BelongsTo
+    {
+        return $this->belongsTo(Profession::class);
+    }
 }

@@ -8,7 +8,7 @@
             <p class="font-semibold">
                 QR Code Kamu
             </p>
-            <img src="https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg" alt="" class="w-full">
+            <img :src="'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl='+dataQr" alt="" class="w-full">
             <p class="font-medium text-sm">
                 Tunjukan QR Code ini kepada toko untuk konfirmasi kedatangan membawa tamu
             </p>
@@ -17,9 +17,14 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import TabMenu from './TabMenu.vue';
+    
+    const dataQr = JSON.stringify({
+        code: usePage().props.auth.guide.code,
+        source: 'susuk-guide'
+    })
 
 </script>

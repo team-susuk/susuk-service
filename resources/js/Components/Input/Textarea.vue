@@ -24,6 +24,7 @@
                 )
             "
             class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
+            :value="value"
         >
             <slot/>
         </textarea>
@@ -36,6 +37,6 @@
 </template>
 <script lang="ts">
 export default {
-    props: ["label", "icon", "help", "id"],
+    props: ["label", "icon", "help", "id", "value"],
 };
 </script>

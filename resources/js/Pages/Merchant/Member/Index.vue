@@ -111,6 +111,7 @@
                         label="Bahasa "
                         :category="languages"
                         id="languages"
+                        :popup="true"
                         v-model="form.languages"
                     />
                 </div>
@@ -135,7 +136,6 @@
     import ImageDriver from '@/Components/Icon/Image/Driver.vue'
     import ImageFreelance from '@/Components/Icon/Image/Freelance.vue'
     import { ref, shallowRef } from 'vue';
-    import { languages } from '@/plugins/etc/languages';
     import MultipleLanguage from '@/Components/Input/Select/MultipleLanguage.vue'
     import Select from '@/Components/Input/Select/Index.vue'
     import { clickId } from '@/plugins/functions/global'
@@ -144,6 +144,8 @@
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import Th from '@/Components/Table/Th.vue';
     import Td from '@/Components/Table/Td.vue';
+
+    const props = defineProps(["languages"])
 
     const guideTotal = ref(120)
     const driverTotal = ref(100)

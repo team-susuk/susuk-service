@@ -1,7 +1,9 @@
 <?php
 namespace App\Services\Utils;
 
+use App\Helpers\Susuk;
 use App\Models\Utils\Banner;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laililmahfud\Adminportal\Helpers\AdminPortal;
 use Laililmahfud\Adminportal\Services\AdminService;
@@ -42,5 +44,13 @@ class BannerService extends AdminService
             $data['image'] = AdminPortal::uploadFile($request->image);
         }
         return $this->model::whereUuid($uuid)->update($data);
+    }
+
+    public function getBanners()
+    {
+        return $this->model::whereDate("expired_at", "<=", Carbon::now()->endOfDay())->orderBy("sorting", "asc")->get()->map(function ($row) {
+            $row->image = Susuk::showFile($row->image);
+            return $row;
+        });
     }
 }

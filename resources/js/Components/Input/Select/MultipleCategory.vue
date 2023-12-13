@@ -15,6 +15,7 @@
     >
         <div
             class="border border-light-gray rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] flex gap-2 flex-wrap outline-none py-2 w-full mb-2 items-center"
+            :id="'wrapper_category_'+id"
         >
             <span
                 class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full"
@@ -51,7 +52,7 @@
             x-transition:enter-end="opacity-100"
             x-show="dropdownOpen"
             x-on:click.away="dropdownOpen = false"
-            :class="{ 'bottom-0': !bottomPlacement }"
+            :class="{ 'bottom-0': !bottomPlacement, 'fixed': popup, 'absolute': !popup  }"
         >
             <div
                 class="bg-white border rounded-lg w-full max-h-60 p-2 flex flex-col"
@@ -106,6 +107,7 @@ const props = defineProps<{
     id?: string;
     category: Array<any>;
     selected?: Array<any>;
+    popup?: boolean
 }>();
 
 const search = ref("");
@@ -117,7 +119,7 @@ const addItem = (row: any) => {
     const selectedIds = selected.value.map((val: any) => val.id);
     if (!selectedIds.includes(row.id)) {
         (selected.value as any).push({
-            code: row.id,
+            id: row.id,
             name: row.name,
         });
         emit(
@@ -135,6 +137,22 @@ const removeItem = (id: string) => {
     );
 };
 
+const updateDropdownWidth = () => {
+    const wrapper = document.getElementById(`wrapper_category_${props.id}`);
+    if (props.popup) {
+        if (wrapper) {
+            dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
+            if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
+                bottomPlacement.value = false;
+            } else {
+                bottomPlacement.value = true;
+            }
+        } else {
+            dropdownWidth.value = "auto";
+        }
+    }
+}
+
 onMounted(() => {
     if (props.selected) {
         const itemSelected: any = [];
@@ -142,7 +160,7 @@ onMounted(() => {
         props.category.forEach((row: any) => {
             if (selectedId.includes(row.id)) {
                 itemSelected.push({
-                    code: row.id,
+                    id: row.id,
                     name: row.name,
                 });
             }
@@ -155,20 +173,6 @@ onMounted(() => {
     // Add event listener for window resize
     window.addEventListener('resize', updateDropdownWidth)
 });
-
-const updateDropdownWidth = () => {
-    const wrapper = document.getElementById(`wrapper_${props.id}`);
-    if (wrapper) {
-        dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
-        if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
-            bottomPlacement.value = false;
-        } else {
-            bottomPlacement.value = true;
-        }
-    } else {
-        dropdownWidth.value = "auto";
-    }
-}
 
 const filterCategory = () => {
     let searchValue = search.value.toLowerCase()

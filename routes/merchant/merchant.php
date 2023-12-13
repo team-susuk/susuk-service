@@ -12,25 +12,30 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("merchant")
     ->as("merchant.")
     ->group(function () {
-        Route::get("/login", [LoginController::class, 'index'])->name("login");
-        Route::get("/register", [RegisterController::class, 'index'])->name("register");
-
-        Route::get("/", [HomeController::class, 'index'])->name("home");
-        Route::get("/inbox", [InboxController::class, 'index'])->name("inbox.index");
-        Route::get("/member", [MemberController::class, 'index'])->name("member.index");
-
-        Route::controller(ProfileController::class)
-        ->prefix("profile")
-        ->name("profile.")
-        ->group(function () {
-            Route::get('/', 'index')->name("index");
+        Route::middleware("role-guest:merchant")->group(function() {
+            Route::get("/login", [LoginController::class, 'index'])->name("login");
+            Route::get("/register", [RegisterController::class, 'index'])->name("register");
         });
 
-        Route::controller(QrCodeController::class)
-        ->prefix("qrcode")
-        ->name("qrcode.")
-        ->group(function () {
-            Route::get('/', 'index')->name("index");
-            Route::get('/histories', 'histories')->name("histories");
+        Route::middleware("role-auth:merchant")->group(function() {
+            Route::get("/", [HomeController::class, 'index'])->name("home");
+            Route::get("/inbox", [InboxController::class, 'index'])->name("inbox.index");
+            Route::get("/member", [MemberController::class, 'index'])->name("member.index");
+    
+            Route::controller(ProfileController::class)
+            ->prefix("profile")
+            ->name("profile.")
+            ->group(function () {
+                Route::get('/', 'index')->name("index");
+            });
+    
+            Route::controller(QrCodeController::class)
+            ->prefix("qrcode")
+            ->name("qrcode.")
+            ->group(function () {
+                Route::get('/', 'index')->name("index");
+                Route::get('/histories', 'histories')->name("histories");
+            });
         });
+
     });

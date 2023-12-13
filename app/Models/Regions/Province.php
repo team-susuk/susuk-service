@@ -13,4 +13,9 @@ class Province extends Model
 
     protected $table = "provinces";
     protected $guarded = [];
+
+    public function cities()
+    {
+        return $this->hasMany(City::class)->orderBy("name", "ASC");
+    }
 }

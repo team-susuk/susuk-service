@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Utils;
 
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Models\Utils\Complaint;
 use Laililmahfud\Adminportal\Services\AdminService;
@@ -33,5 +34,17 @@ class ComplaintService extends AdminService
         $data = $request->only(['user_id', 'user_role', 'title', 'message']);
 
         return $this->model::whereUuid($uuid)->update($data);
+    }
+
+    public function complain(Request $request, $userId, $role)
+    {
+        $user = User::whereUuid($userId)->first();
+
+        $this->model::create([
+            "user_id" => $user->id,
+            "user_role" => $role,
+            "title" => $request->title,
+            "message" => $request->message
+        ]);
     }
 }

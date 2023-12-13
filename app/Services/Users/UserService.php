@@ -3,6 +3,8 @@ namespace App\Services\Users;
 
 use App\Models\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class UserService extends AdminService
@@ -64,4 +66,41 @@ class UserService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function updatePassword(Request $request, $uuid)
+    {
+        $user = $this->model::whereUuid($uuid)->first();
+        if (!Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                "password" => __("alert.password")
+            ]);
+        }
+
+        $password = Hash::make($request->new_password);
+        return $this->model::whereUuid($uuid)->update([
+            'password' => $password
+        ]);
+    }
+
+    public function updateProfle(Request $request, $uuid)
+    {
+        $data = [
+            'nick_name' => $request->name,
+            'profession_id' => $request->profession,
+            'languages' => $request->languages
+        ];
+
+        
+        $this->model::whereUuid($uuid)->update($data);
+        $user = $this->model::whereUuid($uuid)->first();
+
+        $guide = guide();
+        $guide->nick_name = $request->name;
+        $guide->profession_id = $request->profession;
+        $guide->profession = $user->profession?->name;
+        $guide->languages = $request->languages;
+
+        session()->put(config('services.session-guide-prefix'), (object) $guide);
+    }
+
 }

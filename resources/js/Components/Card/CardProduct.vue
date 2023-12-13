@@ -1,10 +1,11 @@
 <template>
     <div class="rounded-[14px] border border-silver p-[14px] flex flex-col gap-2 cursor-pointer" v-bind:class="class">
         <div @click="confirmAction">
-            <img src="https://plus.unsplash.com/premium_photo-1698442704192-086265cf630e?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            <img
+                :src="data.profile_url" 
                 class="w-full h-48 object-cover rounded-lg mb-1"
             >
-            <p class="mb-1 font-medium text-base whitespace-pre-wrap">Tas bahan kayu rotan</p>
+            <p class="mb-1 font-medium text-base whitespace-pre-wrap">{{ data.name }}</p>
             <p class="mb-1 text-lg text-neutral-dark-gray whitespace-pre-wrap font-bold">Rp150.000</p>
             <p class="mb-2 text-xxs text-neutral-gray-2 line-clamp-2 whitespace-pre-wrap">Tas Selempang Bulat berbentuk Kendi/Bola Decoupage BUNGA SESUAI FOTO Diameter 20cm</p>
             <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full !cursor-default">
@@ -24,13 +25,13 @@
                         >
                     </div>
                     <div>
-                        <p class="mb-3 font-semibold text-lg">Tas bahan kayu rotan</p>
-                        <p class="mb-3 font-bold text-xl">Rp150.000</p>
+                        <p class="mb-3 font-semibold text-lg">{{ data.name }}</p>
+                        <p class="mb-3 font-bold text-xl">Rp{{ data.price_formated }}</p>
                         <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mb-4 !cursor-default">
-                            Komisi: 15%
+                            Komisi: {{ data.commission }}%
                         </OutlineOrange>
                         <p class="mb-2 text-xs text-neutral-dark-gray">Deskripsi Toko</p>
-                        <p class="text-sm font-medium">Tas bulat yang sangat hitz di Bali ini berbahan dasar rotan. Pada awal mulanya, tas rotan ini adalah kotak perhiasan yg digunakan oleh para leluhur Bali. Kemudian di kreasikan menjadi sebuah tas yg chic dan trendy.Tas rotan / tas ate polos ready 2 ukuran. 18 cm dan 20 cm.</p>
+                        <p class="text-sm font-medium">{{ data.description }}</p>
                     </div>
                 </div>
             </Popup>
@@ -47,18 +48,19 @@
 
     const emit = defineEmits(["action"]);
 
-    const trigger_popup = ref(null)
+    const trigger_popup = ref<any>(null)
 
     const props = defineProps<{
         class?: any,
         href?: any
+        data: any
     }>()
 
     const confirmAction = () => {
         if (props.href) {
             router.visit(props.href)
         } else {
-            trigger_popup.value.click()
+            trigger_popup.value?.click()
         }
         emit("action", () => {
         });

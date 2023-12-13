@@ -25,7 +25,7 @@
                 {{ item.name }}
                 <i
                     class="isax-b icon-close-circle ms-3 cursor-pointer text-neutral-gray-3 text-lg"
-                    @click="removeItem(item.code)"
+                    @click="removeItem(item.id)"
                 ></i>
             </span>
             <div
@@ -52,7 +52,7 @@
             x-transition:enter-end="opacity-100"
             x-show="dropdownOpen"
             x-on:click.away="dropdownOpen = false"
-            :class="{ 'bottom-0': !bottomPlacement }"
+            :class="{ 'bottom-0': !bottomPlacement, 'fixed': popup, 'absolute': !popup  }"
         >
             <div
                 class="bg-white border rounded-lg w-full max-h-60 p-2 flex flex-col"
@@ -69,7 +69,7 @@
                     />
                 </div>
                 <ul class="flex-1 overflow-auto">
-                    <li v-for="item in filterCategory()" :key="item.code">
+                    <li v-for="item in filterCategory()" :key="item.id">
                         <a
                             href="javascript:;"
                             class="flex gap-3 p-[5px] px-2 rounded-md hover:bg-neutral-light-gray text-sm text-dark transition-all"
@@ -107,6 +107,7 @@ const props = defineProps<{
     id?: string;
     category: Array<any>;
     selected?: Array<any>;
+    popup?: boolean
 }>();
 
 const search = ref("");
@@ -115,38 +116,40 @@ const dropdownWidth = ref("auto")
 const bottomPlacement = ref(true)
 
 const addItem = (row: any) => {
-    const selectedIds = selected.value.map((val: any) => val.code);
-    if (!selectedIds.includes(row.code)) {
+    const selectedIds = selected.value.map((val: any) => val.id);
+    if (!selectedIds.includes(row.id)) {
         (selected.value as any).push({
-            code: row.code,
+            id: row.id,
             name: row.name,
         });
         emit(
             "update:modelValue",
-            selected.value.map((row: any) => row.code)
+            selected.value.map((row: any) => row.name)
         );
     }
 };
 
 const removeItem = (id: string) => {
-    selected.value = selected.value.filter((row: any) => row.code !== id);
+    selected.value = selected.value.filter((row: any) => row.id !== id);
     emit(
         "update:modelValue",
-        selected.value.map((row: any) => row.code)
+        selected.value.map((row: any) => row.name)
     )
 };
 
 const updateDropdownWidth = () => {
     const wrapper = document.getElementById(`wrapper_${props.id}`);
-    if (wrapper) {
-        dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
-        if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
-            bottomPlacement.value = false;
+    if (props.popup) {
+        if (wrapper) {
+            dropdownWidth.value = `${wrapper.getBoundingClientRect().width}px`;
+            if (window.innerHeight - wrapper.getBoundingClientRect().bottom < 250) {
+                bottomPlacement.value = false;
+            } else {
+                bottomPlacement.value = true;
+            }
         } else {
-            bottomPlacement.value = true;
+            dropdownWidth.value = "auto";
         }
-    } else {
-        dropdownWidth.value = "auto";
     }
 }
 
@@ -155,9 +158,9 @@ onMounted(() => {
         const itemSelected: any = [];
         const selectedId = JSON.parse(JSON.stringify(props.selected))
         props.category.forEach((row: any) => {
-            if (selectedId.includes(row.code)) {
+            if (selectedId.includes(row.name)) {
                 itemSelected.push({
-                    code: row.code,
+                    id: row.id,
                     name: row.name,
                 });
             }

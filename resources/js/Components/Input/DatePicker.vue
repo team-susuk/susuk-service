@@ -43,6 +43,7 @@ const props = defineProps<{
     label?: string;
     error?: string;
     min?: string;
+    maxDate?: string;
 }>();
 const emit = defineEmits(["update:modelValue"]);
 const datePicker: any = ref(null);
@@ -50,6 +51,7 @@ onMounted(() => {
     datePicker.value = flatpickr(`.${props.name}`, {
         dateFormat: "Y-m-d",
         time_24hr: true,
+        maxDate: props.maxDate ?? '',
         defaultDate: props.default,
         onChange: (selectedDates, dateStr) => {
             emit("update:modelValue", dateStr);

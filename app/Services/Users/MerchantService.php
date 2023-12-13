@@ -3,6 +3,7 @@ namespace App\Services\Users;
 
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
+use App\Models\Master\Category;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class MerchantService extends AdminService
@@ -80,5 +81,38 @@ class MerchantService extends AdminService
         $data =  $request->only(['name','profile','description','category_id','province_id','city_id','subdistrict_id','address','pic_name','phone_number','whatsapp_number','commission','weekdays','weekday_time','weekends','weekend_time','sip_document','viewer','is_member','expired_member_at','password','deleted_at','code']);
 
         return $this->model::whereUuid($uuid)->update($data);
+    }
+
+    public function getByCategory($categoryUuid, $limit = 0, $isPaginate = false)
+    {
+        $category = Category::where("uuid", $categoryUuid)->firstOrFail();
+        $data = $this->model::where("category_id", $category->id)->orderBy("created_at", "desc");
+
+        if ($isPaginate) {
+            return $data->paginate();
+        } else if ($limit == 0) {
+            return $data->get();
+        } else {
+            return $data->limit($limit)->get();
+        }
+    }
+
+    public function getLists($filter = [])
+    {
+        $categories = @$filter['categories'];
+        $province = @$filter['province'];
+        $city = @$filter['city'];
+        $sort = @$filter['sort'];
+
+        return $this->model::
+        when($province, fn ($q) => $q->where("province_id", $province))
+        ->when($city, fn ($q) => $q->where("city_id", $city))
+        ->when($categories, fn ($q) => $q->whereIn("category_id", $categories))
+        ->orderBy("created_at", "desc")->paginate();
+    }
+
+    public function findByUUid($uuid)
+    {
+        return $this->model::with(['products'])->where("uuid", $uuid)->firstOrFail();
     }
 }

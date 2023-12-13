@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ref, onBeforeUnmount } from "vue";
-import { routeAppendParam } from "@/plugins/function/global-function"
+import { routeAppendParam } from "@/plugins/functions/global"
 
 export const usePaginate = ({
     route,
@@ -94,6 +94,13 @@ export const usePaginate = ({
         }
     }
 
+    const goToPage = (page: any) => {
+        if (page >= 1 && page <= information.value.last_page) {
+            routeAppendParam({ page });
+            fetchData();
+        }
+    };
+
     window.addEventListener("changeUrlParameter", fetchData);
 
     onBeforeUnmount(() => {
@@ -112,6 +119,7 @@ export const usePaginate = ({
         next,
         prev,
         setRoute,
-        updateParam
+        updateParam,
+        goToPage
     }
 }

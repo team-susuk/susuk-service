@@ -30,10 +30,36 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $guideSession = guide();
+        $merchantSession = merchant();
+
+        $flashProperties = [];
+        $authProperties = [];
+
+        if ($errorFlash = $request->session()->get('error'))
+            $flashProperties['error'] = $errorFlash;
+        if ($successFlash = $request->session()->get('success'))
+            $flashProperties['success'] = $successFlash;
+        if ($popupSuccessFlash = $request->session()->get('popup_success'))
+            $flashProperties['popup_success'] = $popupSuccessFlash;
+        if ($passId = $request->session()->get('passId'))
+            $flashProperties['passId'] = $passId;
+
+        if ($guideSession) {
+            $authProperties['guide'] = $guideSession;
+        }
+
+        if ($merchantSession) {
+            $authProperties['merchant'] = $merchantSession;
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                ...$authProperties
+            ],
+            'flash' => [
+                ...$flashProperties
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

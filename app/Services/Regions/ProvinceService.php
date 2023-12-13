@@ -38,4 +38,9 @@ class ProvinceService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function getProvinces()
+    {
+        return $this->model::with(['cities'])->orderBy("name", "ASC")->get();
+    }
 }

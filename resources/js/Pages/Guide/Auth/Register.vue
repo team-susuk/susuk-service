@@ -17,7 +17,7 @@
         <p class="text-dark text-sm font-medium mt-3 text-center">
             Jadilah orang pertama yang mengetahui promo menarik 
         </p>
-        <form class="mt-10 w-full flex flex-col">
+        <form class="mt-10 w-full flex flex-col" @submit.prevent="submit" enctype="multipart/form-data">
             <Input
                 label="Nama lengkap (sesuai KTP)"
                 type="text"
@@ -25,6 +25,7 @@
                 id="idcard_name"
                 name="idcard_name"
                 v-model="form.idcard_name"
+                :error="form.errors.idcard_name"
             />
             <Input
                 label="Nama Panggilan"
@@ -33,11 +34,14 @@
                 id="name"
                 name="name"
                 v-model="form.name"
+                :error="form.errors.name"
             />
             <DatePicker
                 label="Tanggal Lahir"
                 name="date_of_birth"
+                maxDate="2008-01-01"
                 v-model="form.date_of_birth"
+                :error="form.errors.date_of_birth"
             />
             <InputNumber
                 label="Nomor WA"
@@ -46,50 +50,42 @@
                 id="phone"
                 name="phone"
                 v-model="form.phone_number"
+                :error="form.errors.phone_number"
             />
             <DropZone
                 label="Upload Foto Profil"
                 id="dropzone_image"
                 name="image"
                 v-model="form.image"
+                :error="form.errors.image"
             />
-            <label
-                class="text-[12px] text-dark mb-1 block"
-            >
-                Profesi
-            </label>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-3">
-                <InputRadio
-                    id="profession_guide"
-                    name="profession"
-                    value="guide"
-                    label="Guide"
-                    v-model="form.profession"
-                />
-                <InputRadio
-                    id="profession_driver"
-                    name="profession"
-                    value="driver"
-                    label="Driver"
-                    v-model="form.profession"
-                />
-                <InputRadio
-                    id="profession_freelance"
-                    name="profession"
-                    value="freelance"
-                    label="Freelance"
-                    v-model="form.profession"
-                />
-                <InputRadio
-                    name="profession"
-                    hidden
-                />
+            <div class="mb-2">
+                <label
+                    class="text-[12px] text-dark mb-1 block"
+                >
+                    Profesi
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-x-3">
+                    <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg" v-for="profession in professions" :key="profession.id">
+                        <label :for="profession.id" class="w-full text-sm font-medium text-dark">{{ profession.name }}</label>
+                        <input
+                            :id="profession.id"
+                            :value="profession.id"
+                            name="profession"
+                            type="radio"
+                            class="w-5 h-5 text-white bg-white border-gray-600 300 focus:ring-green focus:ring-1 cursor-pointer transition-all checked:text-green"
+                            v-model="form.profession"
+                        />
+                    </div>
+                </div>
+                <small v-if="form.errors.profession" class="mt-[-7px] error-text mb-4 block text-[11px]">{{ form.errors.profession }}</small>
             </div>
             <MultipleLanguage
                 label="Bahasa"
                 :category="languages"
                 id="languages"
                 v-model="form.languages"
+                :error="form.errors.languages"
             />
             <Password
                 label="Password (minimal 6 digit)"
@@ -97,6 +93,7 @@
                 id="password"
                 name="password"
                 v-model="form.password"
+                :error="form.errors.password"
             />
             <Password
                 label="Konfirmasi Password"
@@ -104,8 +101,10 @@
                 id="password_confirmation"
                 name="password_confirmation"
                 v-model="form.password_confirmation"
+                :error="form.errors.password_confirmation"
             />
             <ButtonSolidBlue
+                type="submit"
                 bg-color="blue" text-color="white" class="w-full flex-center mt-8"
                 :disabled="
                     !form.idcard_name ||
@@ -116,9 +115,10 @@
                     !form.profession ||
                     !form.languages.length ||
                     !form.password ||
-                    !form.password_confirmation
+                    !form.password_confirmation ||
+                    form.processing
                 "
-                @click="submit"
+                :loading="form.processing"
             >
                 Registrasi
             </ButtonSolidBlue>
@@ -143,10 +143,12 @@
     import DropZone from '@/Components/Input/DropZoneImage.vue';
     import Password from '@/Components/Input/Password.vue';
     import InputRadio from '@/Components/Input/InputRadio.vue';
-    import { languages } from '@/plugins/etc/languages'
     import MultipleLanguage from '@/Components/Input/Select/MultipleLanguage.vue';
     import PopupSuccess from '@/Components/Popup/PopupSuccess.vue';
-    import { clickId } from '@/plugins/functions/global';
+    import { onMounted } from 'vue'
+    import { clickId, showAlert } from '@/plugins/functions/global';
+
+    const props = defineProps(["languages", "professions"])
 
 
     const form = useForm({
@@ -166,6 +168,15 @@
     }
 
     const submit = () => {
-        clickId('open-popup')
+        if (!form.processing) {
+            form.post(route('guide.register.store'), {
+                onSuccess: () => {
+                    clickId("open-popup")
+                },
+                onError: (res: any) => {
+                }
+            })
+        }
+        
     }
 </script>

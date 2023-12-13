@@ -31,6 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'default_avatar' => 'admin/img/default-avatar.png'
+    'default_avatar' => 'admin/img/default-avatar.png',
+
+    'session-guide-prefix' => 'susuk-guide',
+    'session-merchant-prefix' => 'susuk-merchant'
 
 ];

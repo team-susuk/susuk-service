@@ -3,7 +3,8 @@
         <i v-bind:class="icon" class="text-sm" v-if="icon"></i>
         <slot />
     </Link>
-    <button v-bind="$attrs" v-bind:class="classElement" :type="type || 'button'" v-if="!href">
+    <button v-bind="$attrs" v-bind:class="classElement + ($attrs.loading ? ' cursor-not-allowed' : '')" :type="type || 'button'" v-if="!href">
+        <LoadingButton v-if="$attrs.loading" />
         <i v-bind:class="icon" class="text-sm" v-if="icon"></i>
         <slot />
     </button>

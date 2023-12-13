@@ -1,17 +1,27 @@
-export interface User {
-    id: number;
+export interface Guide {
+    uuid: string;
     name: string;
-    email: string;
-    email_verified_at: string;
+    nick_name: string;
+    birthday: string;
+    birthday_formated: string;
+    phone_number: string;
+    profile: string;
+    profession_id: number;
+    profession: string;
+    languages: string;
+    status: string;
+    is_member: integer;
+    code: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
-        user: User;
+        guide: Guide;
     };
     flash: {
         error?: string;
         success?: string;
+        popup_success?: string;
     },
     logo_bca: string
 };

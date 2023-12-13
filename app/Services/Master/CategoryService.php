@@ -35,4 +35,14 @@ class CategoryService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function findByUUid($uuid)
+    {
+        return $this->model::where("uuid", $uuid)->firstOrFail();
+    }
+
+    public function get()
+    {
+        return $this->model::get();
+    }
 }

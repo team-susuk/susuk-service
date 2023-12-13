@@ -20,7 +20,7 @@
             <img
                 :src="fileUrl()"
                 alt=""
-                class=" object-cover absolute inset-0 opacity-30"
+                class="h-[150px] object-cover absolute inset-0 opacity-30 m-auto"
                 v-if="dropzoneFile"
             />
             <div class="flex-center flex-col z-[2] relative w-full h-full">

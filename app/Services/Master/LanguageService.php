@@ -35,4 +35,13 @@ class LanguageService extends AdminService
         $data = $request->only(['lang']);
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function getLangs()
+    {
+        return $this->model::orderBy("lang", "ASC")->get()->map(function ($row) {
+            $row->name = $row->lang;
+            unset($row->lang);
+            return $row;
+        });
+    }
 }
