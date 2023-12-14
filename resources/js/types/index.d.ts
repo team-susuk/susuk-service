@@ -12,6 +12,8 @@ export interface Guide {
     status: string;
     is_member: integer;
     code: string;
+    qrcode_id: string;
+    is_member: boolean;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

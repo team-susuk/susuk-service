@@ -21,7 +21,7 @@ Route::prefix("guide")
             Route::post("/register", [RegisterController::class, 'store'])->name("register.store");
         });
 
-        Route::middleware("role-auth:guide")->group(function() {
+        Route::middleware(["role-auth:guide", "check-member-guide"])->group(function() {
             Route::get("/", [HomeController::class, 'index'])->name("home");
             Route::controller(HomeController::class)
             ->prefix("home")
@@ -37,6 +37,7 @@ Route::prefix("guide")
                 Route::get('/', 'index')->name("index");
                 Route::get('/index-data', 'indexData')->name("index-data");
                 Route::get('/detail/{id}', 'detail')->name("detail");
+                Route::post('/detail/{id}/booking', 'booking')->name("booking");
                 Route::get('/category/{category}', 'category')->name("category");
                 Route::get('/featured/{featured}', 'featured')->name("featured");
 
@@ -65,6 +66,9 @@ Route::prefix("guide")
             ->group(function () {
                 Route::get('/merchant', 'merchant')->name("merchant");
                 Route::get('/admin', 'admin')->name("admin");
+
+                Route::get('/merchant-data', 'merchantData')->name("merchant-data");
+                Route::get('/admin-data', 'adminData')->name("admin-data");
             });
     
             Route::controller(ProfileController::class)

@@ -2,6 +2,7 @@
 
 namespace App\Models\Data;
 
+use App\Enums\GuestType;
 use App\Models\User\Merchant;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,10 @@ class Reservation extends Model
     use HasFactory, HasUuid;
 
     protected $guarded = [];
+
+    protected $casts = [
+        "guest_type" => GuestType::class
+    ];
 
     public function merchant(): BelongsTo
     {

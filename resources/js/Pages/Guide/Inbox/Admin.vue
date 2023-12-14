@@ -4,13 +4,15 @@
         <HeaderBlue title="Pesan" />
         <TabMenu active="admin" />
 
-        <div v-for="i in 3" class="mt-4">
-            <CardInboxAdmin class="mb-3" />
-            <CardInboxAdmin class="mb-3" type="image" />
-            <CardInboxAdmin class="mb-3" type="file" />
-        </div>
+        <WithPaginate
+            :paginate="paginate"
+            :loading="shallowReactive(CardNotificationLoading)"
+        >
+            <div v-for="row in paginate.data.value" class="mt-4">
+                <CardInboxAdmin class="mb-3" :data="row" />
+            </div>
+        </WithPaginate>
 
-        <Pagination />
     </AuthLayout>
 </template>
 
@@ -20,6 +22,13 @@
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import TabMenu from './TabMenu.vue';
     import CardInboxAdmin from '@/Components/Card/CardInboxAdmin.vue';
-    import Pagination from '@/Components/Others/Pagination.vue';
+    import CardNotificationLoading from '@/Components/Card/CardNotificationLoading.vue'
+    import WithPaginate from '@/Components/Others/WithPaginate.vue';
+    import { usePaginate } from '@/hooks/pagination';
+    import { shallowReactive } from 'vue';
+
+    const paginate = usePaginate({
+        route: route("guide.inbox.admin-data")
+    })
 
 </script>

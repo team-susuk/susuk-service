@@ -90,4 +90,9 @@ class Merchant extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function scopeFindByUuid($query, $id)
+    {
+        return $query->where("uuid", $id)->firstOrFail();
+    }
 }

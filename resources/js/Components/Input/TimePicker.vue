@@ -65,4 +65,11 @@ watch(
         datePicker.value.set("minDate", props.min);
     }
 );
+
+watch(
+    () => props.default,
+    (min, value) => {
+        datePicker.value.set("defaultDate", props.default);
+    }
+)
 </script>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\MerchantResource;
 use App\Services\Data\FeaturedService;
+use App\Services\Data\ReservationService;
 use App\Services\Master\CategoryService;
 use App\Services\Regions\ProvinceService;
 use App\Services\Users\MerchantService;
@@ -18,7 +19,8 @@ class MerchantController extends Controller
         private CategoryService $categoryService,
         private FeaturedService $featuredService,
         private MerchantService $merchantService,
-        private ProvinceService $provinceService
+        private ProvinceService $provinceService,
+        private ReservationService $reservationService
     ) {
     }
 
@@ -74,5 +76,16 @@ class MerchantController extends Controller
             'id' => $featured,
             'type' => 'featured'
         ]);
+    }
+
+    public function booking(Request $request, $id)
+    {
+        try {
+            $this->reservationService->addReservation($request, $id, guide()->uuid);
+
+            return back()->with(["popup_success" => "Reservasi Berhasil Dibuat"]);
+        } catch (\Throwable $th) {
+            return back()->with(["error" => $th->getMessage()]);
+        }
     }
 }

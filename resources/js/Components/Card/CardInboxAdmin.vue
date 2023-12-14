@@ -5,14 +5,14 @@
         </div>
         <div class="flex flex-col gap-1">
             <p class="text-neutral-gray-3 text-xs font-light">Informasi</p>
-            <p class="text-base font-semibold">Toko Flat kaos bali blackist</p>
-            <p class="text-neutral-gray-2 text-sm">Fitur yang akan diupdate berupa pembayaran dengan menggunakan payment gateway yang dapat memudahkan dalam melakukan transaksi apapun</p>
+            <p class="text-base font-semibold">{{ data.title }}</p>
+            <p class="text-neutral-gray-2 text-sm">{{ data.description }}</p>
             <img
-                src="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""
+                :src="data.broadcast.file_url" alt=""
                 class="w-40 rounded"
-                v-if="type === 'image'"
+                v-if="data.broadcast.type === 'text_image'"
             >
-            <div class="rounded-xl flex-center border border-silver p-2 gap-2 w-fit mt-2" v-if="type === 'file'">
+            <div class="rounded-xl flex-center border border-silver p-2 gap-2 w-fit mt-2" v-if="data.broadcast.type === 'text_file'">
                 <File />
                 <p class="font-semibold text-sm text-blue">Dafar panduan susuk.pdf</p>
             </div>
@@ -24,5 +24,7 @@
     import Info from '../Icon/Etc/Info.vue';
     import File from '../Icon/Etc/File.vue';
 
-    defineProps(["type"])
+    defineProps([
+        "data"
+    ])
 </script>

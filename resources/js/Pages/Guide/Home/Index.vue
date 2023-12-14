@@ -138,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
     import Logo from '@/Components/Icon/Etc/LogoLg.vue';
 
@@ -199,7 +199,9 @@
         if (element) {
             element?.click()
         } else {
-            clickId("popup-bank")
+            if (!usePage().props.auth.guide.is_member) {
+                clickId("popup-bank")
+            }
         }
     }
 

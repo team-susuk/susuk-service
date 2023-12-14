@@ -44,4 +44,9 @@ class User extends Model
     {
         return $this->belongsTo(Profession::class);
     }
+
+    public function scopeFindByUuid($query, $id)
+    {
+        return $query->where("uuid", $id)->firstOrFail();
+    }
 }

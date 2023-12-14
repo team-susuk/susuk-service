@@ -52,6 +52,7 @@ onMounted(() => {
         dateFormat: "Y-m-d",
         time_24hr: true,
         maxDate: props.maxDate ?? '',
+        minDate: props.min ?? '',
         defaultDate: props.default,
         onChange: (selectedDates, dateStr) => {
             emit("update:modelValue", dateStr);
@@ -65,4 +66,11 @@ watch(
         datePicker.value.set("minDate", props.min);
     }
 );
+
+watch(
+    () => props.default,
+    (min, value) => {
+        datePicker.value.set("defaultDate", props.default);
+    }
+)
 </script>

@@ -77,7 +77,7 @@
             </div>
         </section>
 
-        <PopupBooking />
+        <PopupBooking :id="data.uuid" />
     </AuthLayout>
 </template>
 

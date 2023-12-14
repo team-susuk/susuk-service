@@ -2,11 +2,12 @@
 
 namespace App\Actions\Guide\Auth;
 
+use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Models\User\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 
 class LoginAction {
@@ -20,7 +21,11 @@ class LoginAction {
         $user = User::wherePhoneNumber($request->phone_number)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
+            $isMember = $user->is_member;
+            if (Carbon::now() > $user->expired_member_at) $isMember = 0;
+
             Carbon::setLocale("id");
+
             $sessionObject = [
                 'uuid' => $user->uuid,
                 'name' => $user->name,
@@ -35,6 +40,11 @@ class LoginAction {
                 'status' => $user->status,
                 'is_member' => $user->is_member,
                 'code' => $user->code,
+                'qrcode_id' => Crypt::encrypt((object) [
+                    'code' => $user->code,
+                    'source' => "susuk-guide"
+                ]),
+                "is_member" => $isMember
             ];
 
             session()->put(config('services.session-guide-prefix'), (object) $sessionObject);
