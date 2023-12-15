@@ -22,7 +22,7 @@
     <option value="">Pilih Kecamatan</option>
 </x-portal::input.select>
 <x-portal::input.textarea name="address" label="Alamat Toko" placeholder="Alamat Toko"
-    horizontal></x-portal::input.textarea>
+    horizontal>{{old('address')}}</x-portal::input.textarea>
 <x-portal::input type="text" name="pic_name" label="Nama PIC" placeholder="Nama PIC"
     horizontal>{{ old('pic_name') }}</x-portal::input>
 <x-portal::input type="number" name="phone_number" label="Phone Number" placeholder="Phone Number"

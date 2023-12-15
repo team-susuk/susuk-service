@@ -16,6 +16,14 @@ class MerchantService extends AdminService
     ) {
     }
 
+    public function findAllMerchantName()
+    {
+        return $this->model::query()
+            ->select(['id', 'name'])
+            ->latest()
+            ->get();
+    }
+
     public function datatable(Request $request, $perPage = 10)
     {
         $search = $request->search ?? '';
@@ -35,7 +43,7 @@ class MerchantService extends AdminService
         if ($perPage) {
             return $query->datatable($perPage, "created_at");
         } else {
-            return $query->with(['province','city','subdistrict'])->get();
+            return $query->with(['province', 'city', 'subdistrict'])->get();
         }
     }
 
