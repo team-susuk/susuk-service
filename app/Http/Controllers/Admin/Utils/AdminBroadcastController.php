@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Utils;
 
+use App\Enums\BroadcastType;
 use Illuminate\Http\Request;
 use App\Services\Notification\BroadcastService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
@@ -31,5 +32,13 @@ class AdminBroadcastController extends AdminController
         "file_properties" => "required|min:3|max:150",
     ];
 
+
+    public function create(Request $request)
+    {
+        $this->data = [
+            'types' => BroadcastType::cases()
+        ];
+        return parent::create($request);
+    }
 
 }
