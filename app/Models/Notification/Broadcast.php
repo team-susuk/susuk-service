@@ -2,14 +2,16 @@
 
 namespace App\Models\Notification;
 
+use App\Helpers\Susuk;
 use App\Enums\BroadcastType;
 use Illuminate\Database\Eloquent\Model;
 use Laililmahfud\Adminportal\Traits\HasUuid;
+use Laililmahfud\Adminportal\Traits\HasDatatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Broadcast extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid,HasDatatable;
 
     protected $guarded = [];
 

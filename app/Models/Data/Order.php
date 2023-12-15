@@ -2,14 +2,16 @@
 
 namespace App\Models\Data;
 
+use App\Helpers\Susuk;
 use App\Enums\OrderType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laililmahfud\Adminportal\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laililmahfud\Adminportal\Traits\HasDatatable;
 
 class Order extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid,HasDatatable;
 
     protected $casts = [
         'type' => OrderType::class
