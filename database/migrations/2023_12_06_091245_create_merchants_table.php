@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->json('weekday_time')->nullable()->comment("{'start':'08:00','end':'13:00'}");
             $table->json('weekends')->nullable()->comment("['Senin','Selasa']");
             $table->json('weekend_time')->nullable()->comment("{'start':'08:00','end':'13:00'}");
-            $table->string('sip_document')->nullable();
+            $table->string('siup_document')->nullable();
             $table->integer('viewer')->default(0)->comment('increment if guest see profile');
             $table->boolean('is_member')->default(false);
             $table->dateTime('expired_member_at')->nullable();

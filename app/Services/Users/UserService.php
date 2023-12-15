@@ -30,7 +30,6 @@ class UserService extends AdminService
         });
         if ($perPage) {
             return $query->datatable($perPage, "users.created_at");
-            ;
         } else {
             return $query->with(['profession'])->get();
         }

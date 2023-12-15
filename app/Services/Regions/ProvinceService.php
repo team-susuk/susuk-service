@@ -23,7 +23,6 @@ class ProvinceService extends AdminService
             ->datatable($perPage, "provinces.created_at");
 
     }
-
     public function store(Request $request)
     {
         return $this->model::create([
@@ -39,6 +38,12 @@ class ProvinceService extends AdminService
         return $this->model::whereUuid($uuid)->update($data);
     }
 
+    public function findAll()
+    {
+        return $this->model::query()
+            ->latest('name')
+            ->get();
+    }
     public function getProvinces()
     {
         return $this->model::with(['cities'])->orderBy("name", "ASC")->get();

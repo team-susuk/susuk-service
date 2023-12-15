@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
+use Illuminate\Support\Str;
 use App\Models\Data\Product;
 use App\Models\Regions\City;
 use App\Models\Master\Category;
@@ -41,6 +42,20 @@ class Merchant extends Model
         'full_address',
         'full_commission'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Merchant $user) {
+            $date = now()->format('Ymd');
+            $totalUser = Merchant::whereDate("created_at", $date)->count();
+            $totalUser = intval(substr($totalUser, 2));
+            $totalUser++;
+            $user->code = "M-$date-" . str_pad($totalUser, 3, '0', STR_PAD_LEFT);
+            $user->register_at = now();
+            $user->uuid = Str::uuid();
+        });
+    }
 
     public function getProfileUrlAttribute()
     {

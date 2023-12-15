@@ -41,4 +41,11 @@ class SubDistrictService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function findAllByCityId($cityId)
+    {
+        return $this->model::query()
+            ->where('city_id', $cityId)
+            ->get();
+    }
 }

@@ -40,4 +40,11 @@ class CityService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    public function findAllByProvinceId($provinceId)
+    {
+        return $this->model::query()
+            ->where('province_id', $provinceId)
+            ->get();
+    }
 }

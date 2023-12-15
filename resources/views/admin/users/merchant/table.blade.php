@@ -41,9 +41,18 @@
                                     data-method="DELETE" class="dropdown-item">Delete</a>
                             </li>
                         @enditcan
+                        <li>
+                            <a href="{{ adminRoute('admin.merchant.show', $row->uuid) }}" class="dropdown-item">Detail</a>
+                        </li>
                     </ul>
                 </div>
             @endif
         </td>
     </tr>
 @endforeach
+@push('js')
+    <script>
+        document.querySelector('#modal-export-data .form-group:nth-child(2)').remove()
+        document.querySelector('#modal-export-data .modal-body').insertAdjacentHTML('beforeend','<input type="hidden" name="file_format" value="xlsx"/>')
+    </script>
+@endpush

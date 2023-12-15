@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Services\Master\CategoryService;
+use App\Services\Regions\ProvinceService;
 use Illuminate\Http\Request;
 use App\Services\Users\MerchantService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
@@ -11,7 +13,7 @@ class AdminMerchantsController extends AdminController
     protected $pageTitle = "Merchant";
     protected $resourcePath = "admin.users.merchant";
     protected $moduleService = MerchantService::class;
-    protected $filter = true;
+    protected $filter = false;
     protected $export = true;
 
     protected $tableColumns = [
@@ -27,29 +29,62 @@ class AdminMerchantsController extends AdminController
     ];
 
     protected $rules = [
-        "name" => "required|min:3|max:150",
-        "profile" => "required|min:3|max:150",
-        "description" => "required|min:3|max:150",
-        "category_id" => "required|min:3|max:150",
-        "province_id" => "required|min:3|max:150",
-        "city_id" => "required|min:3|max:150",
-        "subdistrict_id" => "required|min:3|max:150",
-        "address" => "required|min:3|max:150",
-        "pic_name" => "required|min:3|max:150",
-        "phone_number" => "required|min:3|max:150",
-        "whatsapp_number" => "required|min:3|max:150",
-        "commission" => "required|min:3|max:150",
-        "weekdays" => "required|min:3|max:150",
-        "weekday_time" => "required|min:3|max:150",
-        "weekends" => "required|min:3|max:150",
-        "weekend_time" => "required|min:3|max:150",
-        "sip_document" => "required|min:3|max:150",
-        "viewer" => "required|min:3|max:150",
-        "is_member" => "required|min:3|max:150",
-        "expired_member_at" => "required|min:3|max:150",
-        "password" => "required|min:3|max:150",
-        "deleted_at" => "required|min:3|max:150",
-        "code" => "required|min:3|max:150",
+        "name" => "required",
+        "description" => "required",
+        "category_id" => "required",
+        "province_id" => "required",
+        "city_id" => "required",
+        "subdistrict_id" => "required",
+        "address" => "required",
+        "pic_name" => "required",
+        "phone_number" => "required",
+        "whatsapp_number" => "required",
+        "commission_start" => "required",
+        "commission_end" => "required",
+        "weekdays" => "required",
+        "weekday_time_start" => "required",
+        "weekday_time_end" => "required",
+        "weekends" => "required",
+        "weekend_time_start" => "required",
+        "weekend_time_end" => "required",
     ];
+
+    protected $createRules = [
+        "profile" => "required|image",
+        "password" => "required",
+        "sip_document" => "required|mimes:pdf",
+    ];
+
+    public function __construct(
+        private CategoryService $categoryService,
+        private ProvinceService $provinceService,
+        private MerchantService $merchantService
+    ){}
+
+    public function create(Request $request)
+    {
+        $this->data = [
+            'categories' => $this->categoryService->get(),
+            'provinces' => $this->provinceService->findAll()
+        ];
+        return parent::create($request);
+    }
+
+    public function edit(Request $request,$uuid)
+    {
+        $this->data = [
+            'categories' => $this->categoryService->get(),
+            'provinces' => $this->provinceService->findAll()
+        ];
+        return parent::edit($request,$uuid);
+    }
+
+    public function show(Request $request, $uuid)
+    {
+        $row = $this->merchantService->findByUuId($uuid);
+        return view('admin.users.merchant.detail', [
+            'row' => $row
+        ]);
+    }
 
 }
