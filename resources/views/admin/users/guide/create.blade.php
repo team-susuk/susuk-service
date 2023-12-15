@@ -1,15 +1,24 @@
-<x-portal::input type="text" name="name" label="Name" placeholder="Name" horizontal>{{old('name')}}</x-portal::input>
-<x-portal::input type="text" name="nick_name" label="Nick Name" placeholder="Nick Name" horizontal>{{old('nick_name')}}</x-portal::input>
-<x-portal::input type="text" name="birthday" label="Birthday" placeholder="Birthday" horizontal>{{old('birthday')}}</x-portal::input>
-<x-portal::input type="text" name="phone_number" label="Phone Number" placeholder="Phone Number" horizontal>{{old('phone_number')}}</x-portal::input>
-<x-portal::input type="text" name="profile" label="Profile" placeholder="Profile" horizontal>{{old('profile')}}</x-portal::input>
-<x-portal::input type="text" name="profession_id" label="Profession Id" placeholder="Profession Id" horizontal>{{old('profession_id')}}</x-portal::input>
-<x-portal::input type="text" name="languages" label="Languages" placeholder="Languages" horizontal>{{old('languages')}}</x-portal::input>
-<x-portal::input type="text" name="password" label="Password" placeholder="Password" horizontal>{{old('password')}}</x-portal::input>
-<x-portal::input type="text" name="status" label="Status" placeholder="Status" horizontal>{{old('status')}}</x-portal::input>
-<x-portal::input type="text" name="register_at" label="Register At" placeholder="Register At" horizontal>{{old('register_at')}}</x-portal::input>
-<x-portal::input type="text" name="verification_at" label="Verification At" placeholder="Verification At" horizontal>{{old('verification_at')}}</x-portal::input>
-<x-portal::input type="text" name="deleted_at" label="Deleted At" placeholder="Deleted At" horizontal>{{old('deleted_at')}}</x-portal::input>
-<x-portal::input type="text" name="code" label="Code" placeholder="Code" horizontal>{{old('code')}}</x-portal::input>
-<x-portal::input type="text" name="is_member" label="Is Member" placeholder="Is Member" horizontal>{{old('is_member')}}</x-portal::input>
-<x-portal::input type="text" name="expired_member_at" label="Expired Member_at" placeholder="Expired Member_at" horizontal>{{old('expired_member_at')}}</x-portal::input>
+<x-portal::input type="text" name="name" label="Nama lengkap (sesuai KTP)" placeholder="Nama lengkap (sesuai KTP)"
+    horizontal>{{ old('name') }}</x-portal::input>
+<x-portal::input type="text" name="nick_name" label="Nama Panggilan" placeholder="Nama Panggilan"
+    horizontal>{{ old('nick_name') }}</x-portal::input>
+<x-portal::input type="date" name="birthday" label="Tanggal Lahir" placeholder="Birthday"
+    horizontal>{{ old('birthday') }}</x-portal::input>
+<x-portal::input type="number" name="phone_number" label="Nomor WA" placeholder="Nomor WA"
+    horizontal>{{ old('phone_number') }}</x-portal::input>
+<x-portal::input.image name="profile" label="Profile" placeholder="Profile" horizontal></x-portal::input.image>
+<x-portal::input.select name="profession_id" label="Profesi" placeholder="Profesi" horizontal>
+    <option value="">Pilih Profesi</option>
+    @foreach($professions as $profession)
+    <option value="{{$profession->id}}">{{$profession->name}}</option>
+    @endforeach
+</x-portal::input.select>
+<x-input.multiple-select name="languages[]" label="Bahasa" placeholder="Bahasa" horizontal>
+    <option value="">Pilih Bahasa</option>
+    @foreach($languages as $lang)
+    <option value="{{$lang->id}}">{{$lang->lang}}</option>
+    @endforeach
+</x-input.multiple-select>
+<x-portal::input type="password" name="password" label="Password" placeholder="Password"
+    horizontal>{{ old('password') }}</x-portal::input>
+<x-portal::input.select.asset />

@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Enums\UserStatus;
+use App\Services\Master\LanguageService;
+use App\Services\Master\ProfessionService;
 use Illuminate\Http\Request;
 use App\Services\Users\UserService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
@@ -11,35 +14,65 @@ class AdminGuideController extends AdminController
     protected $pageTitle = "Guide";
     protected $resourcePath = "admin.users.guide";
     protected $moduleService = UserService::class;
-    protected $filter = true;
+    protected $filter = false;
     protected $export = true;
 
     protected $tableColumns = [
-        ["label" => "Name", "name" => "name"],
-        ["label" => "Nick Name", "name" => "nick_name"],
-        ["label" => "Code", "name" => "code"],
-        ["label" => "Phone Number", "name" => "phone_number"],
-        ["label" => "Register At", "name" => "register_at"],
+        ["label" => "Nama Lengkap", "name" => "name"],
+        ["label" => "Nama Panggilan", "name" => "nick_name"],
+        ["label" => "ID Guide", "name" => "code"],
+        ["label" => "Nomor Whatsapp", "name" => "phone_number"],
+        ["label" => "Waktu Registrasi", "name" => "register_at"],
         ["label" => "Status", "name" => "status"],
     ];
 
     protected $rules = [
-        "name" => "required|min:3|max:150",
-        "nick_name" => "required|min:3|max:150",
-        "birthday" => "required|min:3|max:150",
-        "phone_number" => "required|min:3|max:150",
-        "profile" => "required|min:3|max:150",
-        "profession_id" => "required|min:3|max:150",
-        "languages" => "required|min:3|max:150",
-        "password" => "required|min:3|max:150",
-        "status" => "required|min:3|max:150",
-        "register_at" => "required|min:3|max:150",
-        "verification_at" => "required|min:3|max:150",
-        "deleted_at" => "required|min:3|max:150",
-        "code" => "required|min:3|max:150",
-        "is_member" => "required|min:3|max:150",
-        "expired_member_at" => "required|min:3|max:150",
+        "name" => "required",
+        "nick_name" => "required",
+        "birthday" => "required",
+        "phone_number" => "required",
+        "profession_id" => "required",
+        "languages" => "required",
     ];
 
+    protected $createRules = [
+        "password" => "required",
+        'profile' => 'required|image'
+    ];
+
+    public function __construct(
+        private ProfessionService $professionService,
+        private LanguageService $languageService,
+        private UserService $userService
+    ) {
+    }
+
+    public function create(Request $request)
+    {
+        $this->data = [
+            'professions' => $this->professionService->findAll(),
+            'languages' => $this->languageService->findAll(),
+            'status' => UserStatus::cases()
+        ];
+        return parent::create($request);
+    }
+
+    public function edit(Request $request, $uuid)
+    {
+        $this->data = [
+            'professions' => $this->professionService->findAll(),
+            'languages' => $this->languageService->findAll(),
+            'status' => UserStatus::cases()
+        ];
+        return parent::edit($request, $uuid);
+    }
+
+    public function show(Request $request, $uuid)
+    {
+        $row = $this->userService->findByUuId($uuid);
+        return view('admin.users.guide.detail', [
+            'row' => $row
+        ]);
+    }
 
 }

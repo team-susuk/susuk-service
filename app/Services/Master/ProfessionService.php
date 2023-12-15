@@ -11,6 +11,9 @@ class ProfessionService extends AdminService
         public $model = Profession::class,
     ) {}
 
+    public function findAll(){
+        return $this->model::latest()->get();
+    }
     public function datatable(Request $request, $perPage = 10)
     {
         $search = $request->search ?? '';

@@ -12,6 +12,10 @@ class LanguageService extends AdminService
     ) {
     }
 
+    public function findAll(){
+        return $this->model::latest()->get();
+    }
+    
     public function datatable(Request $request, $perPage = 10)
     {
         $search = $request->search ?? '';

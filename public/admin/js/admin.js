@@ -1,0 +1,1 @@
+document.querySelector('#modal-export-data .form-group:nth-child(2)').remove()
