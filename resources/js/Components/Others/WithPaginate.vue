@@ -12,13 +12,11 @@
     </template>
     <slot v-if="!paginate?.loading.value" />
 
-    <div class="grid grid-cols-2 gap-4" v-if="paginate?.loading.value">
-        <template v-if="loading">
-            <component :is="loading" v-for="i in 4"></component>
-        </template>
-        <template v-if="!loading">
-            <CardMerchantLoading v-for="i in 4" />
-        </template>
+    <template v-if="loading && paginate?.loading.value">
+        <component :is="loading"></component>
+    </template>
+    <div class="grid grid-cols-2 gap-4" v-if="!loading && paginate?.loading.value">
+        <CardMerchantLoading v-for="i in 4" />
     </div>
 
     <Pagination
