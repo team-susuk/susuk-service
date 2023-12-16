@@ -17,7 +17,7 @@
             class="border border-light-gray rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] flex gap-2 flex-wrap outline-none py-2 w-full mb-2 items-center"
         >
             <span
-                class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full"
+                class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full font-medium"
                 x-on:click="dropdownOpen=false"
                 v-for="item in (selected as any)"
             >
@@ -28,7 +28,7 @@
                 ></i>
             </span>
             <div
-                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
+                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden font-medium"
                 x-on:click="dropdownOpen=true"
                 v-bind:class="{ 'text-[#ddd]': selected.length }"
             >
@@ -116,7 +116,7 @@ const addItem = (row: any) => {
     const selectedIds = selected.value.map((val: any) => val.id);
     if (!selectedIds.includes(row.id)) {
         (selected.value as any).push({
-            code: row.id,
+            id: row.id,
             name: row.name,
         });
         emit(
@@ -141,7 +141,7 @@ onMounted(() => {
         props.options.forEach((row: any) => {
             if (selectedId.includes(row.id)) {
                 itemSelected.push({
-                    code: row.id,
+                    id: row.id,
                     name: row.name,
                 });
             }

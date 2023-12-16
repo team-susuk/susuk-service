@@ -23,6 +23,9 @@ Route::prefix("guide")
 
         Route::middleware(["role-auth:guide", "check-member-guide"])->group(function() {
             Route::get("/", [HomeController::class, 'index'])->name("home");
+            Route::get("/search/{search}", [HomeController::class, 'search'])->name("home.search");
+            Route::post("/logout", [LoginController::class, 'logout'])->name("logout");
+
             Route::controller(HomeController::class)
             ->prefix("home")
             ->name("home.")
@@ -49,6 +52,8 @@ Route::prefix("guide")
             ->name("products.")
             ->group(function () {
                 Route::get('/category/{category}', 'category')->name("category");
+                Route::get('/category/{category}', 'category')->name("category");
+                Route::get('/category-data/{category}', 'categoryData')->name("category-data");
             });
     
             Route::controller(QrCodeController::class)

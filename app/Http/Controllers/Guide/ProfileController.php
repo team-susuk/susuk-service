@@ -39,7 +39,7 @@ class ProfileController extends Controller
 
     public function editPost(Request $request)
     {
-        $this->userService->updateProfle($request, guide()->uuid);
+        $this->userService->updateProfile($request, guide()->uuid);
 
         return back()->with(["popup_success" => "Profile Berhasil di Ubah"]);
     }

@@ -18,14 +18,14 @@
             :id="'wrapper_single_'+id"
         >
             <div
-                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
+                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden font-medium"
                 x-on:click="dropdownOpen=!dropdownOpen"
                 v-for="item in (selected as any)"
             >
                 {{ item.name }}
             </div>
             <div
-                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
+                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden font-medium"
                 x-on:click="dropdownOpen=true"
                 @click="updateDropdownWidth"
                 v-bind:class="{ 'text-[#ddd]': selected.length }"

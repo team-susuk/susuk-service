@@ -3,11 +3,16 @@
     <AuthLayout>
         <HeaderBlue title="Scan QR" />
         <TabMenu active="history" />
-        <div class="mt-8 grid grid-cols-2 gap-3">
-            <CardQrCodeMerchant v-for="i in 10" />
-        </div>
-
-        <Pagination />
+        <WithPaginate :paginate="paginate" :loading="shallowReactive(CardQrCodeLoading)">
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <template v-for="merchant in paginate.data.value">
+                    <CardQrCodeMerchant
+                        v-if="paginate && !paginate?.loading.value"
+                        :data="merchant"
+                    />
+                </template>
+            </div>
+        </WithPaginate>
     </AuthLayout>
 </template>
 
@@ -17,6 +22,13 @@
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import TabMenu from './TabMenu.vue';
     import CardQrCodeMerchant from '@/Components/Card/CardQrCodeMerchant.vue';
-    import Pagination from '@/Components/Others/Pagination.vue';
+    import { usePaginate } from '@/hooks/pagination';
+    import { shallowReactive } from 'vue';
+    import CardQrCodeLoading from '@/Components/Card/CardQrCodeLoading.vue';
+    import WithPaginate from '@/Components/Others/WithPaginate.vue';
+
+    const paginate = usePaginate({
+        route: route('merchant.qrcode.histories-data')
+    })
 
 </script>

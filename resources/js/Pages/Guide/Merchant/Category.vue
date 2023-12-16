@@ -17,12 +17,6 @@
             />
         </div>
 
-        <!-- <Pagination
-            :information="paginate.information.value"
-            @next="paginate.next()"
-            @prev="paginate.prev()"
-        /> -->
-
     </AuthLayout>
 </template>
 
@@ -32,7 +26,6 @@
     import HeaderDetail from '@/Components/Navigation/HeaderDetail.vue'
     import CardMerchant from '@/Components/Card/CardMerchant.vue'
     import CardMerchantLoading from '@/Components/Card/CardMerchantLoading.vue'
-    import Pagination from '@/Components/Others/Pagination.vue';
     import { usePaginate } from '@/hooks/pagination'
 
     const props = defineProps(["title", "id", "type"])

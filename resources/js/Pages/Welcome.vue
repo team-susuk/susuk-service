@@ -1,6 +1,12 @@
 <template>
     <Head title="Welcome" />
-    <section class="py-7 px-10 bg-welcome min-h-[475px]">
+    <section class="py-7 px-10 min-h-[100vh] relative">
+        <WelcomeCircleTop
+            class="absolute top-0 right-0"
+        />
+        <WelcomeCircleBottom
+            class="absolute bottom-0 left-0"
+        />
         <Logo />
         <h1 class="text-dark text-2xl font-bold text-center max-w-xs mx-auto mt-14">
             Selamat Datang Kembali Di aplikasi Susuk 👋
@@ -20,4 +26,6 @@
     import ButtonOutline from '@/Components/Button/OutlineBlue.vue';
     import UserMerchant from '@/Components/Icon/Etc/UserMerchant.vue';
     import UserGuide from '@/Components/Icon/Etc/UserGuide.vue';
+    import WelcomeCircleBottom from '@/Components/Icon/Image/WelcomeCircleBottom.vue';
+    import WelcomeCircleTop from '@/Components/Icon/Image/WelcomeCircleTop.vue';
 </script>

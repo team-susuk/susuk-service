@@ -1,12 +1,13 @@
 <?php
 namespace App\Services\Users;
 
-use App\Enums\UserStatus;
 use App\Helpers\Susuk;
+use App\Enums\UserStatus;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use App\Models\Master\Category;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class MerchantService extends AdminService
@@ -133,22 +134,43 @@ class MerchantService extends AdminService
         }
     }
 
-    public function getLists($filter = [])
+    public function getLists($filter = [], $search = "", $paginate = true)
     {
         $categories = @$filter['categories'];
         $province = @$filter['province'];
         $city = @$filter['city'];
         $sort = @$filter['sort'];
 
-        return $this->model::
+        $data = $this->model::
             when($province, fn($q) => $q->where("province_id", $province))
             ->when($city, fn($q) => $q->where("city_id", $city))
             ->when($categories, fn($q) => $q->whereIn("category_id", $categories))
-            ->orderBy("created_at", "desc")->paginate();
+            ->when($search, fn($q) => $q->where("name", "LIKE", "%$search%"))
+            ->orderBy("created_at", "desc");
+        if ($paginate) {
+            return $data->paginate();
+        } else {
+            return $data->get();
+        }
     }
 
     public function findByUUid($uuid)
     {
         return $this->model::with(['products'])->where("uuid", $uuid)->firstOrFail();
+    }
+
+    public function updatePassword(Request $request, $uuid)
+    {
+        $user = $this->model::whereUuid($uuid)->first();
+        if (!Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                "password" => __("alert.password")
+            ]);
+        }
+
+        $password = Hash::make($request->new_password);
+        return $this->model::whereUuid($uuid)->update([
+            'password' => $password
+        ]);
     }
 }

@@ -52,7 +52,7 @@ class AdminMerchantsController extends AdminController
     protected $createRules = [
         "profile" => "required|image",
         "password" => "required",
-        "sip_document" => "required|mimes:pdf",
+        "siup_document" => "required|mimes:pdf",
     ];
 
     public function __construct(

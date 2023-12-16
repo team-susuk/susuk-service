@@ -82,7 +82,7 @@ class UserService extends AdminService
         ]);
     }
 
-    public function updateProfle(Request $request, $uuid)
+    public function updateProfile(Request $request, $uuid)
     {
         $data = [
             'nick_name' => $request->name,

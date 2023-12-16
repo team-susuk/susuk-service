@@ -20,4 +20,11 @@ class LoginController extends Controller
         $loginAction->handle($request);
         return to_route("guide.home");
     }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        return to_route('guide.login');
+    }
 }

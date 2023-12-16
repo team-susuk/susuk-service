@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 use App\Enums\CategoryProduct;
 use App\Enums\CategoryMerchant;
 use App\Models\Master\Category;
-use App\Http\Controllers\Controller;
-use App\Services\Data\FeaturedService;
 use App\Services\Data\OrderService;
-use App\Services\Users\MerchantService;
+use App\Http\Controllers\Controller;
 use App\Services\Utils\BannerService;
+use App\Services\Data\FeaturedService;
+use App\Services\Data\ProductService;
+use App\Services\Users\MerchantService;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,8 @@ class HomeController extends Controller
         private FeaturedService $featuredService,
         private MerchantService $merchantService,
         private BannerService $bannerService,
-        private OrderService $orderService
+        private OrderService $orderService,
+        private ProductService $productService
     ) {
     }
 
@@ -34,6 +36,23 @@ class HomeController extends Controller
             'favorite_products' => $this->featuredService->getProductList(CategoryProduct::Favorite_Product, 6),
             'special_products' => $this->featuredService->getProductList(CategoryProduct::Special_This_Month, 6),
             'top_advertisements' => $this->orderService->getAds()
+        ]);
+    }
+    
+    public function search($search)
+    {
+        if (!$search) {
+            $merchants = [];
+            $products = [];
+        } else {
+            $merchants = $this->merchantService->getLists([], $search, false);
+            $products = $this->productService->getLists([], $search);
+        }
+
+        return Inertia::render('Guide/Home/Search', [
+            "merchants" => $merchants,
+            "products" => $products,
+            "title" => $search
         ]);
     }
 

@@ -17,7 +17,7 @@
         <p class="text-dark text-sm font-medium mt-3 text-center">
             Perjalananmu baru dimulai di sini rasakan pengalamannya
         </p>
-        <form class="mt-10 w-full flex flex-col">
+        <form class="mt-10 w-full flex flex-col" @submit.prevent="submit">
             <InputNumber
                 label="Nomor WA"
                 type="text"
@@ -25,6 +25,7 @@
                 id="phone"
                 name="phone"
                 v-model="form.phone_number"
+                :error="form.errors.phone_number"
             />
             <Password
                 label="Password"
@@ -32,14 +33,16 @@
                 id="password"
                 name="password"
                 v-model="form.password"
+                :error="form.errors.password"
             />
             <a class="text-sm font-medium text-neutral-dark-gray text-end cursor-pointer" x-on:click="popup=true">
                 Lupa Password?
             </a>
             <ButtonSolidBlue
+                type="submit"
                 bg-color="blue" text-color="white" class="w-full flex-center mt-8"
-                :disabled="!form.phone_number || !form.password"
-                @click="submit"
+                :disabled="!form.phone_number || !form.password || form.processing"
+                :loading="form.processing"
             >
                 Masuk
             </ButtonSolidBlue>
@@ -121,6 +124,8 @@
     }
 
     const submit = () => {
-        router.visit(route("merchant.home"))
+        if (!form.processing) {
+            form.post(route('merchant.login.store'))
+        }
     }
 </script>

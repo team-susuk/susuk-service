@@ -12,8 +12,4 @@
     defineProps<{
         hideNav?: boolean
     }>()
-
-    onMounted(() => {
-        document.querySelector("body main #app")?.classList.add("min-h-[100vh]")
-    })
 </script>

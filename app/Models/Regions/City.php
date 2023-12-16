@@ -18,6 +18,11 @@ class City extends Model
 
     public function province()
     {
-         return $this->belongsTo(Province::class, 'province_id', 'id');
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function subdistricts()
+    {
+        return $this->hasMany(SubDistrict::class)->orderBy("name", "ASC");
     }
 }

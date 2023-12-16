@@ -4,6 +4,7 @@ namespace App\Services\Notification;
 
 use App\Models\User\User;
 use App\Models\Notification\Notification;
+use App\Models\User\Merchant;
 
 class NotificationService {
     public function __construct(
@@ -11,9 +12,13 @@ class NotificationService {
     ) {
     }
 
-    public function getNotifications($type, $userId)
+    public function getNotifications($type, $userId, $userRole = 'guest')
     {
-        $user = User::findByUuid($userId);
+        if ($userRole == 'guest') {
+            $user = User::findByUuid($userId);
+        } else {
+            $user = Merchant::findByUuid($userId);
+        }
 
         return $this->model::where("user_id", $user->id)
         ->where("type", $type)

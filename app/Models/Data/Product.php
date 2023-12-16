@@ -21,13 +21,13 @@ class Product extends Model
      * @var array
      */
     protected $appends = [
-        'profile_url',
+        'image_url',
         'price_formated'
     ];
 
-    public function getProfileUrlAttribute()
+    public function getImageUrlAttribute()
     {
-        return Susuk::showFile($this->profile);
+        return Susuk::showFile($this->image);
     }
 
     public function getPriceFormatedAttribute()
@@ -37,6 +37,6 @@ class Product extends Model
 
     public function merchant()
     {
-         return $this->belongsTo(Merchant::class, 'merchant_id', 'id');
+        return $this->belongsTo(Merchant::class, 'merchant_id', 'id');
     }
 }

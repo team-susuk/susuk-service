@@ -27,9 +27,9 @@
                 </div>
                 <icFile class="mb-2" />
                 <label :for="id" class="text-neutral-dark-gray text-sm"><span class="font-semibold">Drag</span> file atau <span class="font-semibold">klik</span> untuk upload</label>
-                <div v-if="dropzoneFile" class="mt-2">
+                <div v-if="dropzoneFile" class="mt-2 max-w-[250px]">
                     <p class="text-[12px] text-dark">Selected File:</p>
-                    <p class="text-[12px] text-dark font-semibold">{{ fileInfo }}</p>
+                    <p class="text-[12px] text-dark font-semibold truncate">{{ fileInfo }}</p>
                 </div>
                 <input :id="id" ref="input" class="drop-zone-file" type="file" @change="selectedFile" hidden />
             </div>

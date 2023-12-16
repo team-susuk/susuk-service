@@ -25,7 +25,7 @@
         <a x-on:click="alert_flash=false" id="hide-alert-flash" class="hidden"></a>
     </div>
     
-    <section class="py-7 px-5 md:px-10">
+    <section class="py-7 px-5 md:px-10 min-h-[100vh]">
         <slot />
     </section>
 </template>

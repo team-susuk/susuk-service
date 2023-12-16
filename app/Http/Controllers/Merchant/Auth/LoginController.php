@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers\Merchant\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Actions\Merchant\Auth\LoginAction;
+use App\Http\Requests\Merchant\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
     public function index()
     {
         return Inertia::render('Merchant/Auth/Login');
+    }
+
+    public function store(LoginRequest $request, LoginAction $loginAction)
+    {
+        $loginAction->handle($request);
+        return to_route("merchant.home");
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        return to_route('merchant.login');
     }
 }

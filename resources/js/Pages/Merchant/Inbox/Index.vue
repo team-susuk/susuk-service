@@ -3,13 +3,15 @@
     <AuthLayout>
         <HeaderBlue title="Pesan" />
 
-        <div v-for="i in 3" class="mt-4">
-            <CardInboxAdmin class="mb-3" />
-            <CardInboxAdmin class="mb-3" type="image" />
-            <CardInboxAdmin class="mb-3" type="file" />
-        </div>
+        <WithPaginate
+            :paginate="paginate"
+            :loading="shallowReactive(CardNotificationLoading)"
+        >
+            <div v-for="row in paginate.data.value" class="mt-4">
+                <CardInboxAdmin class="mb-3" :data="row" />
+            </div>
+        </WithPaginate>
 
-        <Pagination />
     </AuthLayout>
 </template>
 
@@ -19,5 +21,13 @@
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import CardInboxAdmin from '@/Components/Card/CardInboxAdmin.vue';
     import Pagination from '@/Components/Others/Pagination.vue';
+    import WithPaginate from '@/Components/Others/WithPaginate.vue';
+    import CardNotificationLoading from '@/Components/Card/CardNotificationLoading.vue';
+    import { shallowReactive } from 'vue';
+    import { usePaginate } from '@/hooks/pagination';
+
+    const paginate = usePaginate({
+        route: route("merchant.inbox.index-data")
+    })
 
 </script>

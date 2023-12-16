@@ -39,7 +39,7 @@
                     />
                 </div>
                 <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
-                    <label for="merchant" class="w-full text-sm text-dark">Sort By Merchant</label>
+                    <label for="merchant" class="w-full text-sm text-dark font-medium">Sort By Merchant</label>
                     <input
                         id="merchant"
                         value="merchant"
@@ -50,7 +50,7 @@
                     />
                 </div>
                 <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
-                    <label for="incentives_amount" class="w-full text-sm text-dark">Sort By Incentives Amount</label>
+                    <label for="incentives_amount" class="w-full text-sm text-dark font-medium">Sort By Incentives Amount</label>
                     <input
                         id="incentives_amount"
                         value="incentives_amount"

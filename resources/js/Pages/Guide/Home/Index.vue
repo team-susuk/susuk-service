@@ -7,7 +7,10 @@
                 <input
                     placeholder="Cari merchant & produk"
                     type="text" name="search" class="w-full font-medium placeholder:text-neutral-gray outline-none border-none bg-transparent p-0 focus:ring-0 text-sm"
+                    v-model="search"
+                    @keydown.enter="submitSearch"
                 >
+                <i class="isax icon-search-normal-1 text-neutral-gray cursor-pointer" @click="submitSearch"></i>
             </div>
         </div>
         <Swiper
@@ -138,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, usePage } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
     import Logo from '@/Components/Icon/Etc/LogoLg.vue';
 
@@ -171,6 +174,8 @@
     const advertisement = ref<any>([])
     const merchantCategories = ref<any>([])
     const loading = ref(false)
+
+    const search = ref("")
 
     onMounted(() => {
         merchantCategory.value = props.categories.length > 0 ? props.categories[0].uuid : ''
@@ -211,5 +216,11 @@
         .then((res: any) => {
             merchantCategories.value = res.data.merchants
         }).finally(() => loading.value = false)
+    }
+
+    const submitSearch = () => {
+        if (search.value) {
+            router.visit(route('guide.home.search', search.value))
+        }
     }
 </script>

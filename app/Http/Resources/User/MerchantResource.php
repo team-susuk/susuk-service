@@ -35,7 +35,7 @@ class MerchantResource extends JsonResource
             'weekday_time' => $this->weekday_time,
             'weekends' => $this->weekends,
             'weekend_time' => $this->weekend_time,
-            'sip_document' => $this->sip_document,
+            'siup_document' => $this->siup_document,
             'viewer' => $this->viewer,
             'is_member' => $this->is_member,
             'expired_member_at' => $this->expired_member_at,

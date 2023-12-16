@@ -69,7 +69,7 @@ class CreateFakeUserAndMerchant extends Command
                 'start' => '09:00',
                 'end' => '17:00'
             ],
-            'sip_document' => 'admin/img/sample.pdf',
+            'siup_document' => 'admin/img/sample.pdf',
             'password' => Hash::make('P@ssw0rd'),
             'code' => 'M-' . date('md') . '001',
             'register_at' => now(),

@@ -23,6 +23,10 @@
             Ubah Password
             <i class="isax icon-arrow-right-3 text-xl"></i>
         </a>
+        <a class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="clickId('confirm-logout')">
+            Keluar
+            <Logout />
+        </a>
 
         <form class="mt-10" @submit.prevent="submitFeedback">
             <div class="flex items-center gap-2 mb-6">
@@ -107,11 +111,31 @@
                 </form>
             </Popup>
         </section>
+
+        <section x-data="{popup: false}">
+            <a x-on:click="popup=!popup" id="confirm-logout"></a>
+            <Popup :close="true">
+                <h2 class="text-center mb-2 font-semibold text-base">
+                    Apakah anda yakin ingin keluar?
+                </h2>
+                <div class="flex-center w-full gap-4">
+                    <OutlineBlue class="justify-center mt-2 w-full" x-on:click="popup=false">
+                        Batal
+                    </OutlineBlue>
+                    <ButtonSolidBlue
+                        @click="logout"
+                        class="justify-center mt-2 font-semibold w-full"
+                    >
+                        Keluar
+                    </ButtonSolidBlue>
+                </div>
+            </Popup>
+        </section>
     </AuthLayout>
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
     
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
@@ -126,13 +150,18 @@
     import Popup from '@/Components/Popup/Popup.vue';
     import PopupSuccess from '@/Components/Popup/PopupSuccess.vue';
     import ChangePassword from '@/Components/Icon/Image/ChangePassword.vue'
+    import Logout from '@/Components/Icon/Etc/Logout.vue';
+    import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
+    import axios from 'axios';
+
 
     const user = usePage().props.auth.guide
     
 
     const form = useForm({
         title: '',
-        message: ''
+        message: '',
+        user_role: 'users'
     })
 
     const formChange = useForm({
@@ -163,6 +192,10 @@
                 }
             })
         }
+    }
+
+    const logout = () => {
+        axios.post(route('guide.logout')).finally(() => router.visit(route('guide.login')))
     }
 
 </script>

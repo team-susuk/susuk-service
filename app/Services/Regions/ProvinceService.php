@@ -46,6 +46,6 @@ class ProvinceService extends AdminService
     }
     public function getProvinces()
     {
-        return $this->model::with(['cities'])->orderBy("name", "ASC")->get();
+        return $this->model::with(['cities', 'cities.subdistricts'])->orderBy("name", "ASC")->get();
     }
 }

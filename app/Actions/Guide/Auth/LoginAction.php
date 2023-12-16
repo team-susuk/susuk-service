@@ -38,7 +38,6 @@ class LoginAction {
                 'profession' => $user->profession?->name,
                 'languages' => $user->languages,
                 'status' => $user->status,
-                'is_member' => $user->is_member,
                 'code' => $user->code,
                 'qrcode_id' => Crypt::encrypt((object) [
                     'code' => $user->code,

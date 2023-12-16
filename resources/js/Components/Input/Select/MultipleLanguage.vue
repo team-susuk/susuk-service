@@ -18,7 +18,7 @@
             :id="'wrapper_'+id"
         >
             <span
-                class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full"
+                class="px-3 items-center flex bg-neutral-light-gray text-xs h-[32px] rounded-full font-medium"
                 x-on:click="dropdownOpen=false"
                 v-for="item in (selected as any)"
             >
@@ -29,7 +29,7 @@
                 ></i>
             </span>
             <div
-                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden"
+                class="mt-[3px] flex-1 h-full min-w-[100px] cursor-pointer whitespace-nowrap overflow-hidden font-medium"
                 x-on:click="dropdownOpen=true"
                 @click="updateDropdownWidth"
                 v-bind:class="{ 'text-[#ddd]': selected.length }"

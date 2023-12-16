@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Helpers\Susuk;
 use App\Models\Data\Product;
+use App\Models\User\Merchant;
 use Illuminate\Http\Request;
 use Laililmahfud\Adminportal\Services\AdminService;
 
@@ -55,5 +56,18 @@ class ProductService extends AdminService
             $data['image'] = Susuk::uploadFile($request->file('image'), 'products');
         }
         return $this->model::whereUuid($uuid)->update($data);
+    }
+
+    public function getMerchantProducts($merchantId)
+    {
+        $merchant = Merchant::findByUuid($merchantId);
+        return $this->model::where("merchant_id", $merchant->id)->orderByDesc("created_at")->get();
+    }
+
+    public function getLists($filter = [], $search = "")
+    {
+        return $this->model::
+            when($search, fn($q) => $q->where("name", "LIKE", "%$search%"))
+            ->orderBy("created_at", "desc")->paginate();
     }
 }

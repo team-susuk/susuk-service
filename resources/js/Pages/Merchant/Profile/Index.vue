@@ -5,12 +5,12 @@
 
         <div class="flex-center flex-col gap-3 mb-4">
             <img
-            src="https://images.unsplash.com/photo-1698849469142-6c828cfdfd95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""
+                :src="$page.props.auth.merchant.profile" alt=""
                 class="w-auto h-36 object-cover rounded-xl mb-1 aspect-video"
             >
             <div class="flex-center gap-1">
-                <MerchantFill />
-                <p class="text-sm font-medium">Toko Krisna Bali</p>
+                <MerchantFill class="grayscale" />
+                <p class="text-sm font-medium">{{ $page.props.auth.merchant.name }}</p>
             </div>
         </div>
 
@@ -18,8 +18,12 @@
             Ubah Password
             <i class="isax icon-arrow-right-3 text-xl"></i>
         </a>
+        <a class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="clickId('confirm-logout')">
+            Keluar
+            <Logout />
+        </a>
 
-        <section class="mt-10">
+        <form class="mt-10" @submit.prevent="submitFeedback">
             <div class="flex items-center gap-2 mb-6">
                 <Suggestion />
                 <p class="text-sm font-semibold">Saran / keluhan</p>
@@ -31,6 +35,7 @@
                 id="title"
                 name="title"
                 v-model="form.title"
+                :value="form.title"
             />
             <Textarea
                 label="Pesan"
@@ -38,21 +43,23 @@
                 id="message"
                 name="message"
                 v-model="form.message"
+                :value="form.message"
                 rows="5"
                 maxlength="1000"
             />
             <ButtonSolidBlue
-                :disabled="!form.title || !form.message"
+                type="submit"
+                :disabled="!form.title || !form.message || form.processing"
                 class="mt-6 min-w-[100px] justify-center"
             >
                 Kirim
             </ButtonSolidBlue>
-        </section>
+        </form>
 
         <section x-data="{popup: false}">
             <a x-on:click="popup=!popup" id="click-change"></a>
             <Popup :close="true">
-                <form class="">
+                <form class="" @submit.prevent="submitChange">
                     <ChangePassword class="mx-auto mb-3" />
                     <h2 class="text-center mb-8 font-semibold text-base">
                         Ubah Password
@@ -63,6 +70,7 @@
                         id="forgot_name"
                         name="forgot_name"
                         v-model="formChange.password"
+                        :error="formChange.errors.password"
                     />
 
                     <Password
@@ -71,6 +79,7 @@
                         id="forgot_name"
                         name="forgot_name"
                         v-model="formChange.new_password"
+                        :error="formChange.errors.new_password"
                     />
 
                     <Password
@@ -79,12 +88,13 @@
                         id="forgot_name"
                         name="forgot_name"
                         v-model="formChange.new_password_confirmation"
+                        :error="formChange.errors.new_password_confirmation"
                     />
 
                     <ButtonSolidBlue
-                        :disabled="!formChange.password || !formChange.new_password || !formChange.new_password_confirmation"
+                        type="submit"
+                        :disabled="!formChange.password || !formChange.new_password || !formChange.new_password_confirmation || formChange.processing"
                         class="mx-auto mt-6 min-w-[200px] justify-center"
-                        @click="submitChange"
                     >
                         Simpan
                     </ButtonSolidBlue>
@@ -92,15 +102,31 @@
             </Popup>
         </section>
 
-        <div x-data="{popup: false}">
-            <a x-on:click="popup=true" id="open-popup"></a>
-            <PopupSuccess :close="true" title="Password Berhasil di Ubah" />
-        </div>
+        <section x-data="{popup: false}">
+            <a x-on:click="popup=!popup" id="confirm-logout"></a>
+            <Popup :close="true">
+                <h2 class="text-center mb-2 font-semibold text-base">
+                    Apakah anda yakin ingin keluar?
+                </h2>
+                <div class="flex-center w-full gap-4">
+                    <OutlineBlue class="justify-center mt-2 w-full" x-on:click="popup=false">
+                        Batal
+                    </OutlineBlue>
+                    <ButtonSolidBlue
+                        class="justify-center mt-2 font-semibold w-full"
+                        @click="logout"
+                    >
+                        Keluar
+                    </ButtonSolidBlue>
+                </div>
+            </Popup>
+        </section>
+
     </AuthLayout>
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Merchant/AuthLayout.vue'
     
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
@@ -115,10 +141,14 @@
     import PopupSuccess from '@/Components/Popup/PopupSuccess.vue';
     import ChangePassword from '@/Components/Icon/Image/ChangePassword.vue'
     import MerchantFill from '@/Components/Icon/Etc/MerchantFill.vue';
+    import Logout from '@/Components/Icon/Etc/Logout.vue';
+    import axios from 'axios';
+    import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
 
     const form = useForm({
         title: '',
-        message: ''
+        message: '',
+        user_role: 'merchants'
     })
 
     const formChange = useForm({
@@ -128,8 +158,31 @@
     })
 
     const submitChange = () => {
-        clickId('click-change')
-        clickId('open-popup')
+        if (!formChange.processing) {
+            formChange.post(route('merchant.profile.change-password'), {
+                onSuccess: () => {
+                    clickId('click-change')
+                    formChange.password = ''
+                    formChange.new_password = ''
+                    formChange.new_password_confirmation = ''
+                }
+            })
+        }
+    }
+
+    const submitFeedback = () => {
+        if (!form.processing) {
+            form.post(route('merchant.feedback.complaint'), {
+                onSuccess: () => {
+                    form.title = ""
+                    form.message = ""
+                }
+            })
+        }
+    }
+
+    const logout = () => {
+        axios.post(route('merchant.logout')).finally(() => router.visit(route('merchant.login')))
     }
 
 </script>

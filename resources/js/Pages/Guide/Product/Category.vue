@@ -3,16 +3,20 @@
         <Head :title="title" />
         <HeaderDetail :backUrl="route('guide.home')" :title="title" />
 
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
-            <CardProduct :href="route('guide.merchants.detail', 'random')" />
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" v-if="paginate?.loading.value">
+            <CardMerchantLoading />
+            <CardMerchantLoading />
+            <CardMerchantLoading />
         </div>
 
-        <Pagination />
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <CardProduct
+                v-if="paginate && !paginate?.loading.value"
+                v-for="product in paginate.data.value"
+                :data="product"
+                :href="route('guide.merchants.detail', product.merchant_id)"
+            />
+        </div>
 
     </AuthLayout>
 </template>
@@ -22,9 +26,15 @@
     import AuthLayout from '@/Layouts/Guide/AuthLayout.vue'
     import HeaderDetail from '@/Components/Navigation/HeaderDetail.vue'
     import CardProduct from '@/Components/Card/CardProduct.vue'
-    import Pagination from '@/Components/Others/Pagination.vue';
+    import CardMerchantLoading from '@/Components/Card/CardMerchantLoading.vue';
+    import { usePaginate } from '@/hooks/pagination';
 
-    defineProps(["title"])
+    const props = defineProps(["title", "id"])
 
+    const paginate = usePaginate({
+        route: route('guide.products.category-data', {
+            category: props.id
+        })
+    })
 
 </script>

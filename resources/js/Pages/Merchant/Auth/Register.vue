@@ -17,7 +17,7 @@
         <p class="text-dark text-sm font-medium mt-3 text-center">
             Promosikan toko kamu kepada semua member guide
         </p>
-        <form class="mt-10 w-full flex flex-col">
+        <form class="mt-10 w-full flex flex-col" enctype="multipart/form-data" @submit.prevent="submit">
             <Input
                 label="Nama Toko"
                 type="text"
@@ -25,12 +25,14 @@
                 id="name"
                 name="name"
                 v-model="form.name"
+                :error="form.errors.name"
             />
             <DropZone
                 label="Upload Foto Toko"
                 id="dropzone_image"
                 name="image"
                 v-model="form.image"
+                :error="form.errors.image"
             />
             <Textarea
                 label="Deskripsi Toko"
@@ -40,47 +42,53 @@
                 v-model="form.description"
                 rows="5"
                 maxlength="1000"
+                :error="form.errors.description"
             />
-            <Select
-                label="Kategori Toko"
+            <Single
+                v-if="categories"
+                placeholder="Pilih Kategori"
+                label="Kategori Merchant"
+                v-bind:data="categories"
                 id="category"
-                name="category"
                 v-model="form.category"
-            >
-                <option value="shopping">Shopping</option>
-                <option value="culinary">Culinary</option>
-                <option value="leisure">Leisure</option>
-                <option value="activities">Activities</option>
-                <option value="others">Others</option>
-            </Select>
-            <Select
+                :selected="form.category"
+                :error="form.errors.category"
+            />
+            <Single
+                v-if="regions"
+                placeholder="Pilih Provinsi"
                 label="Provinsi"
+                :data="regions"
                 id="province"
-                name="province"
                 v-model="form.province"
-            >
-                <option value="jawa-tengah">Jawa Tengah</option>
-                <option value="jawa-barat">Jawa Barat</option>
-            </Select>
-            <div class="grid grid-cols-2 gap-x-4">
-                <Select
-                    label="Kabupaten/kotamadya"
-                    id="district"
-                    name="district"
-                    v-model="form.district"
-                >
-                    <option value="jawa-tengah">Badung</option>
-                    <option value="jawa-barat">Semarang</option>
-                </Select>
-                <Select
-                    label="Kecamatan"
-                    id="subdistrict"
-                    name="subdistrict"
-                    v-model="form.subdistrict"
-                >
-                    <option value="jawa-tengah">Badung</option>
-                    <option value="jawa-barat">Semarang</option>
-                </Select>
+                :selected="form.province"
+                :error="form.errors.province"
+            />
+            <div class="grid grid-cols-2 gap-x-4 mb-2">
+                <div>
+                    <Single
+                        v-if="hasCity"
+                        placeholder="Pilih Kabupaten"
+                        label="Kabupaten/kotamadya"
+                        v-bind:data="cities"
+                        id="city"
+                        v-model="form.city"
+                        :selected="form.city"
+                        :error="form.errors.city"
+                    />
+                </div>
+                <div>
+                    <Single
+                        v-if="hasSubDistrict"
+                        placeholder="Pilih Kecamatan"
+                        label="Kecamatan"
+                        v-bind:data="subdistricts"
+                        id="subdistrict"
+                        v-model="form.subdistrict"
+                        :selected="form.subdistrict"
+                        :error="form.errors.subdistrict"
+                    />
+                </div>
             </div>
             <Input
                 label="Alamat Lengkap Toko"
@@ -89,6 +97,7 @@
                 id="address"
                 name="address"
                 v-model="form.address"
+                :error="form.errors.address"
             />
             <Input
                 label="Nama PIC"
@@ -97,6 +106,7 @@
                 id="pic_name"
                 name="pic_name"
                 v-model="form.pic_name"
+                :error="form.errors.pic_name"
             />
             <div class="grid grid-cols-2 gap-x-4">
                 <div>
@@ -107,6 +117,7 @@
                         id="pic_phone"
                         name="pic_phone"
                         v-model="form.pic_phone"
+                        :error="form.errors.pic_phone"
                     />
                 </div>
                 <div>
@@ -117,6 +128,7 @@
                         id="pic_phone_wa"
                         name="pic_phone_wa"
                         v-model="form.pic_phone_wa"
+                        :error="form.errors.pic_phone_wa"
                     />
                 </div>
             </div>
@@ -137,6 +149,7 @@
                             name="start_commission_range"
                             v-model="form.start_commission_range"
                             icon="isax icon-percentage-circle"
+                            :error="form.errors.start_commission_range"
                         />
                     </div>
                     <InputNumber
@@ -147,6 +160,7 @@
                         name="start_commission_range"
                         v-model="form.end_commission_range"
                         icon="isax icon-percentage-circle"
+                        :error="form.errors.end_commission_range"
                     />
                 </div>
             </section>
@@ -157,6 +171,7 @@
                 id="weekdays"
                 icon="isax icon-add"
                 v-model="form.weekdays"
+                :error="form.errors.weekdays"
             />
             <div class="grid grid-cols-2 gap-x-4">
                 <div>
@@ -164,6 +179,7 @@
                         label="Waktu Buka Weekdays"
                         name="open_time_weekdays"
                         v-model="form.open_time_weekdays"
+                        :error="form.errors.open_time_weekdays"
                     />
                 </div>
                 <div>
@@ -171,6 +187,7 @@
                         label="Waktu Tutup Weekdays"
                         name="close_time_weekdays"
                         v-model="form.close_time_weekdays"
+                        :error="form.errors.close_time_weekdays"
                     />
                 </div>
             </div>
@@ -181,6 +198,7 @@
                 id="weekends"
                 icon="isax icon-add"
                 v-model="form.weekends"
+                :error="form.errors.weekends"
             />
             <div class="grid grid-cols-2 gap-x-4">
                 <div>
@@ -188,6 +206,7 @@
                         label="Waktu Buka Weekends"
                         name="open_time_weekends"
                         v-model="form.open_time_weekends"
+                        :error="form.errors.open_time_weekdays"
                     />
                 </div>
                 <div>
@@ -195,6 +214,7 @@
                         label="Waktu Tutup Weekends"
                         name="close_time_weekends"
                         v-model="form.close_time_weekends"
+                        :error="form.errors.close_time_weekdays"
                     />
                 </div>
             </div>
@@ -203,6 +223,7 @@
                 id="dropzone_document"
                 name="document"
                 v-model="form.document"
+                :error="form.errors.document"
             />
             <Password
                 label="Password (minimal 6 digit)"
@@ -210,6 +231,7 @@
                 id="password"
                 name="password"
                 v-model="form.password"
+                :error="form.errors.password"
             />
             <Password
                 label="Konfirmasi Password"
@@ -217,10 +239,36 @@
                 id="password_confirmation"
                 name="password_confirmation"
                 v-model="form.password_confirmation"
+                :error="form.errors.password_confirmation"
             />
             <ButtonSolidBlue
+                type="submit"
                 bg-color="blue" text-color="white" class="w-full flex-center mt-8"
-                @click="submit"
+                :disabled="
+                    !form.name ||
+                    !form.image ||
+                    !form.description ||
+                    !form.category ||
+                    !form.province ||
+                    !form.city ||
+                    !form.subdistrict ||
+                    !form.address ||
+                    !form.pic_name ||
+                    !form.pic_phone ||
+                    !form.pic_phone_wa ||
+                    !form.start_commission_range ||
+                    !form.end_commission_range ||
+                    !form.weekdays.length ||
+                    !form.open_time_weekdays ||
+                    !form.close_time_weekdays ||
+                    !form.weekends.length ||
+                    !form.open_time_weekends ||
+                    !form.close_time_weekends ||
+                    !form.password ||
+                    !form.password_confirmation ||
+                    form.processing
+                "
+                :loading="form.processing"
             >
                 Registrasi
             </ButtonSolidBlue>
@@ -251,7 +299,16 @@
     import { weekdays, weekends } from '@/plugins/etc/days'
     import TimePicker from '@/Components/Input/TimePicker.vue';
     import DropZoneFile from '@/Components/Input/DropZoneFile.vue';
+    import Single from '@/Components/Input/Select/Single.vue';
+    import { ref } from 'vue';
+    import { watch } from 'vue';
 
+    const props = defineProps(["categories", "regions"])
+
+    const hasCity = ref(true)
+    const hasSubDistrict = ref(true)
+    const cities = ref([])
+    const subdistricts = ref([])
 
     const form = useForm({
         name: '',
@@ -259,7 +316,7 @@
         description: '',
         category: '',
         province: '',
-        district: '',
+        city: '',
         subdistrict: '',
         address: '',
         pic_name: '',
@@ -283,6 +340,72 @@
     }
 
     const submit = () => {
-        clickId('open-popup')
+        if (!form.processing) {
+            form.post(route('merchant.register.store'), {
+                onSuccess: () => {
+                    clickId("open-popup")
+                },
+                onError: (res: any) => {
+                }
+            })
+        }
+    }
+
+    watch(
+    () => form.province,
+    (oldValue, newValue) => {
+        setCities()
+    });
+
+    const setCities = () => {
+        hasCity.value = false
+        props.regions.filter((row: any) => {
+            let city = form.city
+            form.city = ''
+            if (row.id == form.province) {
+                cities.value = row.cities
+                cities.value.map((subrow: any) => {
+                    if (subrow.id == city) {
+                        form.city = city
+                    }
+                })
+
+                setTimeout(() => {
+                    hasCity.value = true
+                }, 100)
+            }
+        })
+    }
+
+    watch(
+    () => form.city,
+    (oldValue, newValue) => {
+        setSubCities()
+    });
+
+    const setSubCities = () => {
+        hasSubDistrict.value = false
+        subdistricts.value = []
+        props.regions.filter((row: any) => {
+            if (row.id == form.province) {
+                cities.value.map((subrow: any) => {
+                    let subdistrict = form.subdistrict
+                    form.subdistrict = ''
+                    if (subrow.id == form.city) {
+                        subdistricts.value = subrow.subdistricts
+                        subdistricts.value.map((subcity: any) => {
+                            if (subcity.id == subdistrict) {
+                                form.subdistrict = subdistrict
+                            }
+                        })
+
+                    }
+                    setTimeout(() => {
+                        hasSubDistrict.value = true
+                    }, 100)
+
+                })
+            }
+        })
     }
 </script>

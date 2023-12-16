@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Utils;
 
+use App\Models\User\Merchant;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Models\Utils\Complaint;
@@ -38,7 +39,11 @@ class ComplaintService extends AdminService
 
     public function complain(Request $request, $userId, $role)
     {
-        $user = User::whereUuid($userId)->first();
+        if ($role == 'users') {
+            $user = User::whereUuid($userId)->first();
+        } else {
+            $user = Merchant::whereUuid($userId)->first();
+        }
 
         $this->model::create([
             "user_id" => $user->id,

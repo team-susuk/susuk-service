@@ -3,20 +3,21 @@
     <AuthLayout>
         <HeaderBlue title="My Merchant" />
 
-        <img src="https://images.unsplash.com/photo-1682695798256-28a674122872?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+        <img
+            :src="merchant.profile_url" 
             class="w-full h-64 object-cover rounded-lg aspect-video"
         >
         <div class="flex items-center justify-between">
             <h1 class="font-bold text-2xl mt-4">
-                Toko Krisna Bali
+                {{ merchant.name }}
             </h1>
             <span class="text-xs text-neutral-dark-gray font-medium flex-center gap-1">
-                <i class="isax icon-eye text-base"></i> 240 viewers
+                <i class="isax icon-eye text-base"></i> {{ merchant.viewer }} viewers
             </span>
         </div>
         <div class="flex justify-between mt-4">
             <p class="max-w-[75%] text-neutral-gray-2 text-sm">
-                Jl. Kutai no 20, Kel. Manguharjo, Kec. Bebekan Timur, Bali
+                {{ merchant.full_address }}
             </p>
             <div>
                 <Maps />
@@ -28,7 +29,7 @@
                     <Pic />
                 </div>
                 <span class="font-medium text-sm">
-                    Brooklyn Simmons
+                    {{ merchant.pic_name }}
                 </span>
             </div>
             <div class="flex-center gap-2">
@@ -36,16 +37,16 @@
                     <Whatsapp />
                 </div>
                 <span class="font-medium text-sm">
-                    0816 4035 5618
+                    {{ merchant.whatsapp_number }}
                 </span>
             </div>
         </div>
         <div class="flex items-center gap-3">
             <span class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4 border border-neutral-gray-3 bg-[#E4EBF4] text-neutral-dark-gray">
-                Shopping
+                {{ $page.props.auth.merchant.category }}
             </span>
             <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4 !cursor-default">
-                Komisi: 15%
+                Komisi: {{ merchant.full_commission }}
             </OutlineOrange>
 
             <Link href="" class="bg-[#CBE4FF] rounded-md px-4 py-2 text-sm font-semibold text-blue flex-center gap-1 ms-auto">
@@ -56,12 +57,12 @@
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>
         <div class="mb-3">
             <p class="text-xs text-neutral-dark-gray">Jam & hari operasional</p>
-            <span class="text-sm me-4"><span class="font-medium">Weekdays:</span> 08:00 - 21:00</span>
-            <span class="text-sm me-4"><span class="font-medium">Weekend:</span> 08:00 - 21:00</span>
+            <span class="text-sm me-4"><span class="font-medium">Weekdays:</span> {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</span>
+            <span class="text-sm me-4"><span class="font-medium">Weekend:</span> {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</span>
         </div>
         <div class="mb-6">
             <p class="text-xs text-neutral-dark-gray">Deskripsi Toko</p>
-            <span class="text-sm me-4 font-medium">Toko oleh-oleh baju khas bali berbagai produk fashion mulai dari tas, baju, sepatu dll yang di buat oleh pengrajin warga sekitar</span>
+            <span class="text-sm me-4 font-medium">{{ merchant.description }}</span>
         </div>
         <div class="p-4 rounded-md bg-[#F2F7FC]">
             <p class="text-sm font-semibold text-neutral-dark-gray">Fitur Promosi</p>
@@ -95,19 +96,19 @@
                     Tambah Produk
                 </OutlineBlue>
             </div>
-            <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2">
+            <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2" v-if="products?.length >= 9 && !$page.props.auth.merchant.is_member">
                 <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Maximal 9 item produk, untuk lebih dari 9 silahkan membeli paket “Tambah Produk”</span>
             </div>
             <div class="grid grid-cols-3 gap-4">
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
-                <CardProduct :href="''" />
+                <CardProduct
+                    v-for="product in products"
+                    :data="product"
+                />
+            </div>
+            <div class="flex-center my-4">
+                <EmptyState
+                    v-if="!products.length"
+                />
             </div>
         </section>
     </AuthLayout>
@@ -129,6 +130,9 @@
     import { shallowRef, ref } from 'vue'
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import CardProduct from '@/Components/Card/CardProduct.vue'
+    import EmptyState from '@/Components/Icon/Image/EmptyState.vue';
+
+    defineProps(["products", "merchant"])
 
     const promotions = ref([
         {

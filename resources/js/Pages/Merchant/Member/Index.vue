@@ -69,7 +69,7 @@
             </table>
         </div>
 
-        <Pagination />
+        <!-- <Pagination /> -->
     </AuthLayout>
 
     <section x-data="{popup: false}">
