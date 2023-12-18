@@ -23,10 +23,14 @@ export interface Merchant {
     profile: string;
     siup_document: string;
     description: string;
-    category: string;
-    province: string;
-    city: string;
-    subdistrict: string;
+    category?: string;
+    province?: string;
+    city?: string;
+    subdistrict?: string;
+    category_id?: string;
+    province_id?: string;
+    city_id?: string;
+    subdistrict_id?: string;
     address: string;
     full_address: string;
     pic_name: string;
@@ -34,9 +38,9 @@ export interface Merchant {
     commission: any;
     full_commission: string;
     weekdays: any;
-    weekday_time: string;
+    weekday_time: any;
     weekends: any;
-    weekend_time: string;
+    weekend_time: any;
     status: string;
     code: string;
     qrcode_id: string;
@@ -53,6 +57,14 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         error?: string;
         success?: string;
         popup_success?: string;
+        popup_success_subtitle?: string
     },
-    logo_bca: string
+    logo_bca: string,
+    asset: string,
+    bank: {
+        rekening_number?: string;
+        rekening_bank?: string;
+        rekening_name?: string;
+        whatsapp?: string;
+    }
 };

@@ -7,7 +7,7 @@
         {{ label }}
         <span class="text-red" v-if="$attrs.required">*</span>
     </label>
-    <div class="relative mb-2" x-data="{input: ''}">
+    <div class="relative mb-2" x-data="{input: $el.getAttribute('data-value')}" :data-value="$attrs.value || ''">
         <i
             v-bind:class="icon"
             class="absolute top-[13px] left-4 text-[16px]"
@@ -24,9 +24,7 @@
                 )
             "
             class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
-            :value="value ?? modelValue"
         >
-            <slot/>
         </textarea>
         <div class="mb-4" v-if="$attrs.maxlength">
             <p class="text-[11px] text-dark">
@@ -37,6 +35,6 @@
 </template>
 <script lang="ts">
 export default {
-    props: ["label", "icon", "help", "id", "value", "modelValue"],
+    props: ["label", "icon", "help", "id"]
 };
 </script>

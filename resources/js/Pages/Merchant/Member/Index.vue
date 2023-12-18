@@ -5,7 +5,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
             <div
-                v-for="user in users"
+                v-for="user in usersType"
                 :key="user.name"
                 class="shadow-card rounded-lg bg-white p-3 flex gap-3"
             >
@@ -16,11 +16,11 @@
                     <p class="text-lg md:text-xl font-semibold">
                         {{
                             user.name == 'Guide' ?
-                            guideTotal
+                            users.guide
                             : (
                                 user.name == 'Driver' ?
-                                driverTotal :
-                                freelanceTotal
+                                users.driver :
+                                users.freelance
                             )
                         }}
                     </p>
@@ -58,72 +58,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="i in 10">
-                        <Td>Jane Cooper</Td>
-                        <Td>Guide</Td>
-                        <Td>Semarang</Td>
-                        <Td>Banyumanik</Td>
-                        <Td>Korea, Inggris, Indonesia</Td>
+                    <tr v-if="!paginate?.loading.value" v-for="row in paginate.data.value">
+                        <Td>{{ row.nick_name }}</Td>
+                        <Td>{{ row.profession }}</Td>
+                        <Td>{{ row.province }}</Td>
+                        <Td>{{ row.city }}</Td>
+                        <Td>{{ row.languages }}</Td>
+                    </tr>
+                    <tr v-if="paginate?.loading.value">
+                        <Td>
+                            <div class="h-5 w-full animate-pulse bg-gray-200 rounded-2xl"></div>
+                        </Td>
+                        <Td>
+                            <div class="h-5 w-full animate-pulse bg-gray-200 rounded-2xl"></div>
+                        </Td>
+                        <Td>
+                            <div class="h-5 w-full animate-pulse bg-gray-200 rounded-2xl"></div>
+                        </Td>
+                        <Td>
+                            <div class="h-5 w-full animate-pulse bg-gray-200 rounded-2xl"></div>
+                        </Td>
+                        <Td>
+                            <div class="h-5 w-full animate-pulse bg-gray-200 rounded-2xl"></div>
+                        </Td>
+                    </tr>
+                    <tr
+                        v-if="
+                            !paginate?.loading.value &&
+                            !paginate?.data?.value?.length &&
+                            paginate
+                        "
+                        >
+                        
+                        <Td colspan="5" class="text-center py-5">
+                            <EmptyState class="mx-auto" />
+                        </Td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- <Pagination /> -->
+        <Pagination
+            v-if="
+                paginate?.data?.value?.length &&
+                paginate
+            "
+            :information="paginate.information.value"
+            @next="paginate.next()"
+            @prev="paginate.prev()"
+            @goToPage="paginate.goToPage"
+        />
     </AuthLayout>
-
-    <section x-data="{popup: false}">
-        <a x-on:click="popup=true" id="popup-filter"></a>
-        <Popup title="Filter Merchant">
-            <div class="grid grid-cols-2 gap-x-3">
-                <Select
-                    label="Provinsi"
-                    id="province"
-                    name="province"
-                    v-model="form.province"
-                >
-                    <option value="jawa-tengah">Jawa Tengah</option>
-                    <option value="jawa-barat">Jawa Barat</option>
-                </Select>
-                <Select
-                    label="Kabupaten/kotamadya"
-                    id="city"
-                    name="city"
-                    v-model="form.city"
-                >
-                    <option value="jawa-tengah">Badung</option>
-                    <option value="jawa-barat">Semarang</option>
-                </Select>
-                <div class="col-span-2">
-                    <Select
-                        label="Profesi"
-                        id="profession"
-                        name="profession"
-                        v-model="form.profession"
-                    >
-                        <option value="guide">Guide</option>
-                        <option value="driver">Driver</option>
-                        <option value="freelance">Freelance</option>
-                    </Select>
-                </div>
-                <div class="col-span-2 mb-3">
-                    <MultipleLanguage
-                        label="Bahasa "
-                        :category="languages"
-                        id="languages"
-                        :popup="true"
-                        v-model="form.languages"
-                    />
-                </div>
-                <OutlineBlue class="justify-center" x-on:click="popup=false">
-                    Kembali
-                </OutlineBlue>
-                <SolidBlue class="justify-center font-semibold" x-on:click="popup=false">
-                    Terapkan
-                </SolidBlue>
-            </div>
-        </Popup>
-    </section>
+    <FilterMember
+        :languages="languages"
+        :regions="regions"
+    />
 </template>
 
 <script setup lang="ts">
@@ -136,29 +125,16 @@
     import ImageDriver from '@/Components/Icon/Image/Driver.vue'
     import ImageFreelance from '@/Components/Icon/Image/Freelance.vue'
     import { ref, shallowRef } from 'vue';
-    import MultipleLanguage from '@/Components/Input/Select/MultipleLanguage.vue'
-    import Select from '@/Components/Input/Select/Index.vue'
     import { clickId } from '@/plugins/functions/global'
-    import Popup from '@/Components/Popup/Popup.vue'
-    import SolidBlue from '@/Components/Button/SolidBlue.vue';
-    import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import Th from '@/Components/Table/Th.vue';
     import Td from '@/Components/Table/Td.vue';
+    import FilterMember from './FilterMember.vue';
+    import { usePaginate } from '@/hooks/pagination';
+    import EmptyState from '@/Components/Icon/Image/EmptyState.vue';
 
-    const props = defineProps(["languages"])
+    const props = defineProps(["languages", "regions", "users"])
 
-    const guideTotal = ref(120)
-    const driverTotal = ref(100)
-    const freelanceTotal = ref(20)
-
-    const form = useForm({
-        province: '',
-        city: '',
-        profession: 'guide',
-        languages: []
-    })
-
-    const users = ref([
+    const usersType = ref([
         {
             icon: shallowRef(ImageGuide),
             name: "Guide"
@@ -172,5 +148,9 @@
             name: "Freelance"
         }
     ])
+
+    const paginate = usePaginate({
+        route: route('merchant.member.index-data')
+    })
 
 </script>

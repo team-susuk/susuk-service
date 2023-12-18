@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\Master\Language;
 use App\Models\Master\Profession;
 use App\Http\Controllers\Controller;
+use App\Services\Master\LanguageService;
+use App\Services\Regions\ProvinceService;
 use App\Actions\Guide\Auth\RegisterAction;
 use App\Http\Requests\Guide\Auth\RegisterRequest;
-use App\Services\Master\LanguageService;
 
 class RegisterController extends Controller
 {
     public function __construct(
-        private LanguageService $languageService
+        private LanguageService $languageService,
+        private ProvinceService $provinceService,
     ) {
     }
 
@@ -22,7 +24,8 @@ class RegisterController extends Controller
     {
         return Inertia::render('Guide/Auth/Register', [
             "languages" => $this->languageService->getLangs(),
-            "professions" => Profession::get()
+            "professions" => Profession::get(),
+            'regions' => $this->provinceService->getProvinces()
         ]);
     }
 

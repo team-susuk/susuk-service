@@ -139,11 +139,20 @@ onMounted(() => {
         const itemSelected: any = [];
         const selectedId = JSON.parse(JSON.stringify(props.selected))
         props.options.forEach((row: any) => {
-            if (selectedId.includes(row.id)) {
-                itemSelected.push({
-                    id: row.id,
-                    name: row.name,
-                });
+            if (!row.id) {
+                if (selectedId.includes(row)) {
+                    itemSelected.push({
+                        id: row,
+                        name: row,
+                    });
+                }
+            } else {
+                if (selectedId.includes(row.id)) {
+                    itemSelected.push({
+                        id: row.id,
+                        name: row.name,
+                    });
+                }
             }
         });
         selected.value = itemSelected

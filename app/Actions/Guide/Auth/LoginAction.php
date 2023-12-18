@@ -18,7 +18,8 @@ class LoginAction {
      */
     public function handle(Request $request)
     {
-        $user = User::wherePhoneNumber($request->phone_number)->first();
+        $number = preg_replace('/\D/', '', $request->phone_number);
+        $user = User::wherePhoneNumber($number)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
             $isMember = $user->is_member;

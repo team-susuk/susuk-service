@@ -105,6 +105,7 @@
         <section x-data="{popup: false}">
             <a x-on:click="popup=!popup" id="confirm-logout"></a>
             <Popup :close="true">
+                <LogoutAlert class="mx-auto mb-3" />
                 <h2 class="text-center mb-2 font-semibold text-base">
                     Apakah anda yakin ingin keluar?
                 </h2>
@@ -144,6 +145,7 @@
     import Logout from '@/Components/Icon/Etc/Logout.vue';
     import axios from 'axios';
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
+    import LogoutAlert from '@/Components/Icon/Image/Logout.vue';
 
     const form = useForm({
         title: '',
@@ -182,7 +184,7 @@
     }
 
     const logout = () => {
-        axios.post(route('merchant.logout')).finally(() => router.visit(route('merchant.login')))
+        router.post(route('merchant.logout'))
     }
 
 </script>

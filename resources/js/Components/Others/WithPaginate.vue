@@ -20,6 +20,10 @@
     </div>
 
     <Pagination
+        v-if="
+            paginate?.data?.value?.length &&
+            paginate
+        "
         :information="paginate.information.value"
         @next="paginate.next()"
         @prev="paginate.prev()"

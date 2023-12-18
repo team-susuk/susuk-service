@@ -42,7 +42,7 @@ class MerchantController extends Controller
     public function detail($id)
     {
         return Inertia::render('Guide/Merchant/Detail', [
-            'data' => $this->merchantService->findByUUid($id)
+            'data' => $this->merchantService->findAndCountByUUid($id)
         ]);
     }
 

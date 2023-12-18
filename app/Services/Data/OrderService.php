@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Enums\OrderType;
 use App\Models\Data\Order;
 use Illuminate\Http\Request;
+use App\Models\User\Merchant;
 
 class OrderService {
     public function __construct(
@@ -40,5 +41,14 @@ class OrderService {
         return $this->model::
             where("type", OrderType::Ads_Banner)
             ->whereDate("expired_at", "<=", Carbon::now()->endOfDay())->inRandomOrder()->get();
+    }
+
+    public function getMerchantHistories($merchantUuid)
+    {
+        $merchant = Merchant::findByUuid($merchantUuid);
+
+        return $this->model::where("user_id", $merchant->id)
+        ->orderByDesc("created_at")
+        ->paginate();
     }
 }

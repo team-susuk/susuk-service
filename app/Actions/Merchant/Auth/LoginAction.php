@@ -18,7 +18,8 @@ class LoginAction {
      */
     public function handle(Request $request)
     {
-        $user = Merchant::whereWhatsappNumber($request->phone_number)->first();
+        $number = preg_replace('/\D/', '', $request->phone_number);
+        $user = Merchant::whereWhatsappNumber($number)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
             $isMember = $user->is_member;
@@ -37,6 +38,10 @@ class LoginAction {
                 'province' => $user->province?->name,
                 'city' => $user->city?->name,
                 'subdistrict' => $user->subdistrict?->name,
+                'category_id' => $user->category?->id,
+                'province_id' => $user->province?->id,
+                'city_id' => $user->city?->id,
+                'subdistrict_id' => $user->subdistrict?->id,
                 'address' => $user->address,
                 'full_address' => $user->full_address,
                 'pic_name' => $user->pic_name,

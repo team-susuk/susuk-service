@@ -2,6 +2,7 @@
 
 namespace App\Models\Data;
 
+use App\Enums\OrderStatus;
 use App\Helpers\Susuk;
 use App\Enums\OrderType;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,9 @@ class Order extends Model
     use HasFactory, HasUuid,HasDatatable;
 
     protected $casts = [
-        'type' => OrderType::class
+        'type' => OrderType::class,
+        'status' => OrderStatus::class,
+        'data' => 'array'
     ];
 
     protected $guarded = [];

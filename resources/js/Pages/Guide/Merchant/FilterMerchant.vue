@@ -144,7 +144,6 @@
     onBeforeMount(() => {
         let query = getAllQueryParameter()
 
-        console.log(JSON.stringify(query, null, 4))
         form.city = query["filter[city]"] || ''
         form.sort = query["filter[sort]"] || ''
         form.province = query["filter[province]"] || ''

@@ -18,6 +18,7 @@
         </div>
         <PopupSuccess
             v-bind:title="popupSuccessTitle"
+            v-bind:subtitle="popupSuccessSubTitle"
         />
 
         <a x-on:click="popup=true" id="show-alert-popup" class="hidden"></a>
@@ -38,13 +39,14 @@
     
     const page = usePage()
     const popupSuccessTitle = ref("")
+    const popupSuccessSubTitle = ref("")
 
     watch(
         () => page.props.flash,
         (newValue, oldValue) => {
             if (newValue?.popup_success) {
                 popupSuccessTitle.value = newValue.popup_success
-                console.log(newValue.popup_success)
+                popupSuccessSubTitle.value = newValue?.popup_success_subtitle || ''
                 clickId("show-alert-popup")
             }
             if (newValue?.success) {

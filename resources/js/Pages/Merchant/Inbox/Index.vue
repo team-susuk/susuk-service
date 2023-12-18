@@ -20,7 +20,6 @@
     import AuthLayout from '@/Layouts/Merchant/AuthLayout.vue'
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import CardInboxAdmin from '@/Components/Card/CardInboxAdmin.vue';
-    import Pagination from '@/Components/Others/Pagination.vue';
     import WithPaginate from '@/Components/Others/WithPaginate.vue';
     import CardNotificationLoading from '@/Components/Card/CardNotificationLoading.vue';
     import { shallowReactive } from 'vue';

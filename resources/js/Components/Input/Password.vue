@@ -22,6 +22,7 @@
             v-bind:class="icon ? 'ps-12' : ''"
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
             class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
+            autocomplete="off"
         />
         <i
             class="isax absolute cursor-pointer top-[14px] right-4 text-[14px]"

@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
 use Illuminate\Support\Str;
+use App\Models\Regions\City;
+use App\Models\Regions\Province;
 use App\Models\Master\Profession;
+use App\Models\Regions\SubDistrict;
 use Illuminate\Database\Eloquent\Model;
 use Laililmahfud\Adminportal\Traits\HasUuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,5 +66,20 @@ class User extends Model
     public function scopeFindByUuid($query, $id)
     {
         return $query->where("uuid", $id)->firstOrFail();
+    }
+
+    public function subdistrict()
+    {
+        return $this->belongsTo(SubDistrict::class, 'subdistrict_id', 'id');
+    }
+    
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 }

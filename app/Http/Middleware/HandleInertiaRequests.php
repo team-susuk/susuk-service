@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
+use App\Helpers\Susuk;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use Illuminate\Http\Request;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -42,6 +43,8 @@ class HandleInertiaRequests extends Middleware
             $flashProperties['success'] = $successFlash;
         if ($popupSuccessFlash = $request->session()->get('popup_success'))
             $flashProperties['popup_success'] = $popupSuccessFlash;
+        if ($popupSuccessSubTitleFlash = $request->session()->get('popup_success_subtitle'))
+            $flashProperties['popup_success_subtitle'] = $popupSuccessSubTitleFlash;
         if ($passId = $request->session()->get('passId'))
             $flashProperties['passId'] = $passId;
 
@@ -65,7 +68,9 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'logo_bca' => asset('img/bca.png')
+            'logo_bca' => asset('img/bca.png'),
+            'asset' => asset('/'),
+            'bank' => Susuk::getBankInformation()
         ];
     }
 }

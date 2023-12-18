@@ -23,7 +23,8 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->flush();
+        // $request->session()->flush();
+        $request->session()->forget(config("services.session-guide-prefix"));
 
         return to_route('guide.login');
     }

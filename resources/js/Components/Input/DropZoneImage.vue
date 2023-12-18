@@ -20,8 +20,8 @@
             <img
                 :src="fileUrl()"
                 alt=""
-                class="h-[150px] object-cover absolute inset-0 opacity-30 m-auto"
-                v-if="dropzoneFile"
+                class="w-full object-cover absolute inset-0 opacity-50 m-auto"
+                v-if="dropzoneFile || defaultImage"
             />
             <div class="flex-center flex-col z-[2] relative w-full h-full">
                 <div
@@ -58,7 +58,8 @@
         name?: string;
         error?: any;
         help?: any;
-        modelValue: any
+        modelValue: any,
+        defaultImage?: string
     }>()
 
     const dropzoneFile = ref<File | undefined>(undefined);
@@ -132,11 +133,14 @@
     const fileUrl = () => {
         if (dropzoneFile.value) {
             return URL.createObjectURL(dropzoneFile.value);
+        } else {
+            if (props.defaultImage) return props.defaultImage
         }
         return ''
     };
 
     watch(dropzoneFile, validateImage);
+    
 
     validateImage();
 

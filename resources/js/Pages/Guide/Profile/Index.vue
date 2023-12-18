@@ -115,6 +115,7 @@
         <section x-data="{popup: false}">
             <a x-on:click="popup=!popup" id="confirm-logout"></a>
             <Popup :close="true">
+                <LogoutAlert class="mx-auto mb-3" />
                 <h2 class="text-center mb-2 font-semibold text-base">
                     Apakah anda yakin ingin keluar?
                 </h2>
@@ -152,7 +153,7 @@
     import ChangePassword from '@/Components/Icon/Image/ChangePassword.vue'
     import Logout from '@/Components/Icon/Etc/Logout.vue';
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
-    import axios from 'axios';
+    import LogoutAlert from '@/Components/Icon/Image/Logout.vue';
 
 
     const user = usePage().props.auth.guide
@@ -195,7 +196,7 @@
     }
 
     const logout = () => {
-        axios.post(route('guide.logout')).finally(() => router.visit(route('guide.login')))
+        router.post(route('guide.logout'))
     }
 
 </script>

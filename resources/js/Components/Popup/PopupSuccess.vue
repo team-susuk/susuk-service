@@ -1,6 +1,6 @@
 <template>
     <Popup :close="close">
-        <icSuccess class="mx-auto mb-3" />
+        <img :src="$page.props.asset+'img/ill-success.svg'" class="mx-auto mb-3" />
         <h2 class="text-center mb-2 font-semibold text-base">
             {{ title }}
         </h2>
@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
     import Popup from '@/Components/Popup/Popup.vue';
-    import icSuccess from '@/Components/Icon/Image/Success.vue'
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
 
     const emit = defineEmits(["action"]);

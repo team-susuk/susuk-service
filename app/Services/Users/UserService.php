@@ -4,7 +4,9 @@ namespace App\Services\Users;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
 use App\Models\User\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Master\Profession;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
@@ -101,6 +103,53 @@ class UserService extends AdminService
         $guide->languages = $request->languages;
 
         session()->put(config('services.session-guide-prefix'), (object) $guide);
+    }
+
+    public function getCountUsers()
+    {
+        $guideType = $this->getProfession('Guide');
+        $guide = $this->model::where('profession_id', $guideType->id)->count();
+
+        $driverType = $this->getProfession('Driver');
+        $driver = $this->model::where('profession_id', $driverType->id)->count();
+
+        $freelanceType = $this->getProfession('Freelance');
+        $freelance = $this->model::where('profession_id', $freelanceType->id)->count();
+
+        return (object)[
+            'guide' => $guide,
+            'driver' => $driver,
+            'freelance' => $freelance,
+        ];
+    }
+
+    public function getProfession($name)
+    {
+        return Profession::where("name", $name)->first();
+    }
+
+    public function getListMembers($filter = [])
+    {
+        $languages = @$filter['languages'];
+        $province = @$filter['province'];
+        $city = @$filter['city'];
+        $profession = @$filter['profession'];
+        if ($profession) {
+            $profession = $this->getProfession(Str::ucfirst($profession))?->id;
+        }
+
+        return $this->model::
+            when($province, fn($q) => $q->where("province_id", $province))
+            ->when($city, fn($q) => $q->where("city_id", $city))
+            ->where(function ($q) use ($languages) {
+                if ($languages) {
+                    foreach ($languages as $value) {
+                        $q->orWhere("languages", "LIKE", "%{$value}%");
+                    }
+                }
+            })
+            ->when($profession, fn($q) => $q->where("profession_id", $profession))
+            ->orderBy("created_at", "desc")->paginate();
     }
 
 }

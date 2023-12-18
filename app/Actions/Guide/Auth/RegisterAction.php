@@ -20,8 +20,11 @@ class RegisterAction {
                 "name" => $request->idcard_name,
                 "nick_name" => $request->name,
                 "birthday" => $request->date_of_birth,
-                "phone_number" => $request->phone_number,
+                "phone_number" => Susuk::formatIndonesianPhoneNumber($request->phone_number),
                 "profile" => Susuk::uploadFile($request->file("image"), "guide/image"),
+                "province_id" => $request->province,
+                "city_id" => $request->city,
+                "subdistrict_id" => $request->subdistrict,
                 "profession_id" => $request->profession,
                 "languages" => $request->languages,
                 "password" => Hash::make($request->password)

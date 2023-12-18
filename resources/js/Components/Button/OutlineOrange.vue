@@ -18,7 +18,7 @@ export default {
     },
     props: ['href', 'icon', 'type'],
     setup(props, components) {
-        const classElement = `text-medium border border-orange-thin bg-orange-thin px-4 text-orange py-3 rounded-lg text-sm flex items-center gap-1 h-fit text-center disabled:bg-[#ddd] disabled:text-[#AFAFAF] disabled:cursor-not-allowed`;
+        const classElement = `text-medium border border-orange bg-orange-thin px-4 text-orange py-3 rounded-lg text-sm flex items-center gap-1 h-fit text-center disabled:bg-[#ddd] disabled:text-[#AFAFAF] disabled:cursor-not-allowed`;
 
         return {
             classElement
