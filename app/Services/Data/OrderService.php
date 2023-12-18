@@ -4,7 +4,9 @@ namespace App\Services\Data;
 
 use Carbon\Carbon;
 use App\Enums\OrderType;
+use App\Enums\OrderStatus;
 use App\Models\Data\Order;
+use App\Models\Data\Product;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 
@@ -50,5 +52,22 @@ class OrderService {
         return $this->model::where("user_id", $merchant->id)
         ->orderByDesc("created_at")
         ->paginate();
+    }
+
+    public function getMaximumProducts($merchantUuid)
+    {
+        $merchant = Merchant::findByUuid($merchantUuid);
+        return 9 + $this->model::where("user_id", $merchant->id)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
+    }
+
+    public function checkMaximumProducts($merchantUuid)
+    {
+        $getMaximumProducts = $this->getMaximumProducts($merchantUuid);
+        $product = Product::where("merchant_id", $merchantUuid)->count();
+        if ($product >= $getMaximumProducts) {
+            return false;
+        }
+
+        return true;
     }
 }

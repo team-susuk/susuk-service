@@ -10,6 +10,7 @@ use App\Services\Utils\PriceConfigService;
 use App\Http\Requests\Merchant\ProductRequest;
 use App\Actions\Merchant\Product\ProductAction;
 use App\Models\Data\Product;
+use App\Services\Data\OrderService;
 use App\Services\Master\LanguageService;
 
 class ProductController extends Controller
@@ -17,7 +18,8 @@ class ProductController extends Controller
     public function __construct(
         private PriceConfigService $priceConfigService,
         private ProvinceService $provinceService,
-        private LanguageService $languageService
+        private LanguageService $languageService,
+        private OrderService $orderService
     ){}
 
 
@@ -28,6 +30,12 @@ class ProductController extends Controller
 
     public function store(ProductRequest $productRequest, ProductAction $productAction)
     {
+        if (!$this->orderService->checkMaximumProducts(merchant()->uuid)) {
+            return to_route('merchant.products.add')->with([
+                'error' => 'Produk Gagal Ditambahkan, Silahkan Beli Paket Tambah Produk'
+            ]);
+        }
+
         $verificationToken = $productAction->handle($productRequest);
         return to_route('merchant.home')->with([
             'popup_success' => 'Produk Berhasil Ditambahkan'

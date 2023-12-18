@@ -10,6 +10,7 @@ use App\Services\Data\ProductService;
 use App\Services\Master\CategoryService;
 use App\Actions\Merchant\Profile\EditAction;
 use App\Http\Requests\Merchant\Profile\ProfileRequest;
+use App\Services\Data\OrderService;
 use App\Services\Master\LanguageService;
 use App\Services\Regions\ProvinceService;
 use App\Services\Utils\PriceConfigService;
@@ -21,7 +22,8 @@ class HomeController extends Controller
         private CategoryService $categoryService,
         private PriceConfigService $priceConfigService,
         private ProvinceService $provinceService,
-        private LanguageService $languageService
+        private LanguageService $languageService,
+        private OrderService $orderService,
     ){}
 
     public function index()
@@ -32,6 +34,7 @@ class HomeController extends Controller
             'packages' => $this->priceConfigService->getPackageMerchant(),
             'regions' => $this->provinceService->getProvinces(),
             "languages" => $this->languageService->getLangs(),
+            'max_products' => $this->orderService->getMaximumProducts(merchant()->uuid)
         ]);
     }
 

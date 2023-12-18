@@ -98,13 +98,15 @@
                 >List Produk</h2>
 
                 <OutlineBlue
-                    :href="route('merchant.products.add')"
+                    @click="addProduct"
                     class="!h-[38px] flex-center"
                 >
                     Tambah Produk
                 </OutlineBlue>
             </div>
-            <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2" v-if="products?.length >= 9 && !$page.props.auth.merchant.is_member">
+            <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2"
+                v-if="checkMaxProduct()"
+            >
                 <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Maximal 9 item produk, untuk lebih dari 9 silahkan membeli paket “Tambah Produk”</span>
             </div>
             <div class="grid grid-cols-3 gap-4">
@@ -273,7 +275,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Merchant/AuthLayout.vue';
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue';
     import Pic from '@/Components/Icon/Etc/Pic.vue';
@@ -298,7 +300,7 @@
     import Select from '@/Components/Input/Select/Index.vue'
     import LoadingButton from '@/Components/Icon/Etc/LoadingButton.vue';
 
-    const props = defineProps(["products", "merchant", "packages", "regions", "languages"])
+    const props = defineProps(["products", "merchant", "packages", "regions", "languages", "max_products"])
 
     const formOrder = useForm({
         type: '',
@@ -315,6 +317,10 @@
     const hasPackageImage = ref(true)
     const hasCity = ref(true)
     const cities = ref([])
+
+    const checkMaxProduct = () => {
+        return props.products?.length >= props.max_products
+    }
 
     const selectPromotion = (promotion: any) => {
         selectedPackages.value = promotion.packages
@@ -383,5 +389,11 @@
             clickId('show-select-blast')
         }
         clickId('show-select-package')
+    }
+
+    const addProduct = () => {
+        if (!checkMaxProduct()) {
+            router.visit(route('merchant.products.add'))
+        }
     }
 </script>
