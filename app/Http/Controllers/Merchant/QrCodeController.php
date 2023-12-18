@@ -30,4 +30,21 @@ class QrCodeController extends Controller
             $this->reservationService->getHistories("merchant", merchant()->uuid)
         );
     }
+
+    public function checkQr($checkQrCode)
+    {
+        try {
+            $reservation = $this->reservationService->checkQrCode($checkQrCode);
+            return redirect()->back()->with(['pass_data' => $reservation]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(["error" => $th->getMessage()]);
+        }
+    }
+
+    public function reservation(Request $request, $id)
+    {
+        $this->reservationService->updateReservation($request, $id);
+
+        return redirect()->back()->with(["popup_success" => "Data Kedatangan Berhasil Disimpan"]);
+    }
 }

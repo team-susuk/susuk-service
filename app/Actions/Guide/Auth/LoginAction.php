@@ -4,6 +4,7 @@ namespace App\Actions\Guide\Auth;
 
 use Carbon\Carbon;
 use App\Helpers\Susuk;
+use App\Enums\UserStatus;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,22 @@ class LoginAction {
         $user = User::wherePhoneNumber($number)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
+            if ($user->status == UserStatus::Waiting_Approval) {
+                throw ValidationException::withMessages([
+                    'phone_number' => "Akun anda masih menunggu persetujuan dari admin"
+                ]);
+            }
+            if ($user->status == UserStatus::Rejected) {
+                throw ValidationException::withMessages([
+                    'phone_number' => "Akun anda ditolak, silahkan hubungi admin"
+                ]);
+            }
+            if ($user->status == UserStatus::Non_Active) {
+                throw ValidationException::withMessages([
+                    'phone_number' => "Akun anda non aktif, silahkan hubungi admin"
+                ]);
+            }
+
             $isMember = $user->is_member;
             if (Carbon::now() > $user->expired_member_at) $isMember = 0;
 

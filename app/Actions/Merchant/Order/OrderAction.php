@@ -54,6 +54,9 @@ class OrderAction {
                 case 'add-product':
                     $type = OrderType::Add_Product;
                     break;
+                case 'merchant_show_guide':
+                    $type = OrderType::Merchant_Show_Guide;
+                    break;
             }
 
             $data = [

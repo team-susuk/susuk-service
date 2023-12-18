@@ -71,6 +71,9 @@ Route::prefix("merchant")
                 Route::get('/histories', 'histories')->name("histories");
 
                 Route::get('/histories-data', 'historiesData')->name("histories-data");
+
+                Route::get('/check-qr/{token}', 'checkQr')->name("check-qr");
+                Route::post('/reservation/{id}', 'reservation')->name("reservation");
             });
 
             Route::controller(FeedbackController::class)

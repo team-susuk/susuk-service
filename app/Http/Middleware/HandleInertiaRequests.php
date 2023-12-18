@@ -47,6 +47,8 @@ class HandleInertiaRequests extends Middleware
             $flashProperties['popup_success_subtitle'] = $popupSuccessSubTitleFlash;
         if ($passId = $request->session()->get('passId'))
             $flashProperties['passId'] = $passId;
+        if ($passData = $request->session()->get('pass_data'))
+            $flashProperties['pass_data'] = $passData;
 
         if ($guideSession) {
             $authProperties['guide'] = $guideSession;

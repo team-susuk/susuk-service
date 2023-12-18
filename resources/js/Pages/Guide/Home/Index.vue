@@ -130,33 +130,6 @@
     </AuthLayout>
 
     <PopupBank />
-    <div x-data="{popup: false}">
-        <a hidden x-on:click="popup=true" id="popup-plan-guide"></a>
-        <Popup title="Upgrade Berlangganan">
-            <div class="flex flex-col">
-                <div class="bg-gold-1 rounded-t-lg py-3 text-white font-semibold flex-center">
-                    Berlangganan
-                </div>
-                <div class="p-6 rounded-b-lg border border-[#D5DFFF] flex flex-col items-center">
-                    <p class="text-sm mb-10">Dapat melihat semua info merchant dan susuk</p>
-                    <div class="flex-center gap-2 mb-4">
-                        <p class="line-through text-neutral-gray-2 font-medium text-sm">
-                            Rp150.000
-                        </p>
-                        <p class="border border-[#66B2E5] bg-[#CCECFA] rounded-full text-blue text-xs font-semibold px-[10px] py-[6px]">
-                            Diskon 100%
-                        </p>
-                    </div>
-                    <p class="text-base mb-10">
-                        Rp<span class="font-bold text-[40px]">0</span>/bln
-                    </p>
-                    <SolidBlue class="!px-10" @click="() => clickId('popup-payment-bank')" x-on:click="popup=false">
-                        Bayar Sekarang
-                    </SolidBlue>
-                </div>
-            </div>
-        </Popup>
-    </div>
     <section>
         <PopupHome
             v-for="(image, id) in advertisement"
@@ -232,7 +205,7 @@
             element?.click()
         } else {
             if (!usePage().props.auth.guide.is_member) {
-                clickId("popup-plan-guide")
+                // clickId("popup-plan-guide")
             }
         }
     }

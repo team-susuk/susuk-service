@@ -57,7 +57,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         error?: string;
         success?: string;
         popup_success?: string;
-        popup_success_subtitle?: string
+        popup_success_subtitle?: string;
+        pass_data?: any;
     },
     logo_bca: string,
     asset: string,

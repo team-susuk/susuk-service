@@ -7,6 +7,7 @@ use App\Http\Controllers\Guide\QrCodeController;
 use App\Http\Controllers\Guide\MerchantController;
 use App\Http\Controllers\Guide\Auth\LoginController;
 use App\Http\Controllers\Guide\Auth\RegisterController;
+use App\Http\Controllers\Guide\OrderController;
 use App\Http\Controllers\Guide\ProductController;
 use App\Http\Controllers\Guide\ProfileController;
 use App\Http\Controllers\Utils\FeedbackController;
@@ -31,6 +32,13 @@ Route::prefix("guide")
             ->name("home.")
             ->group(function () {
                 Route::get("/merchant-categories/{category}", 'merchantCategories')->name("merchant-categories");
+            });
+
+            Route::controller(OrderController::class)
+            ->prefix("order")
+            ->name("order.")
+            ->group(function () {
+                Route::post("place-order/guide", 'guide')->name("guide");
             });
     
             Route::controller(MerchantController::class)

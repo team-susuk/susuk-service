@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Utils\PriceConfigController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +20,8 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name("welcome");
+
+Route::get('/utils/subscription/{type}', [PriceConfigController::class, 'subscription'])->name("utils.subscription");
 
 require __DIR__.'/guide/guide.php';
 require __DIR__.'/merchant/merchant.php';

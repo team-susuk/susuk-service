@@ -2,14 +2,23 @@
     <div class="-ms-5 md:-ms-10 fixed bottom-0 z-[2] m-0 flex w-full max-w-screen-sm list-none text-center align-middle overflow-x-hidden pt-10">
         <div class="shadow-bar w-full px-5 md:px-10 py-3 pt-4 bg-white grid grid-cols-5 gap-1 justify-between">
             <template v-for="menu in menus">
-                <Link :href="menu.route ?? ''" class="nav-bottom" v-if="!menu.center" :class="{ active: route().current(menu.active) }">
+                <template v-if="menu.auth_member">
+                    <a href="javascript:;" class="nav-bottom" v-if="!menu.center" :class="{ active: route().current(menu.active) }" @click="subscribe(menu.route)">
+                        <div class="icon">
+                            <component :is="menu.icon" class="inactive"></component>
+                            <component :is="menu.iconActive" class="active"></component>
+                        </div>
+                        <span>{{ menu.name }}</span>
+                    </a>
+                </template>
+                <Link :href="menu.route ?? ''" class="nav-bottom" v-if="!menu.center && !menu.auth_member" :class="{ active: route().current(menu.active) }">
                     <div class="icon">
                         <component :is="menu.icon" class="inactive"></component>
                         <component :is="menu.iconActive" class="active"></component>
                     </div>
                     <span>{{ menu.name }}</span>
                 </Link>
-                <div v-if="menu.center" class="flex-center relative">
+                <div v-if="menu.center && !menu.auth_member" class="flex-center relative">
                     <Link :href="menu.route ?? ''" class="nav-bottom-center">
                         <component :is="menu.icon"></component>
                     </Link>
@@ -17,6 +26,8 @@
             </template>
         </div>
     </div>
+
+    <PopupPlanMerchant />
 </template>
 
 <script setup lang="ts">
@@ -31,7 +42,9 @@
     import QrCode from '@/Components/Icon/Merchant/Nav/QrCode.vue'
 
     import { shallowRef, ref } from 'vue'
-    import { Link } from '@inertiajs/vue3';
+    import { Link, router, usePage } from '@inertiajs/vue3';
+    import { clickId } from '@/plugins/functions/global'
+    import PopupPlanMerchant from '@/Components/Popup/PopupPlanMerchant.vue'
 
     const menus = ref([
         {
@@ -40,7 +53,8 @@
             active: "merchant.home",
             icon: shallowRef(Home),
             iconActive: shallowRef(HomeActive),
-            center: false
+            center: false,
+            auth_member: false
         },
         {
             name: 'Member',
@@ -48,7 +62,8 @@
             active: "merchant.member.index",
             icon: shallowRef(Member),
             iconActive: shallowRef(MemberActive),
-            center: false
+            center: false,
+            auth_member: true
         },
         {
             name: '',
@@ -56,7 +71,8 @@
             active: "merchant.qrcode.*",
             icon: shallowRef(QrCode),
             iconActive: shallowRef(QrCode),
-            center: true
+            center: true,
+            auth_member: false
         },
         {
             name: 'Pesan',
@@ -65,6 +81,7 @@
             icon: shallowRef(Message),
             iconActive: shallowRef(MessageActive),
             center: false,
+            auth_member: false
         },
         {
             name: 'Profil',
@@ -73,6 +90,15 @@
             icon: shallowRef(Profile),
             iconActive: shallowRef(ProfileActive),
             center: false,
+            auth_member: false
         }
     ])
+
+    const subscribe = (route: any) => {
+        if (!usePage().props.auth.merchant.is_member) {
+            clickId('popup-plan-merchant')
+        } else {
+            router.visit(route)
+        }
+    }
 </script>
