@@ -226,6 +226,27 @@ class PriceSeeder extends Seeder
                 'benefit_value' => 30,
                 'benefit_type' => 'day'
             ],
+
+            [
+                'name' => 'Paket Happy',
+                'description' => 'Dengan membeli paket ini anda bisa menambahkan produk',
+                'type' => PriceType::Add_Product,
+                'price' => 120000,
+                'discount' => 0,
+                'discount_type' => 'percent',
+                'benefit_value' => 3,
+                'benefit_type' => 'product'
+            ],
+            [
+                'name' => 'Paket Murah',
+                'description' => 'Dengan membeli paket ini anda bisa menambahkan produk',
+                'type' => PriceType::Add_Product,
+                'price' => 150000,
+                'discount' => 0,
+                'discount_type' => 'percent',
+                'benefit_value' => 6,
+                'benefit_type' => 'product'
+            ],
         ];
 
         

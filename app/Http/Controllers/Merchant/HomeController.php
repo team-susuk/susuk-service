@@ -34,7 +34,8 @@ class HomeController extends Controller
             'packages' => $this->priceConfigService->getPackageMerchant(),
             'regions' => $this->provinceService->getProvinces(),
             "languages" => $this->languageService->getLangs(),
-            'max_products' => $this->orderService->getMaximumProducts(merchant()->uuid)
+            'max_products' => $this->orderService->getMaximumProducts(merchant()->uuid),
+            'product_package' => $this->priceConfigService->getAddProductPackage(),
         ]);
     }
 

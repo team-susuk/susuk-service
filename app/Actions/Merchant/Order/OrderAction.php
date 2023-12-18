@@ -51,6 +51,9 @@ class OrderAction {
                 case 'new-merchants':
                     $type = OrderType::New_Merchant;
                     break;
+                case 'add-product':
+                    $type = OrderType::Add_Product;
+                    break;
             }
 
             $data = [

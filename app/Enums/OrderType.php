@@ -18,6 +18,9 @@ enum OrderType: string
 
     public function label(): string
     {
+        if ($this->name == 'Add_Product') return 'Tambah Produk';
+        if ($this->name == 'Favorite_Product') return 'Favorite Produk';
+        if ($this->name == 'Blast_Product') return 'Blast Produk';
         if ($this->name == 'Merchant_Top_Ads') return 'Top Ads';
         if ($this->name == 'Product_Top_Ads') return 'Top Ads';
         return str($this->name)->replace('_', ' ')->title()->__toString();

@@ -162,4 +162,9 @@ class PriceConfigService extends AdminService
 
         return $data;
     }
+
+    public function getAddProductPackage()
+    {
+        return $this->model::where("type", PriceType::Add_Product)->get();
+    }
 }

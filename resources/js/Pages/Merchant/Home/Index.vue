@@ -300,7 +300,7 @@
     import Select from '@/Components/Input/Select/Index.vue'
     import LoadingButton from '@/Components/Icon/Etc/LoadingButton.vue';
 
-    const props = defineProps(["products", "merchant", "packages", "regions", "languages", "max_products"])
+    const props = defineProps(["products", "merchant", "packages", "regions", "languages", "max_products", "product_package"])
 
     const formOrder = useForm({
         type: '',
@@ -394,6 +394,16 @@
     const addProduct = () => {
         if (!checkMaxProduct()) {
             router.visit(route('merchant.products.add'))
+        } else {
+            selectedPackages.value = props.product_package
+            promotionTitle.value = "Promosi Tambah Produk"
+            formOrder.image = null
+
+            formOrder.type = "add-product"
+
+            setTimeout(() => {
+                clickId('show-select-package')
+            }, 100)
         }
     }
 </script>
