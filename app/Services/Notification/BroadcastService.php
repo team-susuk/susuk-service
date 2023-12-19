@@ -4,6 +4,7 @@ namespace App\Services\Notification;
 use Illuminate\Http\Request;
 use App\Models\Notification\Broadcast;
 use Laililmahfud\Adminportal\Services\AdminService;
+use App\Actions\Admin\Broadcast\CreateBroadcastNotification;
 
 class BroadcastService extends AdminService
 {
@@ -30,14 +31,7 @@ class BroadcastService extends AdminService
     
     public function store(Request $request)
     {
-        return $this->model::create([
-            "type" => $request->type,
-            "for_role" => $request->for_role,
-            "title" => $request->title,
-            "description" => $request->description,
-            "file" => $request->file,
-            "file_properties" => $request->file_properties,
-        ]);
+        (new CreateBroadcastNotification)->handle($request);       
     }
 
     public function update(Request $request, $uuid)

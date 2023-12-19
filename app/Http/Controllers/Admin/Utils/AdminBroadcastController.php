@@ -19,8 +19,7 @@ class AdminBroadcastController extends AdminController
         ["label" => "For Role", "name" => "for_role"],
         ["label" => "Title", "name" => "title"],
         ["label" => "Description", "name" => "description"],
-        ["label" => "File", "name" => "file"],
-        ["label" => "File Properties", "name" => "file_properties"],
+        ["label" => "File/Gambar", "name" => "file"],
     ];
 
     protected $rules = [
@@ -28,8 +27,6 @@ class AdminBroadcastController extends AdminController
         "for_role" => "required|min:3|max:150",
         "title" => "required|min:3|max:150",
         "description" => "required|min:3|max:150",
-        "file" => "required|min:3|max:150",
-        "file_properties" => "required|min:3|max:150",
     ];
 
 

@@ -2,6 +2,7 @@
 namespace App\Actions\Admin\Orders;
 
 use App\Enums\OrderType;
+use App\Enums\UserStatus;
 use App\Models\User\User;
 use App\Enums\OrderStatus;
 use App\Models\Data\Order;
@@ -148,6 +149,7 @@ class UpdateOrderStatus
                ->where('city_id', @$orderData['city_id'])
                ->where('profession_id', @$orderData['profession_id'])
                ->whereJsonContains('languages', @$orderData['languages'] ?: [])
+               ->where('status', UserStatus::Active)
                ->select(['id'])
                ->get();
 
