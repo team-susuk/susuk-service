@@ -11,15 +11,15 @@ class Notification extends Model
 {
     use HasFactory, HasUuid;
 
+    protected $table = "notifications";
     protected $guarded = [];
-
     protected $casts = [
+        'data' => 'array',
         "type" => NotificationType::class,
-        'data' => 'array'
     ];
 
     public function broadcast()
     {
-        return $this->belongsTo(Broadcast::class);
+        return $this->hasOne(Broadcast::class,'id','broadcast_id');
     }
 }

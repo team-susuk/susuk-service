@@ -9,8 +9,9 @@ use App\Models\Data\Order;
 use App\Models\Data\Product;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
+use Laililmahfud\Adminportal\Services\AdminService;
 
-class OrderService {
+class OrderService extends AdminService {
     public function __construct(
         public $model = Order::class,
     ) {

@@ -13,6 +13,8 @@ class FeaturedProduct extends Model
 {
     use HasFactory, HasUuid;
 
+    protected $guarded = [];
+
     protected $casts = [
         'category' => CategoryProduct::class
     ];

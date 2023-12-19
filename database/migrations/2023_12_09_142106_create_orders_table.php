@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('benefit_type', ['day', 'month', 'product']);
             $table->double('price');
             $table->enum('status',['waiting_payment','paid','failed','expired']);
-            $table->date('expired_at');
+            $table->date('expired_at')->nullable();
             $table->dateTime('pay_at')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
