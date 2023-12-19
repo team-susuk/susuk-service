@@ -56,12 +56,17 @@ class CreateBroadcastNotification
                } else if ($forRole == 'guide') {
                     $usersList = $this->findAllGuest();
                } else {
-
+                    $merchant = $this->findAllMerchant()->toArray();
+                    $guest = $this->findAllGuest()->toArray();
+                    $usersList = collect([
+                         ...$merchant,
+                         ...$guest
+                    ]);
                }
                $notificationItems = $usersList->map(fn($user) => [
                     'uuid' => Str::uuid(),
-                    'user_id' => $user->id,
-                    'role' => $forRole,
+                    'user_id' => $user['id'],
+                    'role' => $user['role'],
                     'type' => NotificationType::Information,
                     'title' => $title,
                     'description' => $description,
@@ -77,8 +82,10 @@ class CreateBroadcastNotification
           return Merchant::where('status', UserStatus::Active)
                ->select(['id'])
                ->get()
-               ->each(fn($row)=>$row->role==='merchant');
-          ;
+               ->map(fn($row)=>[
+                    'id' => $row->id,
+                    'role' => 'merchant'  
+               ]);
      }
 
      private function findAllGuest()
@@ -86,6 +93,9 @@ class CreateBroadcastNotification
           return User::where('status', UserStatus::Active)
                ->select(['id'])
                ->get()
-               ->each(fn($row)=>$row->role==='guest');
+               ->map(fn($row)=>[
+                    'id' => $row->id,
+                    'role' => 'guest'  
+               ]);
      }
 }
