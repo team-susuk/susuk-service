@@ -18,7 +18,7 @@ class UserService extends AdminService
     ) {
     }
 
-    public function datatable(Request $request, $perPage = 10)
+    public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
         $query = $this->model::where(function ($q) use ($search) {

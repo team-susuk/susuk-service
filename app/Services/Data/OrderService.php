@@ -11,34 +11,34 @@ use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use Laililmahfud\Adminportal\Services\AdminService;
 
-class OrderService extends AdminService {
+class OrderService extends AdminService
+{
     public function __construct(
         public $model = Order::class,
     ) {
     }
 
-    public function datatable(Request $request, $perPage = 10)
+    public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
-        
-        return $this->model::where(function ($q) use ($search) {
-                $q->orWhere("user_id", "like", "%" . $search . "%");
-                $q->orWhere("user_role", "like", "%" . $search . "%");
-                $q->orWhere("type", "like", "%" . $search . "%");
-                $q->orWhere("image", "like", "%" . $search . "%");
-                $q->orWhere("benefit_value", "like", "%" . $search . "%");
-                $q->orWhere("benefit_type", "like", "%" . $search . "%");
-                $q->orWhere("price", "like", "%" . $search . "%");
-                $q->orWhere("status", "like", "%" . $search . "%");
-                $q->orWhere("expired_at", "like", "%" . $search . "%");
-                $q->orWhere("pay_at", "like", "%" . $search . "%");
-                $q->orWhere("data", "like", "%" . $search . "%");;
+
+        $query = $this->model::query()
+            ->leftJoin('users', 'users.id', 'orders.user_id')
+            ->leftJoin('merchants', 'merchants.id', 'orders.user_id')
+            ->where(function ($q) use ($search) {
+                $q->orWhere("orders.user_role", "like", "%" . $search . "%");
+                $q->orWhere("orders.type", "like", "%" . $search . "%");
+                $q->orWhere("orders.status", "like", "%" . $search . "%");
             })
-            ->select("*")
-            ->datatable($perPage, "orders.created_at");
+            ->select('orders.*', 'users.name as guest_name', 'merchants.name as merchant_name');
+        if ($perPage) {
+            return $query->datatable($perPage, "orders.created_at");
+        } else {
+            return $query->get();
+        }
 
     }
-    
+
     public function getAds()
     {
         return $this->model::
@@ -51,8 +51,8 @@ class OrderService extends AdminService {
         $merchant = Merchant::findByUuid($merchantUuid);
 
         return $this->model::where("user_id", $merchant->id)
-        ->orderByDesc("created_at")
-        ->paginate();
+            ->orderByDesc("created_at")
+            ->paginate();
     }
 
     public function getMaximumProducts($merchantUuid)

@@ -25,7 +25,7 @@ class MerchantService extends AdminService
             ->get();
     }
 
-    public function datatable(Request $request, $perPage = 10)
+    public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
 

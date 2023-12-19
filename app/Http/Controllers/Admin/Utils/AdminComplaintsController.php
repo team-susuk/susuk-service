@@ -12,7 +12,6 @@ class AdminComplaintsController extends AdminController
     protected $resourcePath = "admin.utils.complaint";
     protected $moduleService = ComplaintService::class;
     protected $add = false;
-    protected $filter = true;
     protected $export = true;
 
     protected $tableColumns = [

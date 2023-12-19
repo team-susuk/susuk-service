@@ -2,7 +2,13 @@
     <tr>
         <td>{{ $row->type->label() }}</td>
         <td>{{ ucwords($row->user_role) }}</td>
-        <td>{{ $row->user_id }}</td>
+        <td>
+            @if ($row->user_role === 'guest')
+                {{ $row->guest_name }}
+            @else
+                {{ $row->merchant_name }}
+            @endif
+        </td>
         <td>{{ $row->benefit_value }} {{ $row->benefit_type }}</td>
         <td>Rp{{ number_format($row->price) }}</td>
         <td>
@@ -26,12 +32,14 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-action">
                         @itcan('edit admin.orders')
                             <li>
-                                <a href="javascript:;" data-toggle="confirmation" data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `PAID`?"
+                                <a href="javascript:;" data-toggle="confirmation"
+                                    data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `PAID`?"
                                     data-action="{{ route('admin.orders.update-status', [$row->uuid, 'paid']) }}"
                                     data-method="POST" class="dropdown-item">Set PAID</a>
                             </li>
                             <li>
-                                <a href="javascript:;" data-toggle="confirmation" data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `Failed`?"
+                                <a href="javascript:;" data-toggle="confirmation"
+                                    data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `Failed`?"
                                     data-action="{{ route('admin.orders.update-status', [$row->uuid, 'failed']) }}"
                                     data-method="POST" class="dropdown-item">Set Failed</a>
                             </li>

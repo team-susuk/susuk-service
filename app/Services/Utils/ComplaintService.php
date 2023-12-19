@@ -14,19 +14,21 @@ class ComplaintService extends AdminService
     ) {
     }
 
-    public function datatable(Request $request, $perPage = 10)
+    public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
 
-        return $this->model::where(function ($q) use ($search) {
+        $query = $this->model::where(function ($q) use ($search) {
             $q->orWhere("user_id", "like", "%" . $search . "%");
             $q->orWhere("user_role", "like", "%" . $search . "%");
             $q->orWhere("title", "like", "%" . $search . "%");
             $q->orWhere("message", "like", "%" . $search . "%");
-            ;
-        })
-            ->select("*")
-            ->datatable($perPage, "complaints.created_at");
+        });
+        if ($perPage) {
+            return $query->datatable($perPage, "created_at");
+        } else {
+            return $query->get();
+        }
 
     }
 

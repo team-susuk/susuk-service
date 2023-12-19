@@ -14,7 +14,7 @@ class ProductService extends AdminService
     ) {
     }
 
-    public function datatable(Request $request, $perPage = 10)
+    public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
 
@@ -27,7 +27,6 @@ class ProductService extends AdminService
                 $q->orWhere("price", "like", "%" . $search . "%");
                 $q->orWhere("commission", "like", "%" . $search . "%");
                 $q->orWhere("viewer", "like", "%" . $search . "%");
-                ;
             });
         if ($perPage) {
             return $query->datatable($perPage, "created_at");
