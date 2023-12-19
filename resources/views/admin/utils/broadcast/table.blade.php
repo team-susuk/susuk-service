@@ -17,11 +17,6 @@
                         Action
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-action">
-                        @itcan('edit admin.broadcast')
-                            <li>
-                                <a href="{{ adminRoute('admin.broadcast.edit', $row->uuid) }}" class="dropdown-item">Edit</a>
-                            </li>
-                        @enditcan
                         @itcan('delete admin.broadcast')
                             <li>
                                 <a href="javascript:;" data-toggle="confirmation"

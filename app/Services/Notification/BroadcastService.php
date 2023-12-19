@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Notification\Broadcast;
 use Laililmahfud\Adminportal\Services\AdminService;
 use App\Actions\Admin\Broadcast\CreateBroadcastNotification;
+use App\Actions\Admin\Broadcast\DeleteBroadcastNotification;
 
 class BroadcastService extends AdminService
 {
@@ -40,4 +41,11 @@ class BroadcastService extends AdminService
 
         return $this->model::whereUuid($uuid)->update($data);
     }
+
+    
+    public function deleteByUuid($uuid)
+    {
+        return (new DeleteBroadcastNotification)->handle($uuid);
+    }
+
 }
