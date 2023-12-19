@@ -83,7 +83,7 @@ class CreateBroadcastNotification
 
      private function findAllGuest()
      {
-          User::where('status', UserStatus::Active)
+          return User::where('status', UserStatus::Active)
                ->select(['id'])
                ->get()
                ->each(fn($row)=>$row->role==='guest');
