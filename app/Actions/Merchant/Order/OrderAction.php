@@ -111,13 +111,13 @@ class OrderAction {
 
             switch ($request->type) {
                 case 'top-ads':
-                    $type = OrderType::Product_Top_Ads;
+                    $type = OrderType::Merchant_Top_Ads;
                     break;
                 case 'ads-banner':
                     $type = OrderType::Ads_Banner;
                     break;
                 case 'blast':
-                    $type = OrderType::Blast_Merchant;
+                    $type = OrderType::Blast_Product;
                     break;
                 case 'special-this-month':
                     $type = OrderType::Special_This_Month;
