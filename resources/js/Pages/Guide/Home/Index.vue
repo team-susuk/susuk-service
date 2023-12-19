@@ -205,7 +205,7 @@
             element?.click()
         } else {
             if (!usePage().props.auth.guide.is_member) {
-                // clickId("popup-plan-guide")
+                clickId("popup-plan-guide")
             }
         }
     }
