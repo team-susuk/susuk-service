@@ -2,8 +2,9 @@
 
 namespace App\Services\Data;
 
-use App\Models\Data\FeaturedMerchant;
+use Carbon\Carbon;
 use App\Models\Data\FeaturedProduct;
+use App\Models\Data\FeaturedMerchant;
 
 class FeaturedService {
     public function __construct(
@@ -14,9 +15,8 @@ class FeaturedService {
 
     public function getProductList($type, $limit = 0)
     {
-        $data = $this->product::join('products', 'featured_products.product_id', '=', 'products.id')
-        ->select('products.*')
-        ->where("category", $type)->whereDate("start_at", ">=", now())->whereDate("expired_at", "<=", now());
+        $data = $this->product::with(["product"])->whereHas("product")
+        ->where("category", $type)->whereDate("start_at", ">=", Carbon::now())->whereDate("expired_at", "<=", Carbon::now());
 
         if ($limit == 0) {
             return $data->get();
@@ -27,9 +27,8 @@ class FeaturedService {
 
     public function getMerchantList($type, $limit = 0)
     {
-        $data = $this->merchant::join('merchants', 'featured_merchants.merchant_id', '=', 'merchants.id')
-        ->select('merchants.*')
-        ->where("category", $type)->whereDate("start_at", ">=", now())->whereDate("expired_at", "<=", now());
+        $data = $this->merchant::with(["merchant"])->whereHas("merchant")
+        ->where("category", $type)->whereDate("start_at", ">=", Carbon::now())->whereDate("expired_at", "<=", Carbon::now());
 
         if ($limit == 0) {
             return $data->get();

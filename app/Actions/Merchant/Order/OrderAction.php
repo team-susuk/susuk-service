@@ -22,7 +22,6 @@ class OrderAction {
     public function handleMerchant(Request $request)
     {
         DB::transaction(function () use ($request) {
-            $merchant = Merchant::findByUuid(merchant()->uuid);
             $package = PriceConfig::whereId($request->package_id)->first();
             $price = $package->price;
             if ($package->discount > 0) {
@@ -59,14 +58,21 @@ class OrderAction {
                     break;
             }
 
+            $expiredAt = null;
+            if ($package->benefit_type == 'day') {
+                $expiredAt = Carbon::now()->addDays($package->benefit_value);
+            } else if ($package->benefit_type == 'month') {
+                $expiredAt = Carbon::now()->addMonths($package->benefit_value);
+            }
+
             $data = [
                 'benefit_value' => $package->benefit_value,
                 'benefit_type' => $package->benefit_type,
                 'price' => $price,
                 'status' => OrderStatus::Waiting_Payment,
                 'type' => $type,
-                'expired_at' => Carbon::now()->addDays($package->benefit_value),
-                'user_id' => $merchant->id,
+                'expired_at' => $expiredAt,
+                'user_id' => merchant()->id,
                 'user_role' => 'merchant'
             ];
 
@@ -96,7 +102,6 @@ class OrderAction {
     public function handleProduct(Request $request, $id)
     {
         DB::transaction(function () use ($request, $id) {
-            $merchant = Merchant::findByUuid(merchant()->uuid);
             $package = PriceConfig::whereId($request->package_id)->first();
             $price = $package->price;
             if ($package->discount > 0) {
@@ -117,7 +122,7 @@ class OrderAction {
                     $type = OrderType::Ads_Banner;
                     break;
                 case 'blast':
-                    $type = OrderType::Blast_Product;
+                    $type = OrderType::Blast_Merchant;
                     break;
                 case 'special-this-month':
                     $type = OrderType::Special_This_Month;
@@ -134,7 +139,7 @@ class OrderAction {
                 'status' => OrderStatus::Waiting_Payment,
                 'type' => $type,
                 'expired_at' => Carbon::now()->addDays($package->benefit_value),
-                'user_id' => $merchant->id,
+                'user_id' => merchant()->id,
                 'user_role' => 'merchant',
                 'data' => (object)[
                     'product_id' => $id

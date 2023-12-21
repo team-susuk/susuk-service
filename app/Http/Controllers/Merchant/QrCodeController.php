@@ -27,7 +27,7 @@ class QrCodeController extends Controller
     public function historiesData()
     {
         return ReservationResource::collection(
-            $this->reservationService->getHistories("merchant", merchant()->uuid)
+            $this->reservationService->getHistories("merchant", merchant()->id, 'scanned')
         );
     }
 

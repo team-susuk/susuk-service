@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Merchant\Profile\ProfileRequest;
 
 class EditAction {
     /**
      * Summary of handle
-     * @param \Illuminate\Http\Request $registerCompanyDto
      */
-    public function handle(Request $request)
+    public function handle(ProfileRequest $request)
     {
         DB::transaction(function () use ($request) {
             $data = [

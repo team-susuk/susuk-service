@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-4 mt-8">
         <div class="rounded-[14px] border border-silver p-3 flex flex-col gap-3 animate-pulse" v-bind:class="class" v-for="i in 4">
             <div class="flex gap-2 pb-3 border-b border-[#F2F6FE]">
                 <div class="w-[85.33px] h-12 object-cover rounded-lg aspect-video bg-gray-200">

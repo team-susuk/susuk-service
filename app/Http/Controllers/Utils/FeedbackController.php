@@ -14,7 +14,7 @@ class FeedbackController extends Controller
 
     public function complaint(Request $request)
     {
-        $this->complaintService->complain($request, $request->user_role == "users" ? guide()->uuid : merchant()->uuid, $request->user_role);
+        $this->complaintService->complain($request, $request->user_role == "users" ? guide()->id : merchant()->id, $request->user_role);
 
         return back()->with(["popup_success" => "Komplain berhasil dikirim"]);
     }

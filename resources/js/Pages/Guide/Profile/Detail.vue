@@ -26,6 +26,15 @@
             <p class="text-sm font-medium text-dark-gray">No WA</p>
             <p class="text-base font-semibold text-end">{{ user.phone_number }}</p>
 
+            <p class="text-sm font-medium text-dark-gray">Provinsi</p>
+            <p class="text-base font-semibold text-end">{{ user.province }}</p>
+
+            <p class="text-sm font-medium text-dark-gray">Kabupaten/kotamadya</p>
+            <p class="text-base font-semibold text-end">{{ user.city }}</p>
+
+            <p class="text-sm font-medium text-dark-gray">Kecamatan</p>
+            <p class="text-base font-semibold text-end">{{ user.subdistrict }}</p>
+
             <p class="text-sm font-medium text-dark-gray">Profesi</p>
             <p class="text-base font-semibold text-end">{{ user.profession }}</p>
 

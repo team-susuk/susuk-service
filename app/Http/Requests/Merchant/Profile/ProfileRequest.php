@@ -22,13 +22,12 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $merchant = Merchant::findByUuid(merchant()->uuid);
         return [
             'description' => 'required',
             'category' => 'required',
             'pic_name' => 'required',
             'pic_phone' => 'required',
-            'pic_phone_wa' => 'required|unique:merchants,whatsapp_number,'.$merchant->id,
+            'pic_phone_wa' => 'required|unique:merchants,whatsapp_number,'.merchant()->id,
             'start_commission_range' => 'required',
             'end_commission_range' => 'required',
             'weekdays' => 'required',

@@ -37,7 +37,7 @@ class OrderController extends Controller
     public function merchantHistoriesData()
     {
         return OrderResource::collection(
-            $this->orderService->getMerchantHistories(merchant()->uuid)
+            $this->orderService->getMerchantHistories(merchant()->id)
         );
     }
 }

@@ -81,7 +81,7 @@ class MerchantController extends Controller
     public function booking(Request $request, $id)
     {
         try {
-            $this->reservationService->addReservation($request, $id, guide()->uuid);
+            $this->reservationService->addReservation($request, $id, guide()->id);
 
             return back()->with(["popup_success" => "Reservasi Berhasil Dibuat"]);
         } catch (\Throwable $th) {

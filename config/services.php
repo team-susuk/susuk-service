@@ -34,6 +34,7 @@ return [
     'default_avatar' => 'admin/img/default-avatar.png',
 
     'session-guide-prefix' => 'susuk-guide',
-    'session-merchant-prefix' => 'susuk-merchant'
+    'session-merchant-prefix' => 'susuk-merchant',
+    'max-products' => 9,
 
 ];

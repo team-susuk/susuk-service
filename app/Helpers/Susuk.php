@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Utils\Setting;
+use App\Services\Utils\SettingService;
 use Illuminate\Support\Facades\Storage;
 
 class Susuk {
@@ -42,16 +43,20 @@ class Susuk {
 
     public static function getBankInformation()
     {
-        $rekening_number = Setting::where("name", "rekening_number")->first();
-        $rekening_bank = Setting::where("name", "rekening_bank")->first();
-        $rekening_name = Setting::where("name", "rekening_name")->first();
-        $whatsapp = Setting::where("name", "whatsapp")->first();
+        $allowed = [
+            "rekening_number",
+            "rekening_bank",
+            "rekening_name",
+            "whatsapp"
+        ];
 
+        $settingService = new SettingService();
+        $setting = $settingService->findAll($allowed);
         return (object) [
-            "rekening_number" => $rekening_number ? $rekening_number->value : '',
-            "rekening_bank" => $rekening_bank ? $rekening_bank->value : '',
-            "rekening_name" => $rekening_name ? $rekening_name->value : '',
-            "whatsapp" => $whatsapp ? $whatsapp->value : ''
+            "rekening_number" => $setting->rekening_number ?? '',
+            "rekening_bank" => $setting->rekening_bank ?? '',
+            "rekening_name" => $setting->rekening_name ?? '',
+            "whatsapp" => $setting->whatsapp ?? ''
         ];
     }
     

@@ -5,7 +5,7 @@
         <TabMenu active="qrcode" />
 
         <div class="flex items-center flex-col gap-4 text-center max-w-md mx-auto mt-8">
-            <QrcodeStream @decode="onDecode" @init="onInit"></QrcodeStream>
+            <StreamBarcodeReader @decode="onDecode" @loaded="onInit"></StreamBarcodeReader>
             <div class="flex flex-center flex-col gap-2" v-if="status">
                 <i class="isax-b icon-warning-2 text-red text-6xl"></i>
                 <p class="font-semibold text-red whitespace-pre-line">
@@ -18,7 +18,24 @@
             <a x-on:click="popup=!popup" id="show-popup-edit-reservation"></a>
             <Popup title="Kedatangan">
                 <form @submit.prevent="submit" v-if="form.show">
-                    <div class="grid grid-cols-2 gap-3">
+                    <DatePicker
+                        label="Tanggal kedatangan"
+                        name="arrival_date"
+                        v-model="form.arrival_date"
+                        :error="form.errors.arrival_date"
+                        v-bind:default="form.arrival_date"
+                        :min="moment().format('YYYY-MM-DD')"
+                        v-if="dateEditable"
+                    />
+                    <TimePicker
+                        label="Jam kedatangan"
+                        name="arrival_time"
+                        v-model="form.arrival_time"
+                        :error="form.errors.arrival_time"
+                        v-bind:default="form.arrival_time"
+                        v-if="dateEditable"
+                    />
+                    <div class="grid grid-cols-2 gap-3" v-if="!dateEditable">
                         <div>
                             <Input
                                 label="Tanggal Kedatangan"
@@ -116,17 +133,21 @@
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
     import TabMenu from './TabMenu.vue';
 
-    import { QrcodeStream } from 'vue3-qrcode-reader';
+    import { StreamBarcodeReader } from "vue-barcode-reader";
     import { ref } from 'vue';
     import Popup from '@/Components/Popup/Popup.vue';
     import InputNumber from '@/Components/Input/InputNumber.vue';
+    import DatePicker from "@/Components/Input/DatePicker.vue";
+    import TimePicker from "@/Components/Input/TimePicker.vue";
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import Input from '@/Components/Input/Index.vue';
     import { clickId } from '@/plugins/functions/global';
     import { onMounted } from 'vue';
+    import moment from 'moment';
 
     const status = ref('')
+    const dateEditable = ref(false)
     const formCheck = useForm({
         token: ''
     })
@@ -137,7 +158,8 @@
         arrival_time: '',
         arrival_date: '',
         show: true,
-        id: ''
+        id: '',
+        user_id: ''
     })
 
     const onDecode = (decodedString: any) => {
@@ -149,14 +171,21 @@
                 onFinish: (res: any) => {
                     let passData = usePage().props.flash.pass_data
                     if (passData) {
-                        form.type = passData.type
-                        form.total_guest = passData.guest_number
-                        form.arrival_time = passData.time
-                        form.arrival_date = passData.date
+                        if (passData?.time || passData?.date) {
+                            form.type = passData.type
+                            form.total_guest = passData.guest_number
+                            form.arrival_time = passData.time
+                            form.arrival_date = passData.date
+                            dateEditable.value = false
+                        } else {
+                            dateEditable.value = true
+                        }
 
+                        form.user_id = passData.user_id
                         form.show = true
-
                         clickId("show-popup-edit-reservation")
+
+
                     }
                 }
             })
@@ -164,17 +193,17 @@
     }
 
     const onInit = (promise: any) => {
-        promise.then(() => {
-            status.value = ''
-        }).catch((error: any) => {
-            status.value = 'Initialization error: ' + error + '\n Please refresh your browser'
-            status.value = status.value.replace("NotReadableError: ", "")
-        });
+        // promise.then(() => {
+        //     status.value = ''
+        // }).catch((error: any) => {
+        //     status.value = 'Initialization error: ' + error + '\n Please refresh your browser'
+        //     status.value = status.value.replace("NotReadableError: ", "")
+        // });
     }
 
     const submit = () => {
         if (!form.processing) {
-            form.post(route('merchant.qrcode.reservation', form.id), {
+            form.post(route('merchant.qrcode.reservation', form.user_id), {
                 onFinish: () => {
                     form.id = ''
                     form.type = ''
@@ -192,12 +221,19 @@
         form.show = false
         let passData = usePage().props.flash.pass_data
         if (passData) {
-            form.id = passData.id
-            form.type = passData.type
-            form.total_guest = passData.guest_number
-            form.arrival_time = passData.time
-            form.arrival_date = passData.date
-
+            console.log(passData)
+            if (passData?.time || passData?.date) {
+                form.type = passData.type
+                form.total_guest = passData.guest_number
+                form.arrival_time = passData.time
+                form.arrival_date = passData.date
+                dateEditable.value = false
+            } else {
+                dateEditable.value = true
+            }
+            console.log(dateEditable.value)
+            form.user_id = passData.user_id
+            
             form.show = true
         }
     })

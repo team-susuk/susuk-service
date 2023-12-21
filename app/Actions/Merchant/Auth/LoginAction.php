@@ -5,6 +5,7 @@ namespace App\Actions\Merchant\Auth;
 use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
+use App\Http\Requests\Merchant\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class LoginAction {
      * Summary of handle
      * @param \Illuminate\Http\Request $registerCompanyDto
      */
-    public function handle(Request $request)
+    public function handle(LoginRequest $request)
     {
         $number = preg_replace('/\D/', '', $request->phone_number);
         $user = Merchant::whereWhatsappNumber($number)->first();
@@ -45,6 +46,7 @@ class LoginAction {
             Carbon::setLocale("id");
 
             $sessionObject = [
+                'id' => $user->id,
                 'uuid' => $user->uuid,
                 'name' => $user->name,
                 'whatsapp_number' => $user->whatsapp_number,                

@@ -28,13 +28,14 @@ class HomeController extends Controller
 
     public function index()
     {
+        $products = $this->productService->getMerchantProducts(merchant()->id);
         return Inertia::render('Merchant/Home/Index', [
             'merchant' => Merchant::findByUuid(merchant()->uuid),
-            'products' => $this->productService->getMerchantProducts(merchant()->uuid),
+            'products' => $products,
             'packages' => $this->priceConfigService->getPackageMerchant(),
             'regions' => $this->provinceService->getProvinces(),
             "languages" => $this->languageService->getLangs(),
-            'max_products' => $this->orderService->getMaximumProducts(merchant()->uuid),
+            'max_products' => $this->orderService->getMaximumProducts(merchant()->id, count($products)),
             'product_package' => $this->priceConfigService->getAddProductPackage(),
         ]);
     }

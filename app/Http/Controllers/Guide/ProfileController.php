@@ -9,13 +9,15 @@ use App\Models\Master\Profession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\ChangePasswordRequest;
 use App\Services\Master\LanguageService;
+use App\Services\Regions\ProvinceService;
 use App\Services\Users\UserService;
 
 class ProfileController extends Controller
 {
     public function __construct(
         private LanguageService $languageService,
-        private UserService $userService
+        private UserService $userService,
+        private ProvinceService $provinceService
     ) {
     }
 
@@ -33,7 +35,8 @@ class ProfileController extends Controller
     {
         return Inertia::render("Guide/Profile/Edit", [
             "languages" => $this->languageService->getLangs(),
-            "professions" => Profession::get()
+            "professions" => Profession::get(),
+            'regions' => $this->provinceService->getProvinces()
         ]);
     }
 

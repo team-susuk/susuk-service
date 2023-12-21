@@ -3,6 +3,7 @@ namespace App\Services\Users;
 
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
+use App\Http\Requests\Profile\ChangePasswordRequest;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use App\Models\Master\Category;
@@ -170,7 +171,7 @@ class MerchantService extends AdminService
         return $data;
     }
 
-    public function updatePassword(Request $request, $uuid)
+    public function updatePassword(ChangePasswordRequest $request, $uuid)
     {
         $user = $this->model::whereUuid($uuid)->first();
         if (!Hash::check($request->password, $user->password)) {

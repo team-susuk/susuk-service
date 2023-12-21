@@ -20,15 +20,27 @@ class QrCodeController extends Controller
         return Inertia::render('Guide/QrCode/Index');
     }
 
-    public function histories()
+    public function historiesScan()
     {
         return Inertia::render('Guide/QrCode/History');
     }
 
-    public function historiesData()
+    public function historiesScanData()
     {
         return ReservationResource::collection(
-            $this->reservationService->getHistories("guide", guide()->uuid)
+            $this->reservationService->getHistories("guide", guide()->id, 'scanned')
+        );
+    }
+
+    public function historiesBooking()
+    {
+        return Inertia::render('Guide/QrCode/HistoryBooking');
+    }
+
+    public function historiesBookingData()
+    {
+        return ReservationResource::collection(
+            $this->reservationService->getHistories("guide", guide()->id, 'all')
         );
     }
 }

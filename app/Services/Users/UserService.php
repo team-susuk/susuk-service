@@ -10,6 +10,7 @@ use App\Models\Master\Profession;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
+use App\Http\Requests\Profile\ChangePasswordRequest;
 
 class UserService extends AdminService
 {
@@ -69,7 +70,7 @@ class UserService extends AdminService
         return $user->update($data);
     }
 
-    public function updatePassword(Request $request, $uuid)
+    public function updatePassword(ChangePasswordRequest $request, $uuid)
     {
         $user = $this->model::whereUuid($uuid)->first();
         if (!Hash::check($request->password, $user->password)) {
@@ -89,7 +90,10 @@ class UserService extends AdminService
         $data = [
             'nick_name' => $request->name,
             'profession_id' => $request->profession,
-            'languages' => $request->languages
+            'languages' => $request->languages,
+            'province_id' => $request->province,
+            'city_id' => $request->city,
+            'subdistrict_id' => $request->subdistrict,
         ];
 
 
@@ -100,7 +104,13 @@ class UserService extends AdminService
         $guide->nick_name = $request->name;
         $guide->profession_id = $request->profession;
         $guide->profession = $user->profession?->name;
-        $guide->languages = $request->languages;
+        $guide->province = $user->province?->name;
+        $guide->city = $user->city?->name;
+        $guide->subdistrict = $user->subdistrict?->name;
+        $guide->category_id = $user->category?->id;
+        $guide->province_id = $user->province?->id;
+        $guide->city_id = $user->city?->id;
+        $guide->subdistrict_id = $user->subdistrict?->id;
 
         session()->put(config('services.session-guide-prefix'), (object) $guide);
     }

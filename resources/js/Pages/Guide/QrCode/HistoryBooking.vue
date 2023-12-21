@@ -2,7 +2,7 @@
     <Head title="Qr Code" />
     <AuthLayout>
         <HeaderBlue title="Qr Code" />
-        <TabMenu active="history-scan" />
+        <TabMenu active="history-booking" />
         <WithPaginate :paginate="paginate" :loading="shallowReactive(CardQrCodeLoading)">
             <div class="grid grid-cols-2 gap-4 mt-8">
                 <template v-for="merchant in paginate.data.value">
@@ -29,7 +29,7 @@
 
 
     const paginate = usePaginate({
-        route: route('guide.qrcode.histories.scan-data')
+        route: route('guide.qrcode.histories.booking-data')
     })
 
 </script>

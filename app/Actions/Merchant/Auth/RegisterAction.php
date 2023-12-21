@@ -3,6 +3,7 @@
 namespace App\Actions\Merchant\Auth;
 
 use App\Helpers\Susuk;
+use App\Http\Requests\Merchant\Auth\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class RegisterAction {
      * Summary of handle
      * @param \Illuminate\Http\Request $registerCompanyDto
      */
-    public function handle(Request $request)
+    public function handle(RegisterRequest $request)
     {
         DB::transaction(function () use ($request) {
             $data = [

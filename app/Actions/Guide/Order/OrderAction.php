@@ -19,7 +19,6 @@ class OrderAction {
     public function handle(Request $request)
     {
         DB::transaction(function () use ($request) {
-            $guide = User::findByUuid(guide()->uuid);
             $package = PriceConfig::whereId($request->package_id)->first();
             $price = $package->price;
             if ($package->discount > 0) {
@@ -45,7 +44,7 @@ class OrderAction {
                 'status' => OrderStatus::Waiting_Payment,
                 'type' => $type,
                 'expired_at' => Carbon::now()->addDays($package->benefit_value),
-                'user_id' => $guide->id,
+                'user_id' => guide()->id,
                 'user_role' => 'guest'
             ];
 

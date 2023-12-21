@@ -69,8 +69,11 @@ Route::prefix("guide")
             ->name("qrcode.")
             ->group(function () {
                 Route::get('/', 'index')->name("index");
-                Route::get('/histories', 'histories')->name("histories");
-                Route::get('/histories-data', 'historiesData')->name("histories-data");
+                Route::get('/histories/scan', 'historiesScan')->name("histories.scan");
+                Route::get('/histories/scan-data', 'historiesScanData')->name("histories.scan-data");
+
+                Route::get('/histories/booking', 'historiesBooking')->name("histories.booking");
+                Route::get('/histories/booking-data', 'historiesBookingData')->name("histories.booking-data");
             });
     
             Route::controller(InboxController::class)

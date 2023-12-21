@@ -3,6 +3,7 @@
 namespace App\Actions\Merchant\Product;
 
 use App\Helpers\Susuk;
+use App\Http\Requests\Merchant\ProductRequest;
 use App\Models\Data\Product;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
@@ -12,16 +13,14 @@ use Illuminate\Support\Facades\Hash;
 class ProductAction {
     /**
      * Summary of handle
-     * @param \Illuminate\Http\Request $registerCompanyDto
      */
-    public function handle(Request $request)
+    public function handle(ProductRequest $request)
     {
         DB::transaction(function () use ($request) {
             $price = preg_replace("/[^0-9]/", "", $request->price);
-            $merchant = Merchant::findByUuid(merchant()->uuid);
 
             Product::create([
-                'merchant_id' => $merchant->id,
+                'merchant_id' => merchant()->id,
                 'name' => $request->name,
                 'image' => Susuk::uploadFile($request->file('image'), "products/image"),
                 'description' => $request->description,
@@ -32,7 +31,7 @@ class ProductAction {
         });
     }
 
-    public function handleUpdate(Request $request, $id)
+    public function handleUpdate(ProductRequest $request, $id)
     {
         DB::transaction(function () use ($request, $id) {
             $price = preg_replace("/[^0-9]/", "", $request->price);

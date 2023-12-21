@@ -10,6 +10,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 // import { Ziggy } from "./ziggy"
 import route from '../../vendor/tightenco/ziggy/dist/index.m';
 import Alpine from 'alpinejs';
+import { RouteParam, RouteParamsWithQueryOverload } from 'ziggy-js';
 
 window.route = (name?: string, params?: RouteParamsWithQueryOverload | RouteParam, absolute?: boolean) => route(name, params, absolute, Ziggy)
 Alpine.start()

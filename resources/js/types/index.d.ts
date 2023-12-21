@@ -1,4 +1,5 @@
 export interface Guide {
+    id: string;
     uuid: string;
     name: string;
     nick_name: string;
@@ -6,6 +7,13 @@ export interface Guide {
     birthday_formated: string;
     phone_number: string;
     profile: string;
+    province?: string;
+    city?: string;
+    subdistrict?: string;
+    category_id?: string;
+    province_id?: string;
+    city_id?: string;
+    subdistrict_id?: string;
     profession_id: number;
     profession: string;
     languages: string;
@@ -17,6 +25,7 @@ export interface Guide {
 }
 
 export interface Merchant {
+    id: string;
     uuid: string;
     name: string;
     whatsapp_number: string;

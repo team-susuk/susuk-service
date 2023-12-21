@@ -29,14 +29,14 @@ class InboxController extends Controller
     public function merchantData()
     {
         return NotificationResource::collection(
-            $this->notificationService->getNotifications(NotificationType::Blast, guide()->uuid)
+            $this->notificationService->getNotifications(NotificationType::Blast, guide()->id)
         );
     }
 
     public function adminData()
     {
         return NotificationResource::collection(
-            $this->notificationService->getNotifications(NotificationType::Information, guide()->uuid)
+            $this->notificationService->getNotifications(NotificationType::Information, guide()->id)
         );
     }
 }

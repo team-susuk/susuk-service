@@ -41,14 +41,8 @@ class ComplaintService extends AdminService
 
     public function complain(Request $request, $userId, $role)
     {
-        if ($role == 'users') {
-            $user = User::whereUuid($userId)->first();
-        } else {
-            $user = Merchant::whereUuid($userId)->first();
-        }
-
         $this->model::create([
-            "user_id" => $user->id,
+            "user_id" => $userId,
             "user_role" => $role,
             "title" => $request->title,
             "message" => $request->message

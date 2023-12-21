@@ -59,8 +59,7 @@ class ProductService extends AdminService
 
     public function getMerchantProducts($merchantId)
     {
-        $merchant = Merchant::findByUuid($merchantId);
-        return $this->model::where("merchant_id", $merchant->id)->orderByDesc("created_at")->get();
+        return $this->model::where("merchant_id", $merchantId)->orderByDesc("created_at")->get();
     }
 
     public function getLists($filter = [], $search = "")

@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $productRequest, ProductAction $productAction)
     {
-        if (!$this->orderService->checkMaximumProducts(merchant()->uuid)) {
+        if (!$this->orderService->checkMaximumProducts(merchant()->id)) {
             return to_route('merchant.products.add')->with([
                 'error' => 'Produk Gagal Ditambahkan, Silahkan Beli Paket Tambah Produk'
             ]);

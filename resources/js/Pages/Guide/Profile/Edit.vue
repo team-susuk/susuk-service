@@ -54,6 +54,42 @@
                 :error="form.errors.phone_number"
                 disabled
             />
+            <Single
+                v-if="regions"
+                placeholder="Pilih Provinsi"
+                label="Provinsi"
+                :data="regions"
+                id="province"
+                v-model="form.province"
+                :selected="form.province"
+                :error="form.errors.province"
+            />
+            <div class="grid grid-cols-2 gap-x-4 mb-2">
+                <div>
+                    <Single
+                        v-if="hasCity"
+                        placeholder="Pilih Kabupaten"
+                        label="Kabupaten/kotamadya"
+                        v-bind:data="cities"
+                        id="city"
+                        v-model="form.city"
+                        v-bind:selected="form.city"
+                        :error="form.errors.city"
+                    />
+                </div>
+                <div>
+                    <Single
+                        v-if="hasSubDistrict"
+                        placeholder="Pilih Kecamatan"
+                        label="Kecamatan"
+                        v-bind:data="subdistricts"
+                        id="subdistrict"
+                        v-model="form.subdistrict"
+                        v-bind:selected="form.subdistrict"
+                        :error="form.errors.subdistrict"
+                    />
+                </div>
+            </div>
             <div class="mb-2">
                 <label
                     class="text-[12px] text-dark mb-1 block"
@@ -113,9 +149,17 @@
     import MultipleLanguage from '@/Components/Input/Select/MultipleLanguage.vue';
     import InputRadio from '@/Components/Input/InputRadio.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
+    import Single from '@/Components/Input/Select/Single.vue';
+    import { ref, watch } from 'vue';
+import { onMounted } from 'vue';
 
-    const props = defineProps(["languages", "professions"])
+    const props = defineProps(["languages", "professions", "regions"])
     const user = usePage().props.auth.guide
+    
+    const hasCity = ref(true)
+    const hasSubDistrict = ref(true)
+    const cities = ref([])
+    const subdistricts = ref([])
 
     const form = useForm({
         idcard_name: user.name,
@@ -125,6 +169,9 @@
         image: null,
         profession: user.profession_id,
         languages: Array.from(new Set(user.languages)),
+        province: user.province_id,
+        city: user.city_id,
+        subdistrict: user.subdistrict_id,
     })
 
     const submit = () => {
@@ -135,6 +182,100 @@
                 }
             })
         }
+    }
+
+    watch(
+    () => form.province,
+    (oldValue, newValue) => {
+        setCities()
+    });
+
+    const setCities = () => {
+        hasCity.value = false
+        props.regions.filter((row: any) => {
+            let city = form.city
+            form.city = ''
+            if (row.id == form.province) {
+                cities.value = row.cities
+                cities.value.map((subrow: any) => {
+                    if (subrow.id == city) {
+                        form.city = city
+                    }
+                })
+
+                setTimeout(() => {
+                    hasCity.value = true
+                }, 100)
+            }
+        })
+    }
+
+    watch(
+    () => form.city,
+    (oldValue, newValue) => {
+        setSubCities()
+    });
+
+    const setSubCities = () => {
+        hasSubDistrict.value = false
+        subdistricts.value = []
+        props.regions.filter((row: any) => {
+            if (row.id == form.province) {
+                cities.value.map((subrow: any) => {
+                    let subdistrict = form.subdistrict
+                    form.subdistrict = ''
+                    if (subrow.id == form.city) {
+                        subdistricts.value = subrow.subdistricts
+                        subdistricts.value.map((subcity: any) => {
+                            if (subcity.id == subdistrict) {
+                                form.subdistrict = subdistrict
+                            }
+                        })
+
+                    }
+                    setTimeout(() => {
+                        hasSubDistrict.value = true
+                    }, 100)
+
+                })
+            }
+        })
+    }
+
+    onMounted(() => {
+        getDefaultRegions()
+    })
+
+
+    const getDefaultRegions = () => {
+        hasCity.value = false
+        hasSubDistrict.value = false
+        subdistricts.value = []
+
+        props.regions.filter((row: any) => {
+            let city = user.city_id
+            if (row.id == user.province_id) {
+                cities.value = row.cities
+                cities.value.map((subrow: any) => {
+                    if (subrow.id == city) {
+                        form.city = city
+                        let subdistrict = user.subdistrict_id
+                        subdistricts.value = subrow.subdistricts
+                        subdistricts.value.map((subcity: any) => {
+                            if (subcity.id == subdistrict) {
+                                form.subdistrict = subdistrict
+                            }
+                        })
+                    }
+                })
+
+                setTimeout(() => {
+                    hasCity.value = true
+                    hasSubDistrict.value = true
+                }, 100)
+            }
+        })
+
     }
 
 </script>

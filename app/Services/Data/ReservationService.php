@@ -40,28 +40,28 @@ class ReservationService
     }
 
 
-    public function getHistories($type, $userId)
+    public function getHistories($role, $userId, $type)
     {
-        $userId = User::whereUuid($userId)->first();
-
         return $this->model::where(
-            function ($q) use ($type, $userId) {
-                if ($type == "guide") {
+            function ($q) use ($role, $userId, $type) {
+                if ($role == "guide") {
                     $q->where("user_id", $userId);
                 } else {
                     $q->where("merchant_id", $userId);
                 }
+
+                if ($type == 'scanned') {
+                    $q->whereNotNull("confirm_at");
+                }
             }
-        )->whereNotNull("scan_by")->orderByDesc("created_at")->paginate();
+        )->orderByDesc("created_at")->paginate();
     }
 
     public function addReservation(Request $request, $id, $userId)
     {
-        $merchant = Merchant::findByUUid($id);
-        $user = User::findByUuid($userId);
         $timeArrival = "{$request->arrival_date} {$request->arrival_time}:00";
 
-        $checkReservation = $this->model::where("user_id", $user->id)->where("merchant_id", $merchant->id)->where("time_arrival", $timeArrival)->first();
+        $checkReservation = $this->model::where("user_id", $userId)->where("merchant_id", $id)->where("time_arrival", $timeArrival)->first();
 
         if ($checkReservation) {
             throw new \Exception("Anda sudah melakukan reservasi di tanggal dan jam yang sama");
@@ -69,32 +69,45 @@ class ReservationService
         }
 
         $this->model::create([
-            'merchant_id' => $merchant->id,
-            'user_id' => $user->id,
+            'merchant_id' => $id,
+            'user_id' => $userId,
             'guest_number' => $request->total_guest,
             'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
-            'time_arrival' => $timeArrival
+            'time_arrival' => $timeArrival,
+            'scan_by' => 'guest'
         ]);
     }
 
     public function updateReservation(Request $request, $id)
     {
-        $merchant = Merchant::findByUUid(merchant()->uuid);
+        $timeArrival = "{$request->arrival_date} {$request->arrival_time}:00";
 
-        $this->model::where('id', $id)->where('merchant_id', $merchant->id)->update([
-            'guest_number' => $request->total_guest,
-            'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
-            'scan_by' => 'merchant'
-        ]);
+        if ($request->id) {
+            $this->model::where('id', $request->id)->where('merchant_id', merchant()->id)->update([
+                'guest_number' => $request->total_guest,
+                'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
+                'scan_by' => 'merchant',
+                'confirm_at' => Carbon::now()
+            ]);
+        } else {
+            $this->model::create([
+                'merchant_id' => $id,
+                'user_id' => $id,
+                'guest_number' => $request->total_guest,
+                'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
+                'time_arrival' => $timeArrival,
+                'scan_by' => 'merchant',
+                'confirm_at' => Carbon::now()
+            ]);
+        }
     }
 
     public function checkQrCode($token)
     {
         $check = Crypt::decrypt($token);
         if ($check->code && $check->source && $check->source == 'susuk-guide') {
-            $merchant = Merchant::findByUuid(merchant()->uuid);
             $user = User::whereCode($check->code)->first();
-            $reservation = $this->model::where("merchant_id", $merchant->id)->where("user_id", $user->id)->whereNull("scan_by")->orderByDesc("created_at")->first();
+            $reservation = $this->model::where("merchant_id", merchant()->id)->where("user_id", $user->id)->whereNull("confirm_at")->orderByDesc("created_at")->first();
             if ($reservation) {
                 $reservation->date = Carbon::parse($reservation->time_arrival)->format("d M Y");
                 $reservation->time = Carbon::parse($reservation->time_arrival)->format("H:i");
@@ -102,7 +115,10 @@ class ReservationService
 
                 return $reservation;
             } else {
-                throw new \Exception("Tidak Ada Reservasi yang Ditemukan");
+                return (object)[
+                    'user_id' => $user->id
+                ];
+                // throw new \Exception("Tidak Ada Reservasi yang Ditemukan");
             }
         } else {
             throw new \Exception("Qr Code Tidak Valid");

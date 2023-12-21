@@ -42,23 +42,22 @@ class OrderService extends AdminService
     public function getAds()
     {
         return $this->model::
-            where("type", OrderType::Ads_Banner)
-            ->whereDate("expired_at", "<=", Carbon::now()->endOfDay())->inRandomOrder()->get();
+            whereIn("type", [OrderType::Merchant_Top_Ads])
+            ->whereDate("expired_at", "<=", Carbon::now())->inRandomOrder()->get();
     }
 
     public function getMerchantHistories($merchantUuid)
     {
-        $merchant = Merchant::findByUuid($merchantUuid);
-
-        return $this->model::where("user_id", $merchant->id)
+        return $this->model::where("user_id", $merchantUuid)
             ->orderByDesc("created_at")
             ->paginate();
     }
 
-    public function getMaximumProducts($merchantUuid)
+    public function getMaximumProducts($merchantUuid, $currentProduct = 9)
     {
-        $merchant = Merchant::findByUuid($merchantUuid);
-        return 9 + $this->model::where("user_id", $merchant->id)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
+        $count = 0;
+        if ($currentProduct >= config('services.max-products')) $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
+        return config('services.max-products') + $count;
     }
 
     public function checkMaximumProducts($merchantUuid)

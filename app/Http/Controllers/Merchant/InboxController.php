@@ -24,7 +24,7 @@ class InboxController extends Controller
     public function indexData()
     {
         return NotificationResource::collection(
-            $this->notificationService->getNotifications(NotificationType::Information, merchant()->uuid, 'merchant')
+            $this->notificationService->getNotifications(NotificationType::Information, merchant()->id, 'merchant')
         );
     }
 }

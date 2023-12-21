@@ -1,12 +1,12 @@
 <template>
-    <div class="flex w-full ">
+    <div class="flex gap-4 w-full flex-nowrap overflow-x-auto whitespace-pre">
         <Link
             v-for="menu in menus"
             :href="menu.route"
             class="w-full text-center border-b pb-2 hover:border-blue hover:text-blue transition-all text-sm font-semibold"
             :class="{
                 'border-blue text-blue': menu.key === active,
-                'border-neutral-gray-5 text-neutral-gray-5': menu.key !== active
+                'border-neutral-gray-5 text-neutral-gray-3': menu.key !== active
             }"
         >
             {{ menu.name }}
@@ -27,9 +27,14 @@
             route: route('guide.qrcode.index')
         },
         {
-            name: 'Histori',
-            key: 'history',
-            route: route('guide.qrcode.histories')
+            name: 'Histori Scan',
+            key: 'history-scan',
+            route: route('guide.qrcode.histories.scan')
+        },
+        {
+            name: 'Histori Booking',
+            key: 'history-booking',
+            route: route('guide.qrcode.histories.booking')
         }
     ]
 
