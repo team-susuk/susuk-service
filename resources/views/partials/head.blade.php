@@ -9,9 +9,9 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
 <!-- Scripts -->
-@if (config("app.env") == 'development')
-    @routes
-@endif
+{{-- @if (config("app.env") == 'development')
+@endif --}}
+@routes
 @vite('resources/css/app.css')
 @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
 @inertiaHead
