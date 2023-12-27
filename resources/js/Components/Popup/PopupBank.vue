@@ -1,12 +1,12 @@
 <template>
-    <div x-data="{popup: false}">
+    <div x-data="{popup: true}">
         <a hidden x-on:click="popup=true" id="popup-payment-bank"></a>
         <Popup title="Informasi Pembayaran">
             <div class="p-4 rounded-lg bg-gray-stroke flex items-center gap-5 mb-5">
-                <img :src="$page.props.logo_bca" alt="" class="w-[104px]">
-                <div>
-                    <p class="text-sm font-medium">{{ $page.props.bank.rekening_number }}</p>
-                    <p class="font-semibold">{{ $page.props.bank.rekening_name }}</p>
+                <img :src="$page.props.logo_bca" alt="" class="w-[56px] md:w-[104px]">
+                <div class="flex flex-col flex-wrap break-all">
+                    <p class="text-xs md:text-sm font-medium">{{ $page.props.bank.rekening_number }}</p>
+                    <p class="text-sm md:text-base font-semibold">{{ $page.props.bank.rekening_name }}</p>
                 </div>
             </div>
             <p class="text-sm text-center mb-8">
