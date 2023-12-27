@@ -3,11 +3,12 @@
 namespace App\Actions\Merchant\Auth;
 
 use App\Helpers\Susuk;
-use App\Http\Requests\Merchant\Auth\RegisterRequest;
+use App\Enums\UserStatus;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Merchant\Auth\RegisterRequest;
 
 class RegisterAction {
     /**
@@ -43,7 +44,8 @@ class RegisterAction {
                     "start" => $request->open_time_weekends,
                     "end" => $request->close_time_weekends,
                 ],
-                "password" => Hash::make($request->password)
+                "password" => Hash::make($request->password),
+                "status" => UserStatus::Waiting_Approval
             ];
 
             if ($request->hasFile("document")) {
