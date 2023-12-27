@@ -51,6 +51,9 @@ class Merchant extends Model
             $totalUser = Merchant::whereDate("created_at", $date)->count();
             $totalUser = intval(substr($totalUser, 2));
             $totalUser++;
+            if(!$user->status){
+                $user->status = UserStatus::Waiting_Approval;
+            }
             $user->code = "M-$date-" . str_pad($totalUser, 3, '0', STR_PAD_LEFT);
             $user->register_at = now();
             $user->uuid = Str::uuid();

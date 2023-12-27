@@ -18,6 +18,7 @@ class AdminGuideController extends AdminController
     protected $export = true;
 
     protected $tableColumns = [
+        ["label" => "Foto", "name" => "profile"],
         ["label" => "Nama Lengkap", "name" => "name"],
         ["label" => "Nama Panggilan", "name" => "nick_name"],
         ["label" => "ID Guide", "name" => "code"],

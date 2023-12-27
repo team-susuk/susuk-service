@@ -17,6 +17,7 @@ class AdminProductsController extends AdminController
 
 
     protected $tableColumns = [
+        ["label" => "Foto", "name" => "image"],
         ["label" => "Product", "name" => "name"],
         ["label" => "Merchant", "name" => "merchant_id"],
         ["label" => "Description", "name" => "description"],

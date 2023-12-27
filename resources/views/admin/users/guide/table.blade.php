@@ -7,10 +7,13 @@
                 </div>
             </td>
         @enditcan
-
         <td>
-            <img src="{{ asset($row->profile) }}" alt="" class="img-thumbnail img-table"
-                style="width: 40px !important">
+            <a href="{{ asset($row->profile) }}" target="_blank">
+                <img src="{{ asset($row->profile) }}" alt="" class="img-thumbnail img-table"
+                    style="width: 40px !important">
+            </a>
+        </td>
+        <td>
             {{ $row->name }}
         </td>
         <td>{{ $row->nick_name }}</td>
@@ -51,6 +54,7 @@
 @push('js')
     <script>
         document.querySelector('#modal-export-data .form-group:nth-child(2)').remove()
-        document.querySelector('#modal-export-data .modal-body').insertAdjacentHTML('beforeend','<input type="hidden" name="file_format" value="xlsx"/>')
+        document.querySelector('#modal-export-data .modal-body').insertAdjacentHTML('beforeend',
+            '<input type="hidden" name="file_format" value="xlsx"/>')
     </script>
 @endpush
