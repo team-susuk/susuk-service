@@ -108,6 +108,16 @@
     const updateModel = () => {
         if (dropzoneFile.value) {
             emit("update:modelValue", dropzoneFile.value)
+
+            if (dropzoneFile.value?.size) {
+                if (dropzoneFile.value.size > 2 * 1024 * 1024) {
+                    (document.getElementById(props.id) as HTMLInputElement).value = "";
+                    dropzoneFile.value = undefined;
+                    emit("update:modelValue", null);
+                    showAlert("File is too large. Please upload a file smaller than 2MB.", "error");
+                    return;
+                }
+            }
         } else {
             (document.getElementById(props.id) as HTMLInputElement).value = ""
             emit("update:modelValue", null)
