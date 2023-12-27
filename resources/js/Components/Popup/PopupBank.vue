@@ -1,5 +1,5 @@
 <template>
-    <div x-data="{popup: true}">
+    <div x-data="{popup: false}">
         <a hidden x-on:click="popup=true" id="popup-payment-bank"></a>
         <Popup title="Informasi Pembayaran">
             <div class="p-4 rounded-lg bg-gray-stroke flex items-center gap-5 mb-5">
