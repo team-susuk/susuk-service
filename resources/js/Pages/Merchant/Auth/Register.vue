@@ -122,7 +122,7 @@
                 </div>
                 <div>
                     <InputNumber
-                        label="No WA"
+                        label="No WA (Login)"
                         type="text"
                         placeholder="Input No WA contoh: 6281...."
                         id="pic_phone_wa"

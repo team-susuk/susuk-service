@@ -85,8 +85,10 @@ declare module 'ziggy-js' {
         }
     ],
     "guide.qrcode.index": [],
-    "guide.qrcode.histories": [],
-    "guide.qrcode.histories-data": [],
+    "guide.qrcode.histories.scan": [],
+    "guide.qrcode.histories.scan-data": [],
+    "guide.qrcode.histories.booking": [],
+    "guide.qrcode.histories.booking-data": [],
     "guide.inbox.merchant": [],
     "guide.inbox.admin": [],
     "guide.inbox.merchant-data": [],
