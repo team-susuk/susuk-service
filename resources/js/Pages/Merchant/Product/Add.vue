@@ -42,7 +42,7 @@
                 icon="isax icon-percentage-circle"
                 :error="form.errors.commission"
             />
-            <InputNumber
+            <InputPrice
                 label="Harga"
                 type="text"
                 placeholder="Input Harga"
@@ -79,6 +79,7 @@
 
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
     import InputNumber from '@/Components/Input/InputNumber.vue';
+    import InputPrice from '@/Components/Input/InputPrice.vue';
     import DropZone from '@/Components/Input/DropZoneImage.vue';
     import Textarea from '@/Components/Input/Textarea.vue';
     import Input from '@/Components/Input/Index.vue';
