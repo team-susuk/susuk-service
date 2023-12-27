@@ -44,7 +44,7 @@
                 icon="isax icon-percentage-circle"
                 :error="form.errors.commission"
             />
-            <InputNumber
+            <InputPrice
                 label="Harga"
                 type="text"
                 placeholder="Input Harga"
