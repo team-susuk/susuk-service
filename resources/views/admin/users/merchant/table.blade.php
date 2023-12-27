@@ -8,7 +8,11 @@
             </td>
         @enditcan
         <td>
-            <img src="{{ asset($row->profile) }}" alt="" class="img-thumbnail img-table" style="width: 90px !important">
+            <a href="{{ asset($row->profile) }}" target="_blank">
+                <img src="{{ asset($row->profile) }}" alt="" class="img-thumbnail img-table" style="width: 90px !important">
+            </a>
+        </td>
+        <td>
             {{$row->name}}
         </td>
         <td>{{ $row->category?->name }}</td>
@@ -18,7 +22,7 @@
         <td>{{ $row->whatsapp_number }}</td>
         <td>{{ $row->register_at }}</td>
         <td>{{ $row->viewer }}</td>
-        <td>{{ $row->status->label() }}</td>
+        <td>{{ $row->status?->label() }}</td>
         <td class="text-end">
             @if (itcan('edit admin.merchant') || itcan('delete admin.merchant'))
                 <div class="btn-group">

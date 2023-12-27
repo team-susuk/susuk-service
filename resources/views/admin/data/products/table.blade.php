@@ -7,9 +7,12 @@
         </div>
     </td>
     @enditcan
-    
     <td>
-        <img src="{{ asset($row->image) }}" alt="" class="img-thumbnail img-table" style="height: 40px !important;">
+        <a href="{{ asset($row->image) }}" target="_blank">
+            <img src="{{ asset($row->image) }}" alt="" class="img-thumbnail img-table" style="height: 40px !important;">
+        </a>
+    </td>
+    <td>
         {{$row->name}}
     </td>
     <td>{{$row->merchant?->name}}</td>

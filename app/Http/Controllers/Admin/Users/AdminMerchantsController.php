@@ -17,6 +17,7 @@ class AdminMerchantsController extends AdminController
     protected $export = true;
 
     protected $tableColumns = [
+        ["label" => "Foto", "name" => "profile"],
         ["label" => "Name", "name" => "name"],
         ["label" => "Category", "name" => "category_id"],
         ["label" => "Code", "name" => "code"],
