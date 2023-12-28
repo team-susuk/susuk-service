@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers\Admin\Users;
 
-use App\Services\Master\CategoryService;
-use App\Services\Regions\ProvinceService;
+use App\Enums\UserStatus;
 use Illuminate\Http\Request;
 use App\Services\Users\MerchantService;
+use App\Services\Master\CategoryService;
+use App\Services\Regions\ProvinceService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
 
 class AdminMerchantsController extends AdminController
@@ -53,7 +54,6 @@ class AdminMerchantsController extends AdminController
     protected $createRules = [
         "profile" => "required|image",
         "password" => "required",
-        "siup_document" => "required|mimes:pdf",
     ];
 
     public function __construct(
@@ -75,7 +75,8 @@ class AdminMerchantsController extends AdminController
     {
         $this->data = [
             'categories' => $this->categoryService->get(),
-            'provinces' => $this->provinceService->findAll()
+            'provinces' => $this->provinceService->findAll(),
+            'status' => UserStatus::cases()
         ];
         return parent::edit($request,$uuid);
     }

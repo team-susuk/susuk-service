@@ -23,6 +23,7 @@ class AdminReservationsController extends AdminController
         ["label" => "Date Create", "name" => "created_at"],
         ["label" => "Guide", "name" => "user_id"],
         ["label" => "Merchant", "name" => "merchant_id"],
+        ["label" => "Alamat Merchant", "name" => "merchant_id"],
         ["label" => "Waktu Kedatangan", "name" => "time_arrival"],
         ["label" => "Jumlah Tamu", "name" => "guest_number"],
         ["label" => "Jenis Tamu", "name" => "guest_type"],

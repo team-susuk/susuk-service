@@ -21,6 +21,8 @@
     <option @selected(in_array($lang->lang,$row->languages)) value="{{$lang->lang}}">{{$lang->lang}}</option>
     @endforeach
 </x-input.multiple-select>
+<x-portal::input type="password" name="password" label="Password" placeholder="Password" required="false" help-text="Biarkan kosong jika tidak ingin mengubah password"
+    horizontal></x-portal::input>
 <x-portal::input.select name="status" label="Status" placeholder="Status" horizontal>
     <option value="">Pilih Status</option>
     @foreach($status as $item)

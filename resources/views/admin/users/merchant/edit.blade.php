@@ -39,20 +39,20 @@
         <span class="required">*</span>
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="number" max="100" name="commission_start" placeholder="Start" required="required"
-            class="form-control " value="{{ $row->commission['start'] }}">
+        <input type="number" name="commission_start" placeholder="Start" required="required" class="form-control "
+            value="{{ $row->commission['start'] }}">
         <span>-</span>
-        <input type="number" max="100" name="commission_end" placeholder="End" required="required"
-            class="form-control " value="{{ $row->commission['end'] }}">
+        <input type="number" name="commission_end" placeholder="End" required="required" class="form-control "
+            value="{{ $row->commission['end'] }}">
     </div>
 </div>
 <x-input.multiple-select name="weekdays[]" label="Weekdays" placeholder="Weekdays" horizontal>
     <option value="">Pilih Hari</option>
-    <option @selected(in_array('Senin',$row->weekdays)) value="Senin">Senin</option>
-    <option @selected(in_array('Selasa',$row->weekdays)) value="Selasa">Selasa</option>
-    <option @selected(in_array('Rabu',$row->weekdays)) value="Rabu">Rabu</option>
-    <option @selected(in_array('Kamis',$row->weekdays)) value="Kamis">Kamis</option>
-    <option @selected(in_array('Jumat',$row->weekdays)) value="Jumat">Jumat</option>
+    <option @selected(in_array('Senin', $row->weekdays)) value="Senin">Senin</option>
+    <option @selected(in_array('Selasa', $row->weekdays)) value="Selasa">Selasa</option>
+    <option @selected(in_array('Rabu', $row->weekdays)) value="Rabu">Rabu</option>
+    <option @selected(in_array('Kamis', $row->weekdays)) value="Kamis">Kamis</option>
+    <option @selected(in_array('Jumat', $row->weekdays)) value="Jumat">Jumat</option>
 </x-input.multiple-select>
 <div class="form-group row ">
     <label for="" class="label col-sm-2">
@@ -69,8 +69,8 @@
 </div>
 <x-input.multiple-select name="weekends[]" label="Weekends" placeholder="Weekends" horizontal>
     <option value="">Pilih Hari</option>
-    <option @selected(in_array('Sabtu',$row->weekends)) value="Sabtu">Sabtu</option>
-    <option @selected(in_array('Minggu',$row->weekends)) value="Minggu">Minggu</option>
+    <option @selected(in_array('Sabtu', $row->weekends)) value="Sabtu">Sabtu</option>
+    <option @selected(in_array('Minggu', $row->weekends)) value="Minggu">Minggu</option>
 </x-input.multiple-select>
 <div class="form-group row ">
     <label for="" class="label col-sm-2">
@@ -89,6 +89,14 @@
     placeholder="Sip Document" horizontal required="false"
     help-text="Biarkan kosong jika tidak ingin mengubah"></x-portal::input>
 
+<x-portal::input type="password" name="password" label="Password" placeholder="Password" required="false" help-text="Biarkan kosong jika tidak ingin mengubah password"
+    horizontal></x-portal::input>
+<x-portal::input.select name="status" label="Status" placeholder="Status" horizontal>
+    <option value="">Pilih Status</option>
+    @foreach ($status as $item)
+        <option @selected($row->status === $item) value="{{ $item->value }}">{{ $item->label() }}</option>
+    @endforeach
+</x-portal::input.select>
 <x-portal::input.select.asset />
 @push('js')
     <script>
