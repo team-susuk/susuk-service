@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Actions\Merchant\Auth\LoginAction;
+use App\Http\Requests\Merchant\Auth\ForgotRequest;
 use App\Http\Requests\Merchant\Auth\LoginRequest;
 
 class LoginController extends Controller
@@ -27,5 +28,20 @@ class LoginController extends Controller
         $request->session()->forget(config("services.session-merchant-prefix"));
 
         return to_route('merchant.login');
+    }
+
+    public function forgotPassword(ForgotRequest $request, LoginAction $loginAction)
+    {
+        try {
+            $loginAction->requestPassword($request);
+            return redirect()->back()->with([
+                'popup_success' => 'Mohon Tunggu',
+                'popup_success_subtitle' => 'Admin akan segera mengirimkan password baru ke nomor wa anda'
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with([
+                'error' => $th->getMessage()
+            ]);
+        }
     }
 }

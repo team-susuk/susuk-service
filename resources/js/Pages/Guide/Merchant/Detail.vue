@@ -14,7 +14,9 @@
                 {{ data.full_address }}
             </p>
             <div>
-                <Maps />
+                <a :href="'https://www.google.com/maps?q='+data.full_address" target="_blank">
+                    <Maps />
+                </a>
             </div>
         </div>
         <div class="flex gap-5 mt-2">
@@ -69,7 +71,7 @@
                     class="font-bold text-lg"
                 >List Produk</h2>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 gap-4">
                 <CardProduct
                     v-for="product in data.products"
                     :data="product"

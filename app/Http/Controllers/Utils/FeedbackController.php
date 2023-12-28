@@ -16,6 +16,6 @@ class FeedbackController extends Controller
     {
         $this->complaintService->complain($request, $request->user_role == "users" ? guide()->id : merchant()->id, $request->user_role);
 
-        return back()->with(["popup_success" => "Komplain berhasil dikirim"]);
+        return back()->with(["popup_success" => "Terimakasih atas saran/ keluhan yang telah anda berikan. Admin kami akan segera menindaklanjuti."]);
     }
 }

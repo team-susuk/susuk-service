@@ -5,12 +5,14 @@ namespace App\Actions\Guide\Auth;
 use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
-use App\Http\Requests\Guide\Auth\LoginRequest;
 use App\Models\User\User;
 use Illuminate\Http\Request;
+use App\Models\Utils\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use App\Http\Requests\Guide\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\Guide\Auth\ForgotRequest;
 
 class LoginAction {
 
@@ -81,5 +83,20 @@ class LoginAction {
                 'password' => __("alert.password")
             ]);
         }
+    }
+
+    public function requestPassword (ForgotRequest $request)
+    {
+        $number = $request->phone_number;
+        $user = User::wherePhoneNumber($number)->first();
+
+        ResetPassword::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'name' => 'name',
+            'phone_number' => $number,
+            'request_at' => Carbon::now(),
+            'status' => 'pending'
+        ]);
     }
 }

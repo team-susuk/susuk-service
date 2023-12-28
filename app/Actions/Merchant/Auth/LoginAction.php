@@ -5,12 +5,14 @@ namespace App\Actions\Merchant\Auth;
 use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
-use App\Http\Requests\Merchant\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
+use App\Models\Utils\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\Merchant\Auth\LoginRequest;
+use App\Http\Requests\Merchant\Auth\ForgotRequest;
 
 class LoginAction {
 
@@ -87,5 +89,20 @@ class LoginAction {
                 'password' => __("alert.password")
             ]);
         }
+    }
+
+    public function requestPassword (ForgotRequest $request)
+    {
+        $number = $request->phone_number;
+        $user = Merchant::whereWhatsappNumber($number)->first();
+
+        ResetPassword::create([
+            'user_id' => $user->id,
+            'user_role' => 'merchants',
+            'name' => $request->name,
+            'phone_number' => $number,
+            'request_at' => Carbon::now(),
+            'status' => 'pending'
+        ]);
     }
 }
