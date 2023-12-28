@@ -67,7 +67,7 @@ class UserService extends AdminService
         if ($request->status == 'active' && !$user->verification_at) {
             $data['verification_at'] = now();
         }
-        if($request->password){
+        if($request->password && $request->password!=''){
             $data['password'] = Hash::make($request->password);
         }
         return $user->update($data);
