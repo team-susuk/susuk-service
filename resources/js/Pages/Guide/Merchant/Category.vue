@@ -13,7 +13,7 @@
             <CardMerchant
                 v-if="paginate && !paginate?.loading.value"
                 v-for="merchant in paginate.data.value"
-                :data="merchant.merchant"
+                :data="merchant"
             />
         </div>
 

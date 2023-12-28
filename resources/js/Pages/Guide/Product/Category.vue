@@ -13,7 +13,7 @@
             <CardProduct
                 v-if="paginate && !paginate?.loading.value"
                 v-for="product in paginate.data.value"
-                :data="product.product"
+                :data="product"
                 :href="route('guide.merchants.detail', product.merchant_id)"
             />
         </div>
