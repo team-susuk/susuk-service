@@ -48,9 +48,7 @@ class Merchant extends Model
         parent::boot();
         static::creating(function (Merchant $user) {
             $date = now()->format('Ymd');
-            $totalUser = User::whereDate("created_at", now()->format("Y-m-d"))->count();
-            $totalUser = intval(substr($totalUser, 2));
-            $totalUser++;
+            $totalUser = User::whereDate("created_at", now()->format("Y-m-d"))->count() + 1;
             if(!$user->status){
                 $user->status = UserStatus::Waiting_Approval;
             }
