@@ -3,13 +3,13 @@
         <Head :title="title" />
         <HeaderDetail :backUrl="route('guide.home')" :title="title" />
 
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" v-if="paginate?.loading.value">
+        <div class="grid grid-cols-2 gap-4" v-if="paginate?.loading.value">
             <CardMerchantLoading />
             <CardMerchantLoading />
             <CardMerchantLoading />
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 gap-4">
             <CardProduct
                 v-if="paginate && !paginate?.loading.value"
                 v-for="product in paginate.data.value"

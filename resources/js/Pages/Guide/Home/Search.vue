@@ -23,7 +23,7 @@
             >
                 Produk
             </h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 gap-4">
                 <CardProduct
                     v-for="product in products"
                     :data="product"

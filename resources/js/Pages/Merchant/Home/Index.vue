@@ -109,7 +109,7 @@
             >
                 <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Maximal 9 item produk, untuk lebih dari 9 silahkan membeli paket “Tambah Produk”</span>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 gap-4">
                 <CardProduct
                     v-for="product in products"
                     :data="product"
