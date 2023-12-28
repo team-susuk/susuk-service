@@ -43,8 +43,8 @@ class User extends Model
     {
         parent::boot();
         static::creating(function (User $user) {
-            $tanggal = now()->format('Y-m-d');
-            $nomorUrutan = User::whereDate("created_at", $tanggal)->count();
+            $tanggal = now()->format('Ymd');
+            $nomorUrutan = User::whereDate("created_at", now()->format("Y-m-d"))->count();
             $nomorUrutan = intval(substr($nomorUrutan, 2));
             $nomorUrutan++;
             $user->code = "G-$tanggal-" . str_pad($nomorUrutan, 3, '0', STR_PAD_LEFT);

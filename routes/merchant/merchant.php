@@ -20,6 +20,8 @@ Route::prefix("merchant")
             Route::post("/login", [LoginController::class, 'store'])->name("login.store");
             Route::get("/register", [RegisterController::class, 'index'])->name("register");
             Route::post("/register", [RegisterController::class, 'store'])->name("register.store");
+
+            Route::post("/forgot-password", [LoginController::class, 'forgotPassword'])->name("login.forgot-password");
         });
 
         Route::middleware("role-auth:merchant")->group(function() {

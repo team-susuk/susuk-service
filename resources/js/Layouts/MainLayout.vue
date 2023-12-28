@@ -18,7 +18,7 @@
         </div>
         <PopupSuccess
             v-bind:title="popupSuccessTitle"
-            v-bind:subtitle="popupSuccessSubTitle"
+            v-bind:subTitle="popupSuccessSubTitle"
         />
 
         <a x-on:click="popup=true" id="show-alert-popup" class="hidden"></a>

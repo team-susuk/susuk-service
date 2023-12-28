@@ -54,7 +54,7 @@
 
         <a x-on:click="popup=false" id="close-forgot"></a>
         <Popup :close="true">
-            <form class="">
+            <form class="" @submit.prevent="submitForgot">
                 <icForgotPassword class="mx-auto mb-3" />
                 <h2 class="text-center mb-8 font-semibold text-base">
                     Lupa Password
@@ -77,9 +77,10 @@
                 />
 
                 <ButtonSolidBlue
-                    :disabled="!formForgot.name || !formForgot.phone_number"
+                    type="submit"
+                    :disabled="!formForgot.name || !formForgot.phone_number || formForgot.processing"
+                    :loading="formForgot.processing"
                     class="mx-auto mt-6 min-w-[200px] justify-center"
-                    @click="submitForgot"
                 >
                     Submit
                 </ButtonSolidBlue>
@@ -119,8 +120,13 @@
     })
 
     const submitForgot = () => {
-        clickId('close-forgot')
-        clickId('open-popup')
+        if (!formForgot.processing) {
+            formForgot.post(route('guide.login.forgot-password'), {
+                onSuccess: () => {
+                    clickId('close-forgot')
+                }
+            })
+        }
     }
 
     const submit = () => {
