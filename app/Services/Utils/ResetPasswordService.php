@@ -33,14 +33,14 @@ class ResetPasswordService extends AdminService
 
     public function update(Request $request, $uuid)
     {
-        $properties = [
+        $update = [
             'password' => Hash::make($request->password)
         ];
         $data = $this->model::whereUuid($uuid)->firstOrFail();
-        if($data->role=='users'){
-            User::where('id',$data->user_id)->update($properties);
+        if($data->user_role=='users'){
+           User::where('id',$data->user_id)->update($update);
         }else{
-            Merchant::where('id',$data->user_id)->update($properties);
+           Merchant::where('id',$data->user_id)->update($update);
         }
         return $data->update([
             'status' => 'done',
