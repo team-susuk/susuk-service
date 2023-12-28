@@ -121,7 +121,7 @@ class MerchantService extends AdminService
         if ($request->hasFile('siup_document')) {
             $data['siup_document'] = Susuk::uploadFile($request->file('siup_document'), 'document');
         }
-        if($request->password){
+        if($request->password && $request->password!=''){
             $data['password'] = Hash::make($request->password);
         }
 

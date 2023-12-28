@@ -23,10 +23,10 @@ class AdminBroadcastController extends AdminController
     ];
 
     protected $rules = [
-        "type" => "required|min:3|max:150",
-        "for_role" => "required|min:3|max:150",
-        "title" => "required|min:3|max:150",
-        "description" => "required|min:3|max:150",
+        "type" => "required",
+        "for_role" => "required",
+        "title" => "required",
+        "description" => "required",
     ];
 
 
