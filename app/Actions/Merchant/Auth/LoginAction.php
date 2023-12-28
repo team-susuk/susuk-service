@@ -22,21 +22,22 @@ class LoginAction {
     {
         $number = Susuk::formatIndonesianPhoneNumber($request->phone_number);
         $user = Merchant::whereWhatsappNumber($number)->first();
+        $bank = Susuk::getBankInformation();
 
         if ($user && Hash::check($request->password, $user->password)) {
             if ($user->status == UserStatus::Waiting_Approval) {
                 throw ValidationException::withMessages([
-                    'phone_number' => "Akun anda masih menunggu persetujuan dari admin"
+                    'phone_number' => "Akun anda masih menunggu persetujuan dari admin, silahkan hubungi admin ke nomor WA ". $bank->whatsapp
                 ]);
             }
             if ($user->status == UserStatus::Rejected) {
                 throw ValidationException::withMessages([
-                    'phone_number' => "Akun anda ditolak, silahkan hubungi admin"
+                    'phone_number' => "Akun anda ditolak, silahkan hubungi admin ke nomor WA ". $bank->whatsapp
                 ]);
             }
             if ($user->status == UserStatus::Non_Active) {
                 throw ValidationException::withMessages([
-                    'phone_number' => "Akun anda non aktif, silahkan hubungi admin"
+                    'phone_number' => "Akun anda non aktif, silahkan hubungi admin ke nomor WA ". $bank->whatsapp
                 ]);
             }
 
