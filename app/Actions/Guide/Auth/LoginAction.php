@@ -33,8 +33,6 @@ class LoginAction {
             ]);
         }
 
-        dd($request->password, $user->password, Hash::check($request->password, $user->password));
-
         if ($user && Hash::check($request->password, $user->password)) {
             if ($user->status == UserStatus::Waiting_Approval) {
                 throw ValidationException::withMessages([
