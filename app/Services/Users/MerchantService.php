@@ -51,7 +51,7 @@ class MerchantService extends AdminService
 
     public function store(Request $request)
     {
-        return $this->model::create([
+        $properties =[
             "name" => $request->name,
             "profile" => Susuk::uploadFile($request->file('profile'), 'merchant/image'),
             "description" => $request->description,
@@ -77,10 +77,13 @@ class MerchantService extends AdminService
                 'start' => $request->weekend_time_start,
                 'end' => $request->weekend_time_end,
             ],
-            "siup_document" => Susuk::uploadFile($request->file('siup_document'), 'document'),
             "password" => Hash::make($request->password),
             'status' => UserStatus::Active
-        ]);
+        ];
+        if ($request->hasFile('siup_document')) {
+            $properties['siup_document'] = Susuk::uploadFile($request->file('siup_document'), 'document');
+        }
+        return $this->model::create($properties);
     }
 
     public function update(Request $request, $uuid)
@@ -98,6 +101,7 @@ class MerchantService extends AdminService
             'whatsapp_number',
             'weekdays',
             'weekends',
+            'status'
         ]);
         $data['commission'] = [
             'start' => $request->commission_start,
@@ -116,6 +120,9 @@ class MerchantService extends AdminService
         }
         if ($request->hasFile('siup_document')) {
             $data['siup_document'] = Susuk::uploadFile($request->file('siup_document'), 'document');
+        }
+        if($request->password){
+            $data['password'] = Hash::make($request->password);
         }
 
         return $this->model::whereUuid($uuid)->update($data);

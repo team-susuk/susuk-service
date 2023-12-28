@@ -59,13 +59,16 @@ class UserService extends AdminService
     public function update(Request $request, $uuid)
     {
 
+        $user = $this->model::whereUuid($uuid)->firstOrFail();
         $data = $request->only(['name', 'nick_name', 'birthday', 'phone_number', 'profession_id', 'languages', 'status']);
         if ($request->file('profile')) {
             $data['profile'] = Susuk::uploadFile($request->file('profile'), "guide/image");
         }
-        $user = $this->model::whereUuid($uuid)->firstOrFail();
         if ($request->status == 'active' && !$user->verification_at) {
             $data['verification_at'] = now();
+        }
+        if($request->password){
+            $data['password'] = Hash::make($request->password);
         }
         return $user->update($data);
     }

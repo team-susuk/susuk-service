@@ -3,6 +3,7 @@
     <td>{{date('Y-m-d H:i:s',strtotime($row->created_at))}}</td>
     <td>{{$row->user?->name}}</td>
     <td>{{$row->merchant?->name}}</td>
+    <td>{{$row->merchant?->address}}</td>
     <td>{{$row->time_arrival}}</td>
     <td>{{$row->guest_number}}</td>
     <td>{{$row->guest_type->label()}}</td>
