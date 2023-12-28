@@ -1,7 +1,8 @@
 @foreach ($data as $row)
     <tr>
         <td>{{ ucwords($row->user_role) }}</td>
-        <td>{{ $row->role === 'users' ? $row->user_name : $row->merchant_name }}</td>
+        {{-- <td>{{ $row->role === 'users' ? $row->user_name : $row->merchant_name }}</td> --}}
+        <td>{{ $row->name }}</td>
         <td>{{ $row->phone_number }}</td>
         <td>{{ $row->request_at }}</td>
         <td>
