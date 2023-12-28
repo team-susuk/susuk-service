@@ -47,7 +47,7 @@ class Merchant extends Model
     {
         parent::boot();
         static::creating(function (Merchant $user) {
-            $date = now()->format('Ymd');
+            $date = now()->format('Y-m-d');
             $totalUser = Merchant::whereDate("created_at", $date)->count();
             $totalUser = intval(substr($totalUser, 2));
             $totalUser++;
