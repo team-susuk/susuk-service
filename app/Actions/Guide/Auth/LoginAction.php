@@ -27,6 +27,12 @@ class LoginAction {
         $user = User::wherePhoneNumber($number)->first();
         $bank = Susuk::getBankInformation();
 
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'phone_number' => "The selected phone number does not exist."
+            ]);
+        }
+
         if ($user && Hash::check($request->password, $user->password)) {
             if ($user->status == UserStatus::Waiting_Approval) {
                 throw ValidationException::withMessages([
