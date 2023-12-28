@@ -81,7 +81,7 @@
             value="">
     </div>
 </div>
-<x-portal::input type="file" accept="application/pdf" name="siup_document" label="Sip Document" placeholder="Sip Document"
+<x-portal::input type="file" accept="application/pdf" name="siup_document" label="Sip Document" required="false" placeholder="Sip Document"
     horizontal>{{ old('siup_document') }}</x-portal::input>
 <x-portal::input type="password" name="password" label="Password" placeholder="Password"
     horizontal>{{ old('password') }}</x-portal::input>

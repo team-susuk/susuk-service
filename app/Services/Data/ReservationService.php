@@ -22,7 +22,7 @@ class ReservationService
     {
         $search = $request->search ?? '';
 
-        $query = $this->model::with(['merchant:id,name', 'user:id,name'])
+        $query = $this->model::with(['merchant:id,name,address', 'user:id,name'])
             ->where(function ($q) use ($search) {
                 $q->orWhere("user_id", "like", "%" . $search . "%");
                 $q->orWhere("merchant_id", "like", "%" . $search . "%");

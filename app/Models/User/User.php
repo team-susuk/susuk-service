@@ -43,7 +43,7 @@ class User extends Model
     {
         parent::boot();
         static::creating(function (User $user) {
-            $tanggal = now()->format('Ymd');
+            $tanggal = now()->format('Y-m-d');
             $nomorUrutan = User::whereDate("created_at", $tanggal)->count();
             $nomorUrutan = intval(substr($nomorUrutan, 2));
             $nomorUrutan++;
