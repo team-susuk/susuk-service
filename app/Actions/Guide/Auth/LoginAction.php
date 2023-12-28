@@ -98,8 +98,8 @@ class LoginAction {
 
         ResetPassword::create([
             'user_id' => $user->id,
+            'user_role' => 'users',
             'name' => $request->name,
-            'name' => 'name',
             'phone_number' => $number,
             'request_at' => Carbon::now(),
             'status' => 'pending'
