@@ -22,7 +22,8 @@ class LoginAction {
      */
     public function handle(LoginRequest $request)
     {
-        $number = Susuk::formatIndonesianPhoneNumber($request->phone_number);
+        // $number = Susuk::formatIndonesianPhoneNumber($request->phone_number);
+        $number = $request->phone_number;
         $user = Merchant::whereWhatsappNumber($number)->first();
         $bank = Susuk::getBankInformation();
 
