@@ -42,6 +42,9 @@ class MerchantController extends Controller
 
     public function detail($id)
     {
+        if ($data = $this->merchantService->findAndCheckById($id)) {
+            return to_route('guide.merchants.detail', $data->uuid);
+        }
         return Inertia::render('Guide/Merchant/Detail', [
             'data' => $this->merchantService->findAndCountByUUid($id)
         ]);
