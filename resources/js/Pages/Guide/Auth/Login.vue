@@ -130,6 +130,7 @@
     }
 
     const submit = () => {
+        window.localStorage.removeItem("susuk-popup")
         if (!form.processing) {
             form.post(route('guide.login.store'))
         }

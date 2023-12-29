@@ -188,7 +188,7 @@
                 "
                 :loading="form.processing"
             >
-                Registrasi
+                Update
             </ButtonSolidBlue>
         </form>
 

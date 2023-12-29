@@ -31,6 +31,7 @@ declare module 'ziggy-js' {
     "guide.login.store": [],
     "guide.register": [],
     "guide.register.store": [],
+    "guide.login.forgot-password": [],
     "guide.home": [],
     "guide.home.search": [
         {
@@ -102,6 +103,7 @@ declare module 'ziggy-js' {
     "merchant.login.store": [],
     "merchant.register": [],
     "merchant.register.store": [],
+    "merchant.login.forgot-password": [],
     "merchant.home": [],
     "merchant.home.edit": [],
     "merchant.home.edit.store": [],
@@ -123,6 +125,11 @@ declare module 'ziggy-js' {
         }
     ],
     "merchant.products.edit.update": [
+        {
+            "name": "id"
+        }
+    ],
+    "merchant.products.delete": [
         {
             "name": "id"
         }

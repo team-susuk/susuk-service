@@ -8,7 +8,7 @@
                 v-model="form.arrival_date"
                 :error="form.errors.arrival_date"
                 v-bind:default="form.arrival_date"
-                :min="moment().add(1, 'days').format('YYYY-MM-DD')"
+                :min="moment().format('YYYY-MM-DD')"
             />
             <TimePicker
                 label="Jam kedatangan"

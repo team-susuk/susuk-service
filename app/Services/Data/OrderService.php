@@ -43,6 +43,7 @@ class OrderService extends AdminService
     {
         return $this->model::
             whereIn("type", [OrderType::Merchant_Top_Ads])
+            ->where("status", OrderStatus::Paid)
             ->whereDate("expired_at", "<=", Carbon::now())->inRandomOrder()->get();
     }
 

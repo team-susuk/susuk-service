@@ -91,7 +91,7 @@ class ReservationService
             ]);
         } else {
             $this->model::create([
-                'merchant_id' => $id,
+                'merchant_id' => merchant()->id,
                 'user_id' => $id,
                 'guest_number' => $request->total_guest,
                 'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,

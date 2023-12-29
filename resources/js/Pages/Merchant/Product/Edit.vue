@@ -51,7 +51,7 @@
                 id="price"
                 name="price"
                 v-model="form.price"
-                :value="form.price"
+                :value="formatPrice(form.price)"
                 :error="form.errors.price"
             />
             <ButtonSolidBlue
@@ -80,6 +80,7 @@
 
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
     import InputNumber from '@/Components/Input/InputNumber.vue';
+    import InputPrice from '@/Components/Input/InputPrice.vue';
     import DropZone from '@/Components/Input/DropZoneImage.vue';
     import Textarea from '@/Components/Input/Textarea.vue';
     import Input from '@/Components/Input/Index.vue';
@@ -98,6 +99,11 @@
         if (!form.processing) {
             form.post(route('merchant.products.edit.update', props.product.uuid))
         }
+    }
+
+    const formatPrice = (value: any) => {
+        const formattedNumber = Number(value).toLocaleString('id-ID');
+        return formattedNumber;
     }
 
 </script>

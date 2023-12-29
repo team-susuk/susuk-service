@@ -66,4 +66,12 @@ class ProductController extends Controller
             'popup_success' => 'Produk Berhasil Diubah'
         ]);
     }
+
+    public function delete($id)
+    {
+        Product::whereId($id)->firstOrFail()->delete();
+        return to_route('merchant.home')->with([
+            'popup_success' => 'Produk Berhasil Dihapus'
+        ]);
+    }
 }

@@ -44,6 +44,7 @@ Route::prefix("merchant")
                 Route::get("/detail/{id}", "detail")->name("detail");
                 Route::get("/edit/{id}", "edit")->name("edit");
                 Route::post("/edit/{id}", "update")->name("edit.update");
+                Route::delete("/delete/{id}", "delete")->name("delete");
             });
 
             Route::controller(OrderController::class)

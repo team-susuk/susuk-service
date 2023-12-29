@@ -200,11 +200,13 @@
     }
 
     const closeAndOpenAds = (id: number) => {
+        let openPlan = window.localStorage.getItem("susuk-popup") 
         let element = document.getElementById('popup-advertisement-'+(id+1)) as any
         if (element) {
             element?.click()
         } else {
-            if (!usePage().props.auth.guide.is_member) {
+            if (!usePage().props.auth.guide.is_member && !openPlan) {
+                window.localStorage.setItem("susuk-popup", "open")
                 clickId("popup-plan-guide")
             }
         }
