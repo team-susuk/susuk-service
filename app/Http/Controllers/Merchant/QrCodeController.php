@@ -45,6 +45,6 @@ class QrCodeController extends Controller
     {
         $this->reservationService->updateReservation($request, $id);
 
-        return redirect()->back()->with(["popup_success" => "Data Kedatangan Berhasil Disimpan"]);
+        return to_route('merchant.qrcode.histories')->with(["popup_success" => "Data Kedatangan Berhasil Disimpan"]);
     }
 }
