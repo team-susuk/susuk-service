@@ -20,7 +20,8 @@ class ProductController extends Controller
     public function category($category)
     {
         return Inertia::render('Guide/Product/Category', [
-            'title' => Susuk::slugToNormal($category)
+            'title' => Susuk::slugToNormal($category),
+            'id' => $category
         ]);
     }
 
