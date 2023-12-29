@@ -89,14 +89,22 @@
     placeholder="Sip Document" horizontal required="false"
     help-text="Biarkan kosong jika tidak ingin mengubah"></x-portal::input>
 
-<x-portal::input type="password" name="password" label="Password" placeholder="Password" required="false" help-text="Biarkan kosong jika tidak ingin mengubah password"
-    horizontal></x-portal::input>
-<x-portal::input.select name="status" label="Status" placeholder="Status" horizontal>
-    <option value="">Pilih Status</option>
-    @foreach ($status as $item)
-        <option @selected($row->status === $item) value="{{ $item->value }}">{{ $item->label() }}</option>
-    @endforeach
-</x-portal::input.select>
+<x-portal::input type="password" name="password" label="Password" placeholder="Password" required="false"
+    help-text="Biarkan kosong jika tidak ingin mengubah password" horizontal></x-portal::input>
+<div class="form-group row ">
+    <label for="" class="label col-sm-2">
+        Status
+        <span class="required">*</span>
+    </label>
+    <div class="col-sm-6 d-flex gap-2 align-items-center">
+        <select name="status" id="status" class="form-control" required>
+            <option value="">Pilih Status</option>
+            @foreach ($status as $item)
+                <option @selected($row->status === $item) value="{{ $item->value }}">{{ $item->label() }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
 <x-portal::input.select.asset />
 @push('js')
     <script>

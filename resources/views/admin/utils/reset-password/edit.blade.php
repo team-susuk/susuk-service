@@ -2,7 +2,8 @@
     <div class="form-group row ">
         <label for="" class="label fw-bold col-sm-4">Nama</label>
         <div class="col-sm-8 fs-14">
-            {{ $row->role === 'users' ? $row->user_name : $row->merchant_name }}
+            {{-- {{ $row->user_role === 'users' ? $row->user_name : $row->merchant_name }} --}}
+            {{$row->name}}
         </div>
     </div>
     <div class="form-group row ">
