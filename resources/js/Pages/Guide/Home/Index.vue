@@ -61,7 +61,7 @@
                 <CardMerchant
                     class="w-screen-3xs"
                     v-for="merchant in top_merchants"
-                    :data="merchant.merchant"
+                    :data="merchant"
                 />
             </div>
         </section>
@@ -81,7 +81,7 @@
                 <CardMerchant
                     class="w-screen-3xs"
                     v-for="merchant in new_merchants"
-                    :data="merchant.merchant"
+                    :data="merchant"
                 />
             </div>
         </section>
@@ -101,7 +101,7 @@
                 <CardProduct
                     class="w-screen-4xs"
                     v-for="product in special_products"
-                    :data="product.product"
+                    :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
                 />
             </div>
@@ -122,7 +122,7 @@
                 <CardProduct
                     class="w-screen-4xs"
                     v-for="product in favorite_products"
-                    :data="product.product"
+                    :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
                 />
             </div>
