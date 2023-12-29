@@ -18,6 +18,10 @@
             Ubah Password
             <i class="isax icon-arrow-right-3 text-xl"></i>
         </a>
+        <p class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver">
+            Kontak Admin
+            <span>{{ $page.props.bank.whatsapp }}</span>
+        </p>
         <a class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="clickId('confirm-logout')">
             Keluar
             <Logout />

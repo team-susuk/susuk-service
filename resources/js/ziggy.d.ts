@@ -129,6 +129,11 @@ declare module 'ziggy-js' {
             "name": "id"
         }
     ],
+    "merchant.products.delete": [
+        {
+            "name": "id"
+        }
+    ],
     "merchant.order.merchant": [],
     "merchant.order.product": [
         {

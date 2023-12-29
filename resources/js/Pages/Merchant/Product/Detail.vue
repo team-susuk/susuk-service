@@ -21,9 +21,41 @@
             </div>
         </div>
 
-        <Link :href="route('merchant.products.edit', product.uuid)" class="bg-blue rounded-md px-4 py-2 text-sm font-semibold text-white flex-center gap-1 my-4 w-fit">
-            <i class="isax-b icon-edit-2 text-xl"></i> Ubah Produk
-        </Link>
+        <div class="flex gap-2 mb-4" x-data="{popup: false}">
+            <Link :href="route('merchant.products.edit', product.uuid)" class="bg-blue rounded-md px-4 py-2 text-sm font-semibold text-white flex-center gap-1 my-4 w-fit">
+                <i class="isax-b icon-edit-2 text-xl"></i> Ubah Produk
+            </Link>
+
+            <a class="bg-red rounded-md px-4 py-2 text-sm font-semibold text-white flex-center gap-1 my-4 w-fit cursor-pointer" x-on:click="popup=true">
+                <i class="isax-b icon-trash text-xl"></i> Hapus Produk
+            </a>
+            <Popup>
+                <Confirmation class="mx-auto mb-3" />
+                <h2 class="text-center mb-2 font-semibold text-base">
+                    Hapus Produk
+                </h2>
+                <h2 class="text-center text-xs">
+                    Apakah anda yakin akan menghapus produk ini?
+                </h2>
+                <div class="flex-center gap-3">
+                    <OutlineBlue
+                        class="mt-8 h-[48px] min-w-[100px] justify-center"
+                        x-on:click="popup=false"
+                        v-if="!loading"
+                    >
+                        Batal
+                    </OutlineBlue>
+                    <SolidBlue
+                        class="mt-8 h-[48px] min-w-[100px] justify-center"
+                        @click="deleteProduct"
+                        :disabled="loading"
+                        :loading="loading"
+                    >
+                        Iya
+                    </SolidBlue>
+                </div>
+            </Popup>
+        </div>
 
         <div class="p-4 rounded-md bg-[#F2F7FC]">
             <p class="text-sm font-semibold text-neutral-dark-gray">Fitur Promosi</p>
@@ -206,7 +238,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+    import { Head, Link, useForm, router } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Merchant/AuthLayout.vue'
     import HeaderDetail from '@/Components/Navigation/HeaderDetail.vue'
 
@@ -229,6 +261,8 @@
     import OutlineOrange from "@/Components/Button/OutlineOrange.vue";
 
     import { watch, ref } from 'vue'
+    import Confirmation from '@/Components/Icon/Image/Confirmation.vue';
+    import axios from 'axios';
 
     const props = defineProps(["product", "packages", "regions", "languages"])
 
@@ -247,6 +281,7 @@
     const hasPackageImage = ref(true)
     const hasCity = ref(true)
     const cities = ref([])
+    const loading = ref(false)
 
     const selectPromotion = (promotion: any) => {
         selectedPackages.value = promotion.packages
@@ -315,6 +350,11 @@
             clickId('show-select-blast')
         }
         clickId('show-select-package')
+    }
+
+    const deleteProduct = () => {
+        loading.value = true
+        useForm({}).delete(route('merchant.products.delete', props.product.id))
     }
 
 </script>

@@ -118,7 +118,7 @@
                             "
                             :loading="form.processing"
                         >
-                            Simpan
+                            Daftar
                         </SolidBlue>
                     </div>
                 </form>

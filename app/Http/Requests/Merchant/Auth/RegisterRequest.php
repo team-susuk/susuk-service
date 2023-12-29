@@ -45,4 +45,16 @@ class RegisterRequest extends FormRequest
             'password_confirmation' => 'required|min:6|max:50|same:password',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'pic_phone_wa.unique' => 'This phone number has been used before, please use other phone number or contact our admin.'
+        ];
+    }
 }

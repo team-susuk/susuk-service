@@ -35,7 +35,7 @@ class LoginAction {
         if ($user && Hash::check($request->password, $user->password)) {
             if ($user->status == UserStatus::Waiting_Approval) {
                 throw ValidationException::withMessages([
-                    'phone_number' => "Akun anda masih menunggu persetujuan dari admin, silahkan hubungi admin ke nomor WA ". $bank->whatsapp
+                    'phone_number' => "Akun anda sedang menunggu persetujuan dari Admin, mohon kesediaannya untuk menunggu, Terimakasih"
                 ]);
             }
             if ($user->status == UserStatus::Rejected) {

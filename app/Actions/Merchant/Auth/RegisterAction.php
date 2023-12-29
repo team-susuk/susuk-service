@@ -28,8 +28,10 @@ class RegisterAction {
                 "subdistrict_id" => $request->subdistrict,
                 "address" => $request->address,
                 "pic_name" => $request->pic_name,
-                "phone_number" => Susuk::formatIndonesianPhoneNumber($request->pic_phone),
-                "whatsapp_number" => Susuk::formatIndonesianPhoneNumber($request->pic_phone_wa),
+                // "phone_number" => Susuk::formatIndonesianPhoneNumber($request->pic_phone),
+                // "whatsapp_number" => Susuk::formatIndonesianPhoneNumber($request->pic_phone_wa),
+                "phone_number" => $request->pic_phone,
+                "whatsapp_number" => $request->pic_phone_wa,
                 "commission" => (object)[
                     "start" => $request->start_commission_range,
                     "end" => $request->end_commission_range
@@ -39,10 +41,10 @@ class RegisterAction {
                     "start" => $request->open_time_weekdays,
                     "end" => $request->close_time_weekdays,
                 ],
-                "weekends" => $request->weekends,
+                "weekends" => $request->weekends ?? "[]",
                 "weekend_time" => (object)[
-                    "start" => $request->open_time_weekends,
-                    "end" => $request->close_time_weekends,
+                    "start" => $request->open_time_weekends ?? "",
+                    "end" => $request->close_time_weekends ?? "",
                 ],
                 "password" => Hash::make($request->password),
                 "status" => UserStatus::Waiting_Approval
