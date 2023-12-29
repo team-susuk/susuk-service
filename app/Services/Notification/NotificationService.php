@@ -18,7 +18,7 @@ class NotificationService {
         return $this->model::where("user_id", $userId)
         ->where("type", $type)
         ->where(function ($q) {
-            $q->whereNull("expired_at")->orWhere("expired_at", "<=", Carbon::now());
+            $q->whereNull("expired_at")->orWhere("expired_at", ">=", Carbon::now());
         })
         ->orderByDesc("created_at")
         ->paginate();
