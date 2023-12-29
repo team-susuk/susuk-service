@@ -167,6 +167,11 @@ class MerchantService extends AdminService
         return $this->model::with(['products'])->where("uuid", $uuid)->firstOrFail();
     }
 
+    public function findAndCheckById($id)
+    {
+        return $this->model::with(['products'])->where("id", $id)->first();
+    }
+
     public function findAndCountByUUid($uuid)
     {
         $data = $this->findByUUid($uuid);
