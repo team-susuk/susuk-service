@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Guide;
 
-use App\Helpers\Susuk;
 use Inertia\Inertia;
+use App\Helpers\Susuk;
 use Illuminate\Http\Request;
+use App\Enums\CategoryMerchant;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\MerchantResource;
 use App\Services\Data\FeaturedService;
-use App\Services\Data\ReservationService;
-use App\Services\Master\CategoryService;
-use App\Services\Regions\ProvinceService;
 use App\Services\Users\MerchantService;
+use App\Services\Master\CategoryService;
+use App\Services\Data\ReservationService;
+use App\Services\Regions\ProvinceService;
+use App\Http\Resources\User\MerchantResource;
 
 class MerchantController extends Controller
 {
@@ -63,7 +64,7 @@ class MerchantController extends Controller
             $category = $this->categoryService->findByUUid($category);
             $data = $this->merchantService->getByCategory($category->uuid);
         } else {
-            $data = $this->featuredService->getMerchantList($category);
+            $data = $this->featuredService->getMerchantList($category == 'top-merchants' ? CategoryMerchant::Top_Merchant : CategoryMerchant::New_Merchant);
         }
 
         return MerchantResource::collection($data);
