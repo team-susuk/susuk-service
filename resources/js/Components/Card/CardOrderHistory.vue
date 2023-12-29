@@ -1,7 +1,9 @@
 <template>
     <div class="rounded-[14px] border border-silver p-[14px] flex flex-col gap-2" v-bind:class="class">
         <div class="pb-3 border-b border-silver">
-            <div class="grid grid-cols-2 gap-2 justify-between items-start">
+            <div
+                class="grid gap-2 grid-cols-2 justify-between items-start"
+            >
                 <div class="">
                     <p class="text-xxs text-neutral-dark-gray mb-[6px]">{{ data.created_at }}</p>
                     <p class="text-sm font-semibold whitespace-nowrap">{{ data.type }}</p>
@@ -17,12 +19,21 @@
             </div>
         </div>
         <div class="pt-3">
-            <div class="grid grid-cols-2 gap-2 justify-between">
+            <div
+                class="grid gap-2 justify-between"
+                :class="{
+                    'grid-cols-2': !data.image_url,
+                    'grid-cols-3': data.image_url,
+                }"
+            >
+                <div class="" v-if="data.image_url">
+                    <img :src="data.image_url" alt="" class="w-11">
+                </div>
                 <div class="">
                     <p class="text-xxs text-neutral-dark-gray mb-[6px]">Harga</p>
                     <p class="text-sm font-semibold">{{ data.price }}</p>
                 </div>
-                <div class="">
+                <div class="ms-auto">
                     <p class="text-xxs text-neutral-dark-gray mb-[6px]">Expired</p>
                     <p class="text-sm font-semibold">{{ data.expired_at }}</p>
                 </div>

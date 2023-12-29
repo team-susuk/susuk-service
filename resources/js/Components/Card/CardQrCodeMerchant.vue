@@ -10,7 +10,7 @@
             <div class="flex flex-col gap-1 flex-auto">
                 <div class="flex items-center justify-between w-full">
                     <p class="text-xxs text-neutral-gray-2 font-medium">
-                        {{ data.user.code }}
+                        Jam Kedatangan {{ data.user.code }}
                     </p>
                     <p class="text-xxs text-neutral-gray-2 font-medium">
                         {{ data.time_arrival }}

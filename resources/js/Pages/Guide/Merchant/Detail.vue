@@ -46,17 +46,17 @@
             Jam & hari operasional
         </span>
 
-        <div class="flex gap-4 mb-6">
+        <div class="flex gap-4 mb-2">
             <span class="text-sm">
                 <span class="font-medium">Weekdays:</span> {{ data.weekday_time.start }} - {{ data.weekday_time.end }}
             </span>
             <span class="text-sm">
                 <span class="font-medium">Weekend:</span> {{ data.weekend_time.start }} - {{ data.weekend_time.end }}
             </span>
-            <span class="text-sm">
-                <!-- <span class="font-medium">Tutup:</span> Minggu -->
-            </span>
         </div>
+        <p class="text-sm mb-6">
+            <span class="font-medium">Hari Operasional:</span> {{ data.operational_days }}
+        </p>
 
         <SolidBlue
             class="!font-semibold !text-xs md:!text-sm !px-9 !py-2 justify-center !w-fit"
@@ -79,7 +79,7 @@
             </div>
         </section>
 
-        <PopupBooking :id="data.uuid" />
+        <PopupBooking :id="data.id" />
     </AuthLayout>
 </template>
 

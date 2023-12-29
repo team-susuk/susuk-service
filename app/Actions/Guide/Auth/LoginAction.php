@@ -24,7 +24,7 @@ class LoginAction {
     {
         // $number = Susuk::formatIndonesianPhoneNumber($request->phone_number);
         $number = $request->phone_number;
-        $user = User::wherePhoneNumber($number)->first();
+        $user = User::where('phone_number', $number)->first();
         $bank = Susuk::getBankInformation();
 
         if (!$user) {

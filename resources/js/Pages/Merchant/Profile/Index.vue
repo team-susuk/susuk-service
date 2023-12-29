@@ -18,9 +18,9 @@
             Ubah Password
             <i class="isax icon-arrow-right-3 text-xl"></i>
         </a>
-        <p class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver">
+        <p class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="redirectToWa">
             Kontak Admin
-            <span>{{ $page.props.bank.whatsapp }}</span>
+            <i class="isax icon-arrow-right-3 text-xl"></i>
         </p>
         <a class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="clickId('confirm-logout')">
             Keluar
@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, router, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
     import AuthLayout from '@/Layouts/Merchant/AuthLayout.vue'
     
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
@@ -150,6 +150,7 @@
     import axios from 'axios';
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import LogoutAlert from '@/Components/Icon/Image/Logout.vue';
+    import { formatIndonesianPhoneNumber } from '@/plugins/functions/global'
 
     const form = useForm({
         title: '',
@@ -189,6 +190,12 @@
 
     const logout = () => {
         router.post(route('merchant.logout'))
+    }
+
+    const redirectToWa = () => {
+        let phone = formatIndonesianPhoneNumber(usePage().props.bank.whatsapp)
+        console.log(usePage().props.bank.whatsapp, phone)
+        window.open(`https://wa.me/${phone}`, '_blank')
     }
 
 </script>

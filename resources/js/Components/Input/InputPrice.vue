@@ -77,6 +77,7 @@ export default {
             if (this.value) {
                 const rawPrice = this.value.replace(/\./g, '');
                 const formattedNumber = Number(rawPrice).toLocaleString('id-ID');
+                if (isNaN(Number(formattedNumber))) return 0;
                 this.value = formattedNumber;
             }
         },

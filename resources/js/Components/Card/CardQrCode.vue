@@ -3,13 +3,13 @@
         <div class="flex gap-2 pb-3 border-b border-[#F2F6FE]">
             <div>
                 <img
-                    :src="data.profile_url" 
+                    :src="data.merchant.profile_url" 
                     class="w-[85.33px] h-12 object-cover rounded-lg aspect-video"
                 >
             </div>
             <div class="flex flex-col gap-1">
                 <p class="text-xxs text-neutral-gray-2 font-medium">
-                    {{ data.time_arrival }}
+                    Jam Kedatangan {{ data.time_arrival }}
                 </p>
                 <p class="text-sm font-semibold">
                     {{ data.merchant.name }}

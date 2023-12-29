@@ -24,7 +24,7 @@ class LoginAction {
     {
         // $number = Susuk::formatIndonesianPhoneNumber($request->phone_number);
         $number = $request->phone_number;
-        $user = Merchant::whereWhatsappNumber($number)->first();
+        $user = Merchant::where('whatsapp_number', $number)->first();
         $bank = Susuk::getBankInformation();
 
         if (!$user) {

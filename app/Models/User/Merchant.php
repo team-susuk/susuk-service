@@ -40,7 +40,8 @@ class Merchant extends Model
     protected $appends = [
         'profile_url',
         'full_address',
-        'full_commission'
+        'full_commission',
+        'operational_days'
     ];
 
     public static function boot()
@@ -80,6 +81,15 @@ class Merchant extends Model
         } else {
             return $this->commission['start'] . "% - " . $this->commission['end'] . "%";
         }
+    }
+
+    public function getOperationalDaysAttribute()
+    {
+        $daysArrays = array_merge(($this->weekdays ?? []), ($this->weekends ?? []));
+        $days = '';
+
+        $days = implode(', ', $daysArrays);
+        return $days;
     }
 
     public function category()

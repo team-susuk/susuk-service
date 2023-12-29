@@ -38,9 +38,9 @@ class RegisterRequest extends FormRequest
             'weekdays' => 'required',
             'open_time_weekdays' => 'required',
             'close_time_weekdays' => 'required',
-            'weekends' => 'required',
-            'open_time_weekends' => 'required',
-            'close_time_weekends' => 'required',
+            // 'weekends' => 'required',
+            // 'open_time_weekends' => 'required',
+            // 'close_time_weekends' => 'required',
             'password' => 'required|min:6|max:50',
             'password_confirmation' => 'required|min:6|max:50|same:password',
         ];

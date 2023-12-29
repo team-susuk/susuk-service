@@ -59,6 +59,9 @@
             <p class="text-xs text-neutral-dark-gray">Jam & hari operasional</p>
             <span class="text-sm me-4"><span class="font-medium">Weekdays:</span> {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</span>
             <span class="text-sm me-4"><span class="font-medium">Weekend:</span> {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</span>
+            <p class="text-sm">
+                <span class="font-medium">Hari Operasional:</span> {{ merchant.operational_days }}
+            </p>
         </div>
         <div class="mb-6">
             <p class="text-xs text-neutral-dark-gray">Deskripsi Toko</p>
