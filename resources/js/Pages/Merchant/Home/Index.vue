@@ -56,11 +56,12 @@
 
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>
         <div class="mb-3">
-            <p class="text-xs text-neutral-dark-gray">Jam & hari operasional</p>
-            <span class="text-sm me-4"><span class="font-medium">Weekdays:</span> {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</span>
-            <span class="text-sm me-4"><span class="font-medium">Weekend:</span> {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</span>
+            <p class="text-xs text-neutral-dark-gray">Jam operasional</p>
+            <span class="text-sm me-2">Weekdays: {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</span>
+            <span class="text-sm">Weekend: {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</span>
+            <p class="text-xs text-neutral-dark-gray">Jam operasional</p>
             <p class="text-sm">
-                <span class="font-medium">Hari Operasional:</span> {{ merchant.operational_days }}
+                {{ merchant.operational_days }}
             </p>
         </div>
         <div class="mb-6">

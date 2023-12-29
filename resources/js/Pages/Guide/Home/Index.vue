@@ -52,7 +52,7 @@
                     class="font-bold text-lg"
                 >Top Merchants</h2>
 
-                <Link :href="route('guide.merchants.category', 'top-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.merchants.featured', 'top-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>
@@ -72,7 +72,7 @@
                     class="font-bold text-lg"
                 >New Merchants</h2>
 
-                <Link :href="route('guide.merchants.category', 'new-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.merchants.featured', 'new-merchants')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>

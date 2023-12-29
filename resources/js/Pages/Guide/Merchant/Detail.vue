@@ -43,19 +43,22 @@
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>
 
         <span class="text-xs text-neutral-dark-gray">
-            Jam & hari operasional
+            Jam operasional
         </span>
 
-        <div class="flex gap-4 mb-2">
+        <div class="flex gap-2 mb-2">
             <span class="text-sm">
-                <span class="font-medium">Weekdays:</span> {{ data.weekday_time.start }} - {{ data.weekday_time.end }}
+                Weekdays: {{ data.weekday_time.start }} - {{ data.weekday_time.end }}
             </span>
             <span class="text-sm">
-                <span class="font-medium">Weekend:</span> {{ data.weekend_time.start }} - {{ data.weekend_time.end }}
+                Weekend: {{ data.weekend_time.start }} - {{ data.weekend_time.end }}
             </span>
         </div>
+        <span class="text-xs text-neutral-dark-gray">
+            Hari operasional
+        </span>
         <p class="text-sm mb-6">
-            <span class="font-medium">Hari Operasional:</span> {{ data.operational_days }}
+            {{ data.operational_days }}
         </p>
 
         <SolidBlue

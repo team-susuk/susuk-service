@@ -2,7 +2,7 @@
     <div class="rounded-[14px] border border-silver p-[14px] flex flex-col gap-2 cursor-pointer" v-bind:class="class">
         <div @click="confirmAction">
             <img
-                :src="data.image_url" 
+                :src="data?.image_url ?? ($page.props.asset+data.image)" 
                 class="w-full h-48 object-cover rounded-lg mb-1"
             >
             <p class="mb-1 font-medium text-base whitespace-pre-wrap">{{ data.name }}</p>

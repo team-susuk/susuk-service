@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-[14px] border border-silver p-[14px] flex flex-col gap-2" v-bind:class="class">
         <img
-            :src="data.profile_url" 
+            :src="data?.profile_url ?? ($page.props.asset+data.profile)" 
             class="w-full h-24 object-cover rounded-lg"
         >
         <div class="flex items-start justify-start gap-2">

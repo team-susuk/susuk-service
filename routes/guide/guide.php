@@ -62,7 +62,6 @@ Route::prefix("guide")
             ->name("products.")
             ->group(function () {
                 Route::get('/category/{category}', 'category')->name("category");
-                Route::get('/category/{category}', 'category')->name("category");
                 Route::get('/category-data/{category}', 'categoryData')->name("category-data");
             });
     
