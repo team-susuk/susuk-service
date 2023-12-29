@@ -142,3 +142,18 @@ export const clickId = (id: string) => {
         element?.click()
     }
 }
+
+export const formatIndonesianPhoneNumber = (number: any) => {
+    number = number.replace(/\D/g, '');
+    const start = number.substring(0, 1);
+    const prefix = '62';
+
+    if (start === '0') {
+        return prefix + number.replace(/^0+/, '');
+    } else {
+        if (number.substring(0, 2) !== '62') {
+            return prefix + number;
+        }
+    }
+    return number;
+}

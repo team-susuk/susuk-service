@@ -4,7 +4,7 @@
         <HeaderDetail :backUrl="route('merchant.home')" title="Histori Pembayaran Promosi" />
 
         <WithPaginate :paginate="paginate" :loading="shallowReactive(CardOrderHistoryLoading)">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4">
                 <template v-for="history in paginate.data.value">
                     <CardOrderHistory :data="history" />
                 </template>

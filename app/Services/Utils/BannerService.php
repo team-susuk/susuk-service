@@ -48,7 +48,7 @@ class BannerService extends AdminService
 
     public function getBanners()
     {
-        return $this->model::whereDate("expired_at", "<=", Carbon::now())->orderBy("sorting", "asc")->get()->map(function ($row) {
+        return $this->model::whereDate("expired_at", ">=", Carbon::now())->orderBy("sorting", "asc")->get()->map(function ($row) {
             $row->image = Susuk::showFile($row->image);
             return $row;
         });

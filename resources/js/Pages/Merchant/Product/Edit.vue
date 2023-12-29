@@ -103,6 +103,7 @@
 
     const formatPrice = (value: any) => {
         const formattedNumber = Number(value).toLocaleString('id-ID');
+        if (isNaN(Number(formattedNumber))) return 0;
         return formattedNumber;
     }
 

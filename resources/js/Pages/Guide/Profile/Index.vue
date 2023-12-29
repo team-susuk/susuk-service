@@ -23,9 +23,9 @@
             Ubah Password
             <i class="isax icon-arrow-right-3 text-xl"></i>
         </a>
-        <p class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver">
+        <p class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver" @click="redirectToWa">
             Kontak Admin
-            <span>{{ $page.props.bank.whatsapp }}</span>
+            <i class="isax icon-arrow-right-3 text-xl"></i>
         </p>
         <a class="flex items-center justify-between text-sm font-medium py-3 border-b border-silver cursor-pointer" @click="clickId('confirm-logout')">
             Keluar
@@ -158,6 +158,7 @@
     import Logout from '@/Components/Icon/Etc/Logout.vue';
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import LogoutAlert from '@/Components/Icon/Image/Logout.vue';
+    import { formatIndonesianPhoneNumber } from '@/plugins/functions/global'
 
 
     const user = usePage().props.auth.guide
@@ -201,6 +202,11 @@
 
     const logout = () => {
         router.post(route('guide.logout'))
+    }
+
+    const redirectToWa = () => {
+        let phone = formatIndonesianPhoneNumber(usePage().props.bank.whatsapp)
+        window.open(`https://wa.me/${phone}`, '_blank')
     }
 
 </script>
