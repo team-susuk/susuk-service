@@ -67,7 +67,7 @@
             value="{{ $row->weekday_time['end'] }}">
     </div>
 </div>
-<x-input.multiple-select name="weekends[]" label="Weekends" placeholder="Weekends" horizontal>
+<x-input.multiple-select name="weekends[]" label="Weekends" placeholder="Weekends" required="false" horizontal>
     <option value="">Pilih Hari</option>
     <option @selected(in_array('Sabtu', $row->weekends)) value="Sabtu">Sabtu</option>
     <option @selected(in_array('Minggu', $row->weekends)) value="Minggu">Minggu</option>
@@ -75,13 +75,12 @@
 <div class="form-group row ">
     <label for="" class="label col-sm-2">
         Waktu Weekends
-        <span class="required">*</span>
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="time" name="weekend_time_start" placeholder="Buka" required="required"
+        <input type="time" name="weekend_time_start" placeholder="Buka"
             class="form-control " value="{{ $row->weekend_time['start'] }}">
         <span>-</span>
-        <input type="time" name="weekend_time_end" placeholder="Tutup" required="required" class="form-control "
+        <input type="time" name="weekend_time_end" placeholder="Tutup" class="form-control "
             value="{{ $row->weekend_time['end'] }}">
     </div>
 </div>

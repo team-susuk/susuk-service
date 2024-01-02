@@ -18,13 +18,16 @@ class AdminGuideController extends AdminController
     protected $export = true;
 
     protected $tableColumns = [
-        ["label" => "Foto", "name" => "profile"],
-        ["label" => "Nama Lengkap", "name" => "name"],
-        ["label" => "Nama Panggilan", "name" => "nick_name"],
-        ["label" => "ID Guide", "name" => "code"],
-        ["label" => "Nomor Whatsapp", "name" => "phone_number"],
-        ["label" => "Waktu Registrasi", "name" => "register_at"],
-        ["label" => "Status", "name" => "status"],
+        ["label" => "Foto", "name" => "users.profile"],
+        ["label" => "Nama Lengkap", "name" => "users.name"],
+        ["label" => "Nama Panggilan", "name" => "users.nick_name"],
+        ["label" => "ID Guide", "name" => "users.code"],
+        ["label" => "Nomor Whatsapp", "name" => "users.phone_number"],
+        ["label" => "Provinsi", "name" => "users.province_id"],
+        ["label" => "Kabupaten/kotamadya", "name" => "users.city_id"],
+        ["label" => "Kecamatan", "name" => "users.subdistrict_id"],
+        ["label" => "Waktu Registrasi", "name" => "users.register_at"],
+        ["label" => "Status", "name" => "users.status"],
     ];
 
     protected $rules = [

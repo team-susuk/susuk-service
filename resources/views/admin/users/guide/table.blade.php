@@ -19,6 +19,9 @@
         <td>{{ $row->nick_name }}</td>
         <td>{{ $row->code }}</td>
         <td>{{ $row->phone_number }}</td>
+        <td>{{ $row->province_name }}</td>
+        <td>{{ $row->city_name }}</td>
+        <td>{{ $row->district_name }}</td>
         <td>{{ $row->register_at }}</td>
         <td>{{ $row->status->label() }}</td>
         <td class="text-end">

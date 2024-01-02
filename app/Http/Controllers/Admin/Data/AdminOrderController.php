@@ -21,7 +21,7 @@ class AdminOrderController extends AdminController
         ["label" => "Type", "name" => "type"],
         ["label" => "Role", "name" => "user_role"],
         ["label" => "User", "name" => "user_id"],
-        ["label" => "Benefit", "name" => "benefit_value"],
+        ["label" => "Paket", "name" => "benefit_value"],
         ["label" => "Price", "name" => "price"],
         ["label" => "Image", "name" => "image"],
         ["label" => "Status", "name" => "status"],
