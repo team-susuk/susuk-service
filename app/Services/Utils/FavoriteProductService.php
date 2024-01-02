@@ -1,12 +1,12 @@
 <?php
 namespace App\Services\Utils;
 
-use App\Enums\CategoryProduct;
 use Illuminate\Http\Request;
+use App\Enums\CategoryProduct;
 use App\Models\Data\FeaturedProduct;
 use Laililmahfud\Adminportal\Services\AdminService;
 
-class SpecialProductsService extends AdminService
+class FavoriteProductService extends AdminService
 {
     public function __construct(
         public $model = FeaturedProduct::class,
@@ -24,7 +24,7 @@ class SpecialProductsService extends AdminService
                 $q->orWhere("merchants.name", "like", "%" . $search . "%");
                 $q->orWhere("merchants.address", "like", "%" . $search . "%");
             })
-            ->where('featured_products.category', CategoryProduct::Special_This_Month)
+            ->where('featured_products.category', CategoryProduct::Favorite_Product)
             ->select([
                 'featured_products.*',
                 'merchants.name as username',
