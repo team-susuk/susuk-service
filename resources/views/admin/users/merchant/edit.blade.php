@@ -60,10 +60,10 @@
         <span class="required">*</span>
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="time" name="weekday_time_start" placeholder="Buka" required="required" class="form-control "
+        <input type="text" name="weekday_time_start" placeholder="Buka" required="required" class="form-control timepicker"
             value="{{ $row->weekday_time['start'] }}">
         <span>-</span>
-        <input type="time" name="weekday_time_end" placeholder="Tutup" required="required" class="form-control "
+        <input type="text" name="weekday_time_end" placeholder="Tutup" required="required" class="form-control timepicker"
             value="{{ $row->weekday_time['end'] }}">
     </div>
 </div>
@@ -77,10 +77,10 @@
         Waktu Weekends
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="time" name="weekend_time_start" placeholder="Buka"
-            class="form-control " value="{{ $row->weekend_time['start'] }}">
+        <input type="text" name="weekend_time_start" placeholder="Buka" class="form-control timepicker"
+            value="{{ $row->weekend_time['start'] }}">
         <span>-</span>
-        <input type="time" name="weekend_time_end" placeholder="Tutup" class="form-control "
+        <input type="text" name="weekend_time_end" placeholder="Tutup" class="form-control timepicker"
             value="{{ $row->weekend_time['end'] }}">
     </div>
 </div>
@@ -106,10 +106,20 @@
 </div>
 <x-portal::input.select.asset />
 @push('js')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         const provinceSelected = "{{ $row->province_id }}"
         const citySelected = "{{ $row->city_id }}"
         const subdistrictSelected = "{{ $row->subdistrict_id }}"
+        document.querySelectorAll('.timepicker').forEach((timepicker) => {
+            flatpickr(timepicker, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true
+            });
+        })
     </script>
     <script src="{{ asset('admin/js/regions.js') }}"></script>
     <style>
