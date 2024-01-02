@@ -22,7 +22,7 @@
     <option value="">Pilih Kecamatan</option>
 </x-portal::input.select>
 <x-portal::input.textarea name="address" label="Alamat Toko" placeholder="Alamat Toko"
-    horizontal>{{old('address')}}</x-portal::input.textarea>
+    horizontal>{{ old('address') }}</x-portal::input.textarea>
 <x-portal::input type="text" name="pic_name" label="Nama PIC" placeholder="Nama PIC"
     horizontal>{{ old('pic_name') }}</x-portal::input>
 <x-portal::input type="number" name="phone_number" label="Phone Number" placeholder="Phone Number"
@@ -56,10 +56,10 @@
         <span class="required">*</span>
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="time" name="weekday_time_start" placeholder="Buka" required="required" class="form-control "
+        <input type="text" name="weekday_time_start" placeholder="Buka" required="required" class="form-control timepicker"
             value="">
         <span>-</span>
-        <input type="time" name="weekday_time_end" placeholder="Tutup" required="required" class="form-control "
+        <input type="text" name="weekday_time_end" placeholder="Tutup" required="required" class="form-control timepicker"
             value="">
     </div>
 </div>
@@ -73,25 +73,33 @@
         Waktu Weekends
     </label>
     <div class="col-sm-6 d-flex gap-2 align-items-center">
-        <input type="time" name="weekend_time_start" placeholder="Buka"  class="form-control "
-            value="">
+        <input type="text" name="weekend_time_start" placeholder="Buka" class="form-control timepicker" value="">
         <span>-</span>
-        <input type="time" name="weekend_time_end" placeholder="Tutup"  class="form-control "
-            value="">
+        <input type="text" name="weekend_time_end" placeholder="Tutup" class="form-control timepicker" value="">
     </div>
 </div>
-<x-portal::input type="file" accept="application/pdf" name="siup_document" label="Sip Document" required="false" placeholder="Sip Document"
-    horizontal>{{ old('siup_document') }}</x-portal::input>
+<x-portal::input type="file" accept="application/pdf" name="siup_document" label="Sip Document" required="false"
+    placeholder="Sip Document" horizontal>{{ old('siup_document') }}</x-portal::input>
 <x-portal::input type="password" name="password" label="Password" placeholder="Password"
     horizontal>{{ old('password') }}</x-portal::input>
 
 <x-portal::input.select.asset />
 @push('js')
-<script>
-    const provinceSelected = ""
-    const citySelected = ""
-    const subdistrictSelected = ""
-</script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        const provinceSelected = ""
+        const citySelected = ""
+        const subdistrictSelected = ""
+        document.querySelectorAll('.timepicker').forEach((timepicker) => {
+            flatpickr(timepicker, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true
+            });
+        })
+    </script>
     <script src="{{ asset('admin/js/regions.js') }}"></script>
     <style>
         .form-image-upload.rounded {
