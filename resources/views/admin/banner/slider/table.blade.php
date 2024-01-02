@@ -1,6 +1,6 @@
 @foreach ($data as $row)
     <tr>
-        @itcan('delete admin.banner')
+        @itcan('delete admin.slider')
             <td>
                 @if (!$row->merchant_id)
                     <div class="form-checkbox">
@@ -18,24 +18,24 @@
         <td>{{ $row->merchant_id ? 'Merchant' : 'Admin' }}</td>
         <td>{{ $row->sorting }}</td>
         <td class="text-end">
-            @if (itcan('edit admin.banner') || itcan('delete admin.banner'))
+            @if (itcan('edit admin.slider') || itcan('delete admin.slider'))
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle btn-action"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Action
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-action">
-                        @itcan('edit admin.banner')
+                        @itcan('edit admin.slider')
                             <li>
-                                <a href="{{ adminRoute('admin.banner.edit', $row->uuid) }}" class="dropdown-item">Edit</a>
+                                <a href="{{ adminRoute('admin.slider.edit', $row->uuid) }}" class="dropdown-item">Edit</a>
                             </li>
                         @enditcan
                         @if (!$row->merchant_id)
-                            @itcan('delete admin.banner')
+                            @itcan('delete admin.slider')
                                 <li>
                                     <a href="javascript:;" data-toggle="confirmation"
                                         data-message="{{ __('adminportal.delete_confirmation') }}"
-                                        data-action="{{ adminRoute('admin.banner.destroy', $row->uuid) }}"
+                                        data-action="{{ adminRoute('admin.slider.destroy', $row->uuid) }}"
                                         data-method="DELETE" class="dropdown-item">Delete</a>
                                 </li>
                             @enditcan

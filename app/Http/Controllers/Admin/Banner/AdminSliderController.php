@@ -1,15 +1,15 @@
 <?php
-namespace App\Http\Controllers\Admin\Utils;
+namespace App\Http\Controllers\Admin\Banner;
 
 use Illuminate\Http\Request;
 use App\Services\Utils\BannerService;
 use Laililmahfud\Adminportal\Controllers\AdminController;
 
-class AdminBannersController extends AdminController
+class AdminSliderController extends AdminController
 {
-    protected $routePath = "admin.banner";
-    protected $pageTitle = "Banner";
-    protected $resourcePath = "admin.utils.banner";
+    protected $routePath = "admin.slider";
+    protected $pageTitle = "Slider";
+    protected $resourcePath = "admin.banner.slider";
     protected $moduleService = BannerService::class;
 
 
