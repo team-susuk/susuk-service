@@ -25,12 +25,14 @@
         <td>
             {{ $row->expired_at }}
         </td>
+        <td>Rp{{ number_format($row->price) }}</td>
         <td class="text-end">
             @if (itcan('edit admin.favorite-product') || itcan('delete admin.favorite-product'))
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary  btn-action" data-toggle="confirmation"
                         data-message="{{ __('adminportal.delete_confirmation') }}"
-                        data-action="{{ adminRoute('admin.favorite-product.destroy', $row->uuid) }}" data-method="DELETE">
+                        data-action="{{ adminRoute('admin.favorite-product.destroy', $row->uuid) }}"
+                        data-method="DELETE">
                         Delete
                     </button>
                 </div>

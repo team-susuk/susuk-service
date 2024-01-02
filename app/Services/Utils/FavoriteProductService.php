@@ -20,6 +20,7 @@ class FavoriteProductService extends AdminService
         return $this->model::query()
             ->join('merchants', 'merchants.id', 'featured_products.merchant_id')
             ->join('products', 'products.id', 'featured_products.product_id')
+            ->join('orders', 'orders.id', 'featured_products.order_id')
             ->where(function ($q) use ($search) {
                 $q->orWhere("merchants.name", "like", "%" . $search . "%");
                 $q->orWhere("merchants.address", "like", "%" . $search . "%");
@@ -32,7 +33,8 @@ class FavoriteProductService extends AdminService
                 'merchants.profile',
                 'merchants.commission',
                 'products.name as product_name',
-                'products.image as product_image'
+                'products.image as product_image',
+                'orders.price as harga_iklan'
             ])
             ->datatable($perPage, "featured_products.created_at");
     }

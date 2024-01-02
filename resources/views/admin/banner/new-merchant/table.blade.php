@@ -18,6 +18,7 @@
         <td>
             {{ $row->expired_at }}
         </td>
+        <td>Rp{{ number_format($row->price) }}</td>
         <td class="text-end">
             @if (itcan('edit admin.new-merchant') || itcan('delete admin.new-merchant'))
                 <div class="btn-group">

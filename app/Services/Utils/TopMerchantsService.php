@@ -19,12 +19,20 @@ class TopMerchantsService extends AdminService
 
         return $this->model::query()
             ->join('merchants', 'merchants.id', 'featured_merchants.merchant_id')
+            ->join('orders', 'orders.id', 'featured_merchants.order_id')
             ->where(function ($q) use ($search) {
                 $q->orWhere("merchants.name", "like", "%" . $search . "%");
                 $q->orWhere("merchants.address", "like", "%" . $search . "%");
             })
             ->where('featured_merchants.category', CategoryMerchant::Top_Merchant)
-            ->select(['featured_merchants.*', 'merchants.name as username', 'merchants.address', 'merchants.profile','merchants.commission'])
+            ->select([
+                'featured_merchants.*',
+                'merchants.name as username',
+                'merchants.address',
+                'merchants.profile',
+                'merchants.commission',
+                'orders.price as harga_iklan'
+            ])
             ->datatable($perPage, "featured_merchants.created_at");
 
     }

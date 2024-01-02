@@ -14,6 +14,7 @@
                     style="width: 90px !important">
             </a>
         </td>
+        <td>Rp{{ number_format($row->price) }}</td>
         <td class="text-end">
             @if (itcan('edit admin.top-adds') || itcan('delete admin.top-adds'))
                 <div class="btn-group">

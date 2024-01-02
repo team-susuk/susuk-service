@@ -25,6 +25,7 @@
         <td>
             {{ $row->expired_at }}
         </td>
+        <td>Rp{{ number_format($row->price) }}</td>
         <td class="text-end">
             @if (itcan('edit admin.special-product') || itcan('delete admin.special-product'))
                 <div class="btn-group">

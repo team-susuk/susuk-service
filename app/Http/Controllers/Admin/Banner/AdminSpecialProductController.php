@@ -23,6 +23,7 @@ class AdminSpecialProductController extends AdminController
         ["label" => "Nama Product", "name" => "products.name"],
         ["label" => "Tanggal Mulai Tayang", "name" => "featured_merchants.start_at"],
         ["label" => "Tanggal Selesai Tayang", "name" => "featured_merchants.end_at"],
+        ["label" => "Harga Iklan", "name" => "orders.price"],
     ];
 
 

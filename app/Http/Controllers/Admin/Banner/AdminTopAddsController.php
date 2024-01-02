@@ -19,6 +19,7 @@ class AdminTopAddsController extends AdminController
         ["label" => "Nama Merchant", "name" => "merchants.name"],
         ["label" => "Alamat Merchant", "name" => "merchants.address"],
         ["label" => "Image", "name" => "orders.image"],
+        ["label" => "Harga Iklan", "name" => "orders.price"],
     ];
 
 }
