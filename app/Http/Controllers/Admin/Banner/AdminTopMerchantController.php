@@ -21,7 +21,8 @@ class AdminTopMerchantController extends AdminController
         ["label" => "Komisi (%)", "name" => "merchants.commission"],
         ["label" => "Tanggal Mulai Tayang", "name" => "featured_merchants.start_at"],
         ["label" => "Tanggal Selesai Tayang", "name" => "featured_merchants.end_at"],
-        ["label" => "Harga Iklan", "name" => "orders.price"],
+        ["label" => "Harga Paket", "name" => "orders.price"],
+        ["label" => "Paket", "name" => "orders.benefit_value"],
     ];
 
 }

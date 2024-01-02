@@ -101,7 +101,8 @@ class UpdateOrderStatus
                Banner::create([
                     'merchant_id' => $userId,
                     'expired_at' => $expiredBenefit,
-                    'image' => $order->image
+                    'image' => $order->image,
+                    'order_id' => $order->id
                ]);
           }
 

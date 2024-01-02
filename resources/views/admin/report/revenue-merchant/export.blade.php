@@ -4,8 +4,8 @@
             <th>Tanggal</th>
             <th>Nama</th>
             <th>Alamat</th>
-            <th>Type</th>
-            <th>Benefit Iklan</th>
+            <th>Nama Paket</th>
+            <th>Paket</th>
             <th>Harga</th>
 
         </tr>

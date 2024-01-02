@@ -1,4 +1,7 @@
 @foreach ($data as $row)
+    @php
+        $commision = $row->commission ? json_decode($row->commission) : [];
+    @endphp
     <tr>
         @itcan('delete admin.slider')
             <td>
@@ -10,6 +13,21 @@
             </td>
         @enditcan
         <td>
+            @if ($row->profile)
+                <a href="{{ asset($row->profile) }}" target="_blank">
+                    <img src="{{ asset($row->profile) }}" alt="" class="img-thumbnail img-table"
+                        style="width: 90px !important">
+                </a>
+            @endif
+        </td>
+        <td>{{ $row->username }}</td>
+        <td>{{ $row->address }}</td>
+        <td>
+            @if ($row->profile)
+                {{ @$commision->start }}% - {{ @$commision->end }}%
+            @endif
+        </td>
+        <td>
             <a href="{{ asset($row->image) }}" target="_blank">
                 <img src="{{ asset($row->image) }}" alt="" class="img-thumbnail img-table" style="width: 100px">
             </a>
@@ -17,6 +35,8 @@
         <td>{{ $row->expired_at ?: '-' }}</td>
         <td>{{ $row->merchant_id ? 'Merchant' : 'Admin' }}</td>
         <td>{{ $row->sorting }}</td>
+        <td>Rp{{ number_format($row->price) }}</td>
+        <td>{{ $row->benefit_value }} {{ ucwords($row->benefit_type) }}</td>
         <td class="text-end">
             @if (itcan('edit admin.slider') || itcan('delete admin.slider'))
                 <div class="btn-group">
@@ -30,16 +50,14 @@
                                 <a href="{{ adminRoute('admin.slider.edit', $row->uuid) }}" class="dropdown-item">Edit</a>
                             </li>
                         @enditcan
-                        @if (!$row->merchant_id)
-                            @itcan('delete admin.slider')
-                                <li>
-                                    <a href="javascript:;" data-toggle="confirmation"
-                                        data-message="{{ __('adminportal.delete_confirmation') }}"
-                                        data-action="{{ adminRoute('admin.slider.destroy', $row->uuid) }}"
-                                        data-method="DELETE" class="dropdown-item">Delete</a>
-                                </li>
-                            @enditcan
-                        @endif
+                        @itcan('delete admin.slider')
+                            <li>
+                                <a href="javascript:;" data-toggle="confirmation"
+                                    data-message="{{ __('adminportal.delete_confirmation') }}"
+                                    data-action="{{ adminRoute('admin.slider.destroy', $row->uuid) }}" data-method="DELETE"
+                                    class="dropdown-item">Delete</a>
+                            </li>
+                        @enditcan
                     </ul>
                 </div>
             @endif

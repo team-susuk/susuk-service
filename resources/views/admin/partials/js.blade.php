@@ -1,0 +1,1 @@
+<script src="{{asset('admin/js/admin.js?v='.date('YmdHis'))}}"></script>

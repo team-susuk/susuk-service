@@ -34,7 +34,9 @@ class SpecialProductsService extends AdminService
                 'merchants.commission',
                 'products.name as product_name',
                 'products.image as product_image',
-                'orders.price as harga_iklan'
+                'orders.price as harga_iklan',
+                'orders.benefit_type',
+                'orders.benefit_value'
             ])
             ->datatable($perPage, "featured_products.created_at");
     }

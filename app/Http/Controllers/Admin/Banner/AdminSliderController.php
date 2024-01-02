@@ -14,10 +14,16 @@ class AdminSliderController extends AdminController
 
 
     protected $tableColumns = [
-        ["label" => "Image", "name" => "image"],
-        ["label" => "Expired At", "name" => "expired_at"],
-        ["label" => "Source", "name" => "merchant_id"],
-        ["label" => "Sorting", "name" => "sorting"],
+        ["label" => "Foto Merchant", "name" => "merchants.profile"],
+        ["label" => "Nama Merchant", "name" => "merchants.name"],
+        ["label" => "Alamat Merchant", "name" => "merchants.address"],
+        ["label" => "Komisi (%)", "name" => "merchants.commission"],
+        ["label" => "Foto Iklan", "name" => "banners.image"],
+        ["label" => "Expired At", "name" => "banners.expired_at"],
+        ["label" => "Source", "name" => "banners.merchant_id"],
+        ["label" => "Sorting", "name" => "banners.sorting"],
+        ["label" => "Harga Paket", "name" => "orders.price"],
+        ["label" => "Paket", "name" => "orders.benefit_value"],
     ];
 
     protected $rules = [

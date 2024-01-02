@@ -31,7 +31,9 @@ class TopMerchantsService extends AdminService
                 'merchants.address',
                 'merchants.profile',
                 'merchants.commission',
-                'orders.price as harga_iklan'
+                'orders.price as harga_iklan',
+                'orders.benefit_type',
+                'orders.benefit_value'
             ])
             ->datatable($perPage, "featured_merchants.created_at");
 
