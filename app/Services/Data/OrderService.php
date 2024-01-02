@@ -23,14 +23,14 @@ class OrderService extends AdminService
         $search = $request->search ?? '';
 
         $query = $this->model::query()
-            ->leftJoin('users', 'users.id', 'orders.user_id')
-            ->leftJoin('merchants', 'merchants.id', 'orders.user_id')
+            ->join('merchants', 'merchants.id', 'orders.user_id')
+            ->where('orders.user_role','merchant')
             ->where(function ($q) use ($search) {
                 $q->orWhere("orders.user_role", "like", "%" . $search . "%");
                 $q->orWhere("orders.type", "like", "%" . $search . "%");
                 $q->orWhere("orders.status", "like", "%" . $search . "%");
             })
-            ->select('orders.*', 'users.name as guest_name', 'merchants.name as merchant_name');
+            ->select('orders.*',  'merchants.name as user_name');
         if ($perPage) {
             return $query->datatable($perPage, "orders.created_at");
         } else {

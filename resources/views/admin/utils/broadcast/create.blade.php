@@ -13,6 +13,13 @@
     horizontal>{{ old('title') }}</x-portal::input>
 <x-portal::input.textarea name="description" label="Deskripsi" placeholder="Deskripsi"
     horizontal>{{ old('description') }}</x-portal::input.textarea>
+<div class="form-group row ">
+    <label for="" class="label col-sm-2">
+    </label>
+    <div class="col-sm-6 text-end" style="font-size: 12px;margin-top: -10px">
+        <span><span id="length-description">0</span>/1000</span>
+    </div>
+</div>
 <div class="text_file d-none">
     <x-portal::input type="file" name="file" label="File" placeholder="File" required="false"
         horizontal>{{ old('file') }}</x-portal::input>
