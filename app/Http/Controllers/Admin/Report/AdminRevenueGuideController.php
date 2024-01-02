@@ -23,8 +23,8 @@ class AdminRevenueGuideController extends AdminController
         ["label" => "Provinsi", "name" => "users.province_id"],
         ["label" => "Kabupaten/kotamadya", "name" => "users.city_id"],
         ["label" => "Kecamatan", "name" => "users.subdistrict_id"],
-        ["label" => "Type", "name" => "orders.type"],
-        ["label" => "Benefit Iklan", "name" => "orders.benefit_value"],
+        ["label" => "Nama Paket", "name" => "orders.type"],
+        ["label" => "Paket", "name" => "orders.benefit_value"],
         ["label" => "Harga", "name" => "orders.price"],
     ];
     

@@ -6,8 +6,8 @@
              <th>Provinsi</th>
              <th>Kabupaten/kotamadya</th>
              <th>Kecamatan</th>
-             <th>Type</th>
-             <th>Benefit Iklan</th>
+             <th>Nama Paket</th>
+             <th>Paket</th>
              <th>Harga</th>
  
          </tr>

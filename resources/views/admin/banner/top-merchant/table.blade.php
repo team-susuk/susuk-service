@@ -19,6 +19,7 @@
             {{ $row->expired_at }}
         </td>
         <td>Rp{{ number_format($row->price) }}</td>
+        <td>{{$row->benefit_value}} {{ucwords($row->benefit_type)}}</td>
         <td class="text-end">
             @if (itcan('edit admin.top-merchant') || itcan('delete admin.top-merchant'))
                 <div class="btn-group">

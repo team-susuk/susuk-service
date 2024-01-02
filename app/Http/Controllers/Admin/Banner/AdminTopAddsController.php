@@ -8,7 +8,7 @@ use Laililmahfud\Adminportal\Controllers\AdminController;
 class AdminTopAddsController extends AdminController
 {
     protected $routePath = "admin.top-adds";
-    protected $pageTitle = "Top Adds";
+    protected $pageTitle = "Top Ads";
     protected $resourcePath = "admin.banner.top-adds";
     protected $moduleService = TopAddsService::class;
     protected $add = false;
@@ -18,8 +18,11 @@ class AdminTopAddsController extends AdminController
         ["label" => "Foto Merchant", "name" => "merchants.profile"],
         ["label" => "Nama Merchant", "name" => "merchants.name"],
         ["label" => "Alamat Merchant", "name" => "merchants.address"],
-        ["label" => "Image", "name" => "orders.image"],
+        ["label" => "Foto Iklan", "name" => "orders.image"],
+        ["label" => "Tanggal Mulai Tayang", "name" => "orders.created_at"],
+        ["label" => "Tanggal Selesai Tayang", "name" => "orders.expired_at"],
         ["label" => "Harga Iklan", "name" => "orders.price"],
+        ["label" => "Paket", "name" => "orders.benefit_value"],
     ];
 
 }

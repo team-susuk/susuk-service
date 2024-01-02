@@ -19,10 +19,23 @@ class BannerService extends AdminService
     {
         $search = $request->search ?? '';
 
-        return $this->model::where(function ($q) use ($search) {
-            $q->orWhere("expired_at", "like", "%" . $search . "%");
-            $q->orWhere("sorting", "like", "%" . $search . "%");
-        })
+        return $this->model::query()
+            ->leftJoin('merchants', 'merchants.id', 'banners.merchant_id')
+            ->leftJoin('orders', 'orders.id', 'banners.order_id')
+            // ->where(function ($q) use ($search) {
+            //     $q->orWhere("merchants.name", "like", "%" . $search . "%");
+            //     $q->orWhere("merchants.address", "like", "%" . $search . "%");
+            // })
+            ->select([
+                'banners.*',
+                'merchants.name as username',
+                'merchants.address',
+                'merchants.profile',
+                'merchants.commission',
+                'orders.price as harga_iklan',
+                'orders.benefit_type',
+                'orders.benefit_value'
+            ])
             ->datatable($perPage, "banners.sorting");
 
     }
@@ -40,7 +53,7 @@ class BannerService extends AdminService
     public function update(Request $request, $uuid)
     {
         $data = $request->only(['title', 'description', 'sorting']);
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $data['image'] = AdminPortal::uploadFile($request->image);
         }
         return $this->model::whereUuid($uuid)->update($data);

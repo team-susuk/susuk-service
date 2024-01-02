@@ -20,8 +20,8 @@ class AdminRevenueMerchantController extends AdminController
         ["label" => "Tanggal", "name" => "orders.created_at"],
         ["label" => "Nama", "name" => "merchants.name"],
         ["label" => "Alamat", "name" => "merchants.address"],
-        ["label" => "Type", "name" => "orders.type"],
-        ["label" => "Benefit Iklan", "name" => "orders.benefit_value"],
+        ["label" => "Nama Paket", "name" => "orders.type"],
+        ["label" => "Paket", "name" => "orders.benefit_value"],
         ["label" => "Harga", "name" => "orders.price"],
     ];
 

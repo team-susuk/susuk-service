@@ -14,7 +14,14 @@
                     style="width: 90px !important">
             </a>
         </td>
+        <td>
+            {{ date('Y-m-d',strtotime($row->created_at)) }}
+        </td>
+        <td>
+            {{ $row->expired_at }}
+        </td>
         <td>Rp{{ number_format($row->price) }}</td>
+        <td>{{$row->benefit_value}} {{ucwords($row->benefit_type)}}</td>
         <td class="text-end">
             @if (itcan('edit admin.top-adds') || itcan('delete admin.top-adds'))
                 <div class="btn-group">
