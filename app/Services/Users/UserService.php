@@ -22,15 +22,23 @@ class UserService extends AdminService
     public function datatable(Request $request, $perPage = null)
     {
         $search = $request->search ?? '';
-        $query = $this->model::where(function ($q) use ($search) {
-            $q->orWhere("name", "like", "%" . $search . "%");
-            $q->orWhere("nick_name", "like", "%" . $search . "%");
-            $q->orWhere("phone_number", "like", "%" . $search . "%");
-            $q->orWhere("languages", "like", "%" . $search . "%");
-            $q->orWhere("password", "like", "%" . $search . "%");
-            $q->orWhere("status", "like", "%" . $search . "%");
-            $q->orWhere("code", "like", "%" . $search . "%");
-        });
+        $query = $this->model::query()
+        ->leftJoin('provinces','provinces.id','users.province_id')
+        ->leftJoin('cities','cities.id','users.city_id')
+        ->leftJoin('subdistricts','subdistricts.id','users.subdistrict_id')
+        ->where(function ($q) use ($search) {
+            $q->orWhere("users.name", "like", "%" . $search . "%");
+            $q->orWhere("users.nick_name", "like", "%" . $search . "%");
+            $q->orWhere("users.phone_number", "like", "%" . $search . "%");
+            $q->orWhere("users.languages", "like", "%" . $search . "%");
+            $q->orWhere("users.password", "like", "%" . $search . "%");
+            $q->orWhere("users.status", "like", "%" . $search . "%");
+            $q->orWhere("users.code", "like", "%" . $search . "%");
+            $q->orWhere("provinces.name", "like", "%" . $search . "%");
+            $q->orWhere("cities.name", "like", "%" . $search . "%");
+            $q->orWhere("subdistricts.name", "like", "%" . $search . "%");
+        })
+        ->select(['users.*',"provinces.name as province_name","cities.name as city_name","subdistricts.name as district_name"]);
         if ($perPage) {
             return $query->datatable($perPage, "users.created_at");
         } else {

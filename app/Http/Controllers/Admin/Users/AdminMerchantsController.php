@@ -46,9 +46,6 @@ class AdminMerchantsController extends AdminController
         "weekdays" => "required",
         "weekday_time_start" => "required",
         "weekday_time_end" => "required",
-        "weekends" => "required",
-        "weekend_time_start" => "required",
-        "weekend_time_end" => "required",
     ];
 
     protected $createRules = [

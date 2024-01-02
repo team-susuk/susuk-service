@@ -164,7 +164,10 @@ class MerchantService extends AdminService
 
     public function findByUUid($uuid)
     {
-        return $this->model::with(['products'])->where("uuid", $uuid)->firstOrFail();
+        $data =  $this->model::with(['products'])->where("uuid", $uuid)->firstOrFail();
+        $data->weekdays = $data->weekdays == '[]' ? [] : $data->weekdays;
+        $data->weekends = $data->weekends == '[]' ? [] : $data->weekends;
+        return $data;
     }
 
     public function findAndCountByUUid($uuid)

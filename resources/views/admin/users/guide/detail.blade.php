@@ -66,6 +66,24 @@
                         </div>
                     </div>
                     <div class="form-group row ">
+                        <label for="" class="label fw-bold col-sm-4">Provinsi </label>
+                        <div class="col-sm-8 fs-14">
+                            {{ $row->province?->name }}
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="" class="label fw-bold col-sm-4">Kabupaten/kotamadya</label>
+                        <div class="col-sm-8 fs-14">
+                            {{ $row->city?->name }}
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="" class="label fw-bold col-sm-4">Kecamatan </label>
+                        <div class="col-sm-8 fs-14">
+                            {{ $row->subdistrict?->name }}
+                        </div>
+                    </div>
+                    <div class="form-group row ">
                         <label for="" class="label fw-bold col-sm-4">Bahasa</label>
                         <div class="col-sm-8 fs-14">
                             {{ implode(' , ',$row->languages) }}
