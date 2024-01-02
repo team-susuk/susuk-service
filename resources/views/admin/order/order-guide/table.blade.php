@@ -1,13 +1,8 @@
 @foreach ($data as $row)
     <tr>
         <td>{{ $row->type->label() }}</td>
-        <td>{{ ucwords($row->user_role) }}</td>
         <td>
-            @if ($row->user_role === 'guest')
-                {{ $row->guest_name }}
-            @else
-                {{ $row->merchant_name }}
-            @endif
+            {{ $row->user_name }}
         </td>
         <td>{{ $row->benefit_value }} {{ $row->benefit_type }}</td>
         <td>Rp{{ number_format($row->price) }}</td>
@@ -34,13 +29,13 @@
                             <li>
                                 <a href="javascript:;" data-toggle="confirmation"
                                     data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `PAID`?"
-                                    data-action="{{ route('admin.orders.update-status', [$row->uuid, 'paid']) }}"
+                                    data-action="{{ route('admin.order-merchant.update-status', [$row->uuid, 'paid']) }}"
                                     data-method="POST" class="dropdown-item">Set PAID</a>
                             </li>
                             <li>
                                 <a href="javascript:;" data-toggle="confirmation"
                                     data-message="Apakah Anda Yakin ingin mengubah status pembayaran menjadi `Failed`?"
-                                    data-action="{{ route('admin.orders.update-status', [$row->uuid, 'failed']) }}"
+                                    data-action="{{ route('admin.order-merchant.update-status', [$row->uuid, 'failed']) }}"
                                     data-method="POST" class="dropdown-item">Set Failed</a>
                             </li>
                         @enditcan
@@ -48,7 +43,7 @@
                             <li>
                                 <a href="javascript:;" data-toggle="confirmation"
                                     data-message="{{ __('adminportal.delete_confirmation') }}"
-                                    data-action="{{ adminRoute('admin.orders.destroy', $row->uuid) }}" data-method="DELETE"
+                                    data-action="{{ adminRoute('admin.order-merchant.destroy', $row->uuid) }}" data-method="DELETE"
                                     class="dropdown-item">Delete</a>
                             </li>
                         @enditcan

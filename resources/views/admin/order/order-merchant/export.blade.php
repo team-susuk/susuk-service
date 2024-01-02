@@ -2,8 +2,7 @@
     <thead>
         <tr>
             <th>Type</th>
-            <th>Role</th>
-            <th>User</th>
+            <th>Name</th>
             <th>Benefit</th>
             <th>Price</th>
             <th>Image</th>
@@ -17,13 +16,8 @@
         @foreach ($data as $row)
             <tr>
                 <td>{{ $row->type }}</td>
-                <td>{{ $row->user_role }}</td>
                 <td>
-                    @if ($row->user_role === 'guest')
-                        {{ $row->guest_name }}
-                    @else
-                        {{ $row->merchant_name }}
-                    @endif
+                   {{$row->user_name}}
                 </td>
                 <td>{{ $row->benefit_value }} {{ $row->benefit_type }}</td>
                 <td>{{ number_format($row->price) }}</td>

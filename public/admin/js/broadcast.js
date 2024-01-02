@@ -1,6 +1,7 @@
 const inputFile = document.querySelector('.text_file #file')
 const inputGambar = document.querySelector('.text_gambar #file_gambar')
 const type = document.getElementById('type')
+const description = document.getElementById('description')
 
 
 type.addEventListener('change', function () {
@@ -20,3 +21,12 @@ const typeNotifListener = () => {
           inputFile.setAttribute('required',true)
      }
 }
+
+description.addEventListener('keypress',function(event){
+     const value = this.value
+     if(value.length>=1000){
+          event.preventDefault()
+          return;
+     }
+     document.getElementById('length-description').innerHTML = value.length + 1
+})
