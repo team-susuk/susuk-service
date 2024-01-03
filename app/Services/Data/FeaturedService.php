@@ -30,9 +30,7 @@ class FeaturedService {
     public function getMerchantList($type, $limit = 0)
     {
         $data = $this->merchant::join("featured_merchants", "featured_merchants.merchant_id", "=", "merchants.id")
-        ->where("merchants.is_member", 1)
-        ->whereNotNull("merchants.expired_member_at")
-        ->where("merchants.expired_member_at", ">=", Carbon::now())
+        ->where("merchants.status", "active")
         ->where("featured_merchants.category", $type)->whereDate("featured_merchants.start_at", ">=", Carbon::now())->whereDate("featured_merchants.expired_at", ">=", Carbon::now());
 
         if ($limit == 0) {
