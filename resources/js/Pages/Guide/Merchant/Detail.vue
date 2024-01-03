@@ -1,7 +1,7 @@
 <template>
     <AuthLayout :hide-nav="true">
         <Head :title="'Detail Merchant '+data.name" />
-        <HeaderDetail :backUrl="route('guide.merchants.index')" title="Detail Merchant" />
+        <HeaderDetail :backUrl="back_url ? route('guide.home') : route('guide.merchants.index')" title="Detail Merchant" />
         <img
             :src="data.profile_url" 
             class="w-full h-64 object-cover rounded-lg aspect-video"
@@ -46,13 +46,13 @@
             Jam operasional
         </span>
 
-        <div class="flex gap-2 mb-2">
-            <span class="text-sm">
+        <div class="flex flex-col gap-2 mb-3">
+            <p class="text-sm">
                 Weekdays: {{ data.weekday_time.start }} - {{ data.weekday_time.end }}
-            </span>
-            <span class="text-sm">
+            </p>
+            <p class="text-sm">
                 Weekend: {{ data.weekend_time.start }} - {{ data.weekend_time.end }}
-            </span>
+            </p>
         </div>
         <span class="text-xs text-neutral-dark-gray">
             Hari operasional
@@ -99,6 +99,6 @@
     import PopupBooking from '@/Components/Popup/PopupBooking.vue';
     import { clickId } from '@/plugins/functions/global';
 
-    defineProps(['data'])
+    defineProps(['data', 'back_url'])
 
 </script>

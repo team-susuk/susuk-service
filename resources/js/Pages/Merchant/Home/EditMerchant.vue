@@ -181,9 +181,9 @@
                     !form.weekdays.length ||
                     !form.open_time_weekdays ||
                     !form.close_time_weekdays ||
-                    !form.weekends.length ||
-                    !form.open_time_weekends ||
-                    !form.close_time_weekends ||
+                    // !form.weekends.length ||
+                    // !form.open_time_weekends ||
+                    // !form.close_time_weekends ||
                     form.processing
                 "
                 :loading="form.processing"

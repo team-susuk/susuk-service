@@ -20,15 +20,8 @@
         </div>
         <div class="pt-3">
             <div
-                class="grid gap-2 justify-between"
-                :class="{
-                    'grid-cols-2': !data.image_url,
-                    'grid-cols-3': data.image_url,
-                }"
+                class="grid grid-cols-2 gap-2 justify-between"
             >
-                <div class="" v-if="data.image_url">
-                    <img :src="data.image_url" alt="" class="w-11">
-                </div>
                 <div class="">
                     <p class="text-xxs text-neutral-dark-gray mb-[6px]">Harga</p>
                     <p class="text-sm font-semibold">{{ data.price }}</p>
@@ -37,6 +30,9 @@
                     <p class="text-xxs text-neutral-dark-gray mb-[6px]">Expired</p>
                     <p class="text-sm font-semibold">{{ data.expired_at }}</p>
                 </div>
+            </div>
+            <div class="mt-3" v-if="data.image_url">
+                <img :src="data.image_url" alt="" class="w-[200px]">
             </div>
         </div>
     </div>

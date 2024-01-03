@@ -51,7 +51,7 @@
                 id="price"
                 name="price"
                 v-model="form.price"
-                :value="formatPrice(form.price)"
+                :value="form.price"
                 :error="form.errors.price"
             />
             <ButtonSolidBlue
@@ -66,7 +66,7 @@
                 "
                 :loading="form.processing"
             >
-                Registrasi
+                Update
             </ButtonSolidBlue>
         </form>
 
@@ -84,6 +84,7 @@
     import DropZone from '@/Components/Input/DropZoneImage.vue';
     import Textarea from '@/Components/Input/Textarea.vue';
     import Input from '@/Components/Input/Index.vue';
+    import { onMounted } from 'vue';
 
     const props = defineProps(["product"])
 
@@ -92,7 +93,7 @@
         image: null,
         description: props.product?.description,
         commission: props.product?.commission,
-        price: props.product?.price,
+        price: '0',
     })
 
     const submit = () => {
@@ -103,8 +104,12 @@
 
     const formatPrice = (value: any) => {
         const formattedNumber = Number(value).toLocaleString('id-ID');
-        if (isNaN(Number(formattedNumber))) return 0;
+        if (isNaN(Number(formattedNumber.replace(/[.,]/g, '')))) return 0;
         return formattedNumber;
     }
+
+    onMounted(() => {
+        form.price = formatPrice(props.product?.price) || '0'
+    })
 
 </script>

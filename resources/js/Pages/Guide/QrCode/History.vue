@@ -4,7 +4,7 @@
         <HeaderBlue title="Qr Code" />
         <TabMenu active="history-scan" />
         <WithPaginate :paginate="paginate" :loading="shallowReactive(CardQrCodeLoading)">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div class="grid grid-cols-1 gap-4 mt-8">
                 <template v-for="merchant in paginate.data.value">
                     <CardQrCode
                         v-if="paginate && !paginate?.loading.value"

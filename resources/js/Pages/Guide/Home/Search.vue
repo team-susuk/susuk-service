@@ -13,6 +13,7 @@
                 <CardMerchant
                     v-for="merchant in merchants"
                     :data="merchant"
+                    back_url="guide.home"
                 />
             </div>
         </section>
@@ -28,6 +29,7 @@
                     v-for="product in products"
                     :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
+                    back_url="guide.home"
                 />
             </div>
         </section>

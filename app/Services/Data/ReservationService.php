@@ -42,7 +42,8 @@ class ReservationService
 
     public function getHistories($role, $userId, $type)
     {
-        return $this->model::where(
+        return $this->model::with(['user', 'user.city', 'user.province'])
+        ->where(
             function ($q) use ($role, $userId, $type) {
                 if ($role == "guide") {
                     $q->where("user_id", $userId);

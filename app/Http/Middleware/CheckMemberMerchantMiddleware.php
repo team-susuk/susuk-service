@@ -2,13 +2,14 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User\Merchant;
 use Closure;
 use Carbon\Carbon;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckMemberGuideMiddleware
+class CheckMemberMerchantMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,14 +18,14 @@ class CheckMemberGuideMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($guide = guide()) {
-            $user = User::whereId($guide->id)->first();
+        if ($merchant = merchant()) {
+            $user = Merchant::whereId($merchant->id)->first();
             $isMember = $user->is_member;
             if (Carbon::now() > $user->expired_member_at) $isMember = 0;
 
-            $guide->is_member = $isMember;
+            $merchant->is_member = $isMember;
 
-            session()->put(config('services.session-guide-prefix'), (object) $guide);
+            session()->put(config('services.session-merchant-prefix'), (object) $merchant);
 
             return $next($request);
         }

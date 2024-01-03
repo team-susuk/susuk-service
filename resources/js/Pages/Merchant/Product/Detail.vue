@@ -132,6 +132,7 @@
                         v-model="formOrder.image"
                         v-if="hasPackageImage"
                         :error="formOrder.errors.image"
+                        help="Rasio foto 16:9"
                     />
                     
                     <div class="flex-center w-full gap-4">

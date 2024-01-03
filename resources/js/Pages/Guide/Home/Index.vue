@@ -82,6 +82,7 @@
                     class="w-screen-3xs"
                     v-for="merchant in new_merchants"
                     :data="merchant"
+                    back_url="guide.home"
                 />
             </div>
         </section>
@@ -103,6 +104,7 @@
                     v-for="product in special_products"
                     :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
+                    back_url="guide.home"
                 />
             </div>
         </section>
@@ -124,6 +126,7 @@
                     v-for="product in favorite_products"
                     :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
+                    back_url="guide.home"
                 />
             </div>
         </section>
@@ -181,7 +184,10 @@
         merchantCategory.value = props.categories.length > 0 ? props.categories[0].uuid : ''
 
         props.banners.map((row: any) => {
-            popupBanners.value.push(row.image)
+            popupBanners.value.push({
+                image: row.image,
+                user_id: row.user_id
+            })
         })
 
         props.top_advertisements.map((row: any) => {

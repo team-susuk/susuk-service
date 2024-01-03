@@ -41,7 +41,7 @@ class RegisterAction {
                     "start" => $request->open_time_weekdays,
                     "end" => $request->close_time_weekdays,
                 ],
-                "weekends" => $request->weekends ?? "[]",
+                "weekends" => $request->weekends ?? [],
                 "weekend_time" => (object)[
                     "start" => $request->open_time_weekends ?? "",
                     "end" => $request->close_time_weekends ?? "",

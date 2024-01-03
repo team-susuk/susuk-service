@@ -95,6 +95,11 @@ class LoginAction {
     {
         $number = $request->phone_number;
         $user = User::wherePhoneNumber($number)->first();
+        if ($user->name != $request->name) {
+            throw ValidationException::withMessages([
+                'name' => "Maaf untuk Nama dan No Wa yang telah anda masukan tidak sesuai"
+            ]);
+        }
 
         ResetPassword::create([
             'user_id' => $user->id,

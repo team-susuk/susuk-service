@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'role-auth' => \App\Http\Middleware\RoleAuth::class,
         'role-guest' => \App\Http\Middleware\RoleGuest::class,
         'check-member-guide' => \App\Http\Middleware\CheckMemberGuideMiddleware::class,
+        'check-member-merchant' => \App\Http\Middleware\CheckMemberMerchantMiddleware::class,
     ];
 }

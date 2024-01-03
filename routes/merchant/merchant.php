@@ -24,7 +24,7 @@ Route::prefix("merchant")
             Route::post("/forgot-password", [LoginController::class, 'forgotPassword'])->name("login.forgot-password");
         });
 
-        Route::middleware("role-auth:merchant")->group(function() {
+        Route::middleware(["role-auth:merchant", "check-member-merchant"])->group(function() {
             Route::get("/", [HomeController::class, 'index'])->name("home");
             Route::get("/edit", [HomeController::class, 'edit'])->name("home.edit");
             Route::post("/edit", [HomeController::class, 'editStore'])->name("home.edit.store");

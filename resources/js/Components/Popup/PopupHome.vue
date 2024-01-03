@@ -29,7 +29,7 @@
                 class="relative w-full py-4 px-6 flex-center flex-col gap-2"
             >
                 <CloseWhite class="cursor-pointer" x-on:click="popup=false" @click="confirmAction" />
-                <img :src="image" alt="" class="max-w-screen max-h-[80vh]">
+                <img :src="image" alt="" class="h-[75vh] max-w-[80%] object-contain">
             </div>
         </div>
     </div>

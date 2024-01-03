@@ -2,7 +2,10 @@
     <Swiper :navigation="true" :pagination="true" :modules="modules" class="mySwiper">
         <template v-for="image in images">
             <SwiperSlide>
-                <img class="swiper-image" :src="image" alt="">
+                <Link :href="route('guide.merchants.detail', image.user_id)" v-if="image.user_id">
+                    <img class="swiper-image" :src="image.image" alt="">
+                </Link>
+                <img class="swiper-image" :src="image.image" alt="" v-else>
             </SwiperSlide>
         </template>
     </Swiper>
@@ -23,6 +26,7 @@
 
     // import required modules
     import { Navigation, Pagination } from 'swiper/modules';
+    import { Link } from '@inertiajs/vue3';
 
     const modules = [Navigation, Pagination];
 

@@ -9,13 +9,20 @@
             </div>
             <div class="flex flex-col gap-1">
                 <p class="text-xxs text-neutral-gray-2 font-medium">
-                    Jam Kedatangan {{ data.time_arrival }}
+                    Kedatangan {{ data.time_arrival }}
                 </p>
                 <p class="text-sm font-semibold">
                     {{ data.merchant.name }}
                 </p>
                 <p class="text-xxs font-medium">
                     {{ data.merchant.full_address }}
+                </p>
+
+                <p class="text-xxs text-neutral-gray-2 font-medium mt-2">
+                    Dibooking {{ data.created_at }}
+                </p>
+                <p class="text-xxs text-neutral-gray-2 font-medium" v-if="data.confirm_at">
+                    Discan {{ data.confirm_at }}
                 </p>
             </div>
         </div>

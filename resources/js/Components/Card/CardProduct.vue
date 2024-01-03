@@ -54,12 +54,13 @@
     const props = defineProps<{
         class?: any,
         href?: any
-        data: any
+        data: any,
+        back_url?: any
     }>()
 
     const confirmAction = () => {
         if (props.href) {
-            router.visit(props.href)
+            router.visit(props.href+'?back_url='+props.back_url)
         } else {
             trigger_popup.value?.click()
         }

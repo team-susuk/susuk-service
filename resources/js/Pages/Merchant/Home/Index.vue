@@ -57,9 +57,9 @@
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>
         <div class="mb-3">
             <p class="text-xs text-neutral-dark-gray">Jam operasional</p>
-            <span class="text-sm me-2">Weekdays: {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</span>
-            <span class="text-sm">Weekend: {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</span>
-            <p class="text-xs text-neutral-dark-gray">Jam operasional</p>
+            <p class="text-sm">Weekdays: {{ merchant.weekday_time.start }} - {{ merchant.weekday_time.end }}</p>
+            <p class="text-sm">Weekend: {{ merchant.weekend_time.start }} - {{ merchant.weekend_time.end }}</p>
+            <p class="text-xs text-neutral-dark-gray mt-3">Hari operasional</p>
             <p class="text-sm">
                 {{ merchant.operational_days }}
             </p>
@@ -174,6 +174,7 @@
                         v-model="formOrder.image"
                         v-if="hasPackageImage"
                         :error="formOrder.errors.image"
+                        help="Rasio foto 16:9"
                     />
                     
                     <div class="flex-center w-full gap-4">

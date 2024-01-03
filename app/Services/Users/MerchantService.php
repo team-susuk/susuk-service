@@ -1,15 +1,16 @@
 <?php
 namespace App\Services\Users;
 
+use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
-use App\Http\Requests\Profile\ChangePasswordRequest;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use App\Models\Master\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
+use App\Http\Requests\Profile\ChangePasswordRequest;
 
 class MerchantService extends AdminService
 {
@@ -131,7 +132,10 @@ class MerchantService extends AdminService
     public function getByCategory($categoryUuid, $limit = 0, $isPaginate = false)
     {
         $category = Category::where("uuid", $categoryUuid)->firstOrFail();
-        $data = $this->model::where("category_id", $category->id)->orderBy("created_at", "desc");
+        $data = $this->model::where("category_id", $category->id)
+                            ->where("is_member", 1)
+                            ->where("expired_member_at", ">=", Carbon::now())
+                            ->orderBy("created_at", "desc");
 
         if ($isPaginate) {
             return $data->paginate();
@@ -151,9 +155,15 @@ class MerchantService extends AdminService
 
         $data = $this->model::
             when($province, fn($q) => $q->where("province_id", $province))
+            ->where("is_member", 1)
+            ->where("expired_member_at", ">=", Carbon::now())
             ->when($city, fn($q) => $q->where("city_id", $city))
             ->when($categories, fn($q) => $q->whereIn("category_id", $categories))
-            ->when($search, fn($q) => $q->where("name", "LIKE", "%$search%"))
+            ->when($search, fn($q) => $q->where("name", "LIKE", "%$search%")
+                                        ->orWhereRelation("subdistrict", "name", "LIKE", "%$search%")
+                                        ->orWhereRelation("city", "name", "LIKE", "%$search%")
+                                        ->orWhereRelation("province", "name", "LIKE", "%$search%")
+                            )
             ->orderBy("created_at", "desc");
         if ($paginate) {
             return $data->paginate();

@@ -10,21 +10,27 @@
             <div class="flex flex-col gap-1 flex-auto">
                 <div class="flex items-center justify-between w-full">
                     <p class="text-xxs text-neutral-gray-2 font-medium">
-                        Jam Kedatangan {{ data.user.code }}
+                        {{ data.user.code }}
                     </p>
-                    <p class="text-xxs text-neutral-gray-2 font-medium">
-                        {{ data.time_arrival }}
+                    <p class="text-xxs text-neutral-gray-2 font-medium text-end">
+                        Kedatangan {{ data.time_arrival }}
                     </p>
                 </div>
                 <p class="text-sm font-semibold">
                     {{ data.user.name }}
                 </p>
-                <!-- <p class="text-xxs">
-                    Bali, Badung
-                </p> -->
+                <p class="text-xxs">
+                    {{ data.city }}, {{ data.province }}
+                </p>
+                <p class="text-xxs text-neutral-gray-2 font-medium mt-2">
+                    Dibooking {{ data.created_at }}
+                </p>
+                <p class="text-xxs text-neutral-gray-2 font-medium" v-if="data.confirm_at">
+                    Discan {{ data.confirm_at }}
+                </p>
             </div>
         </div>
-        <div class="flex gap-8">
+        <div class="flex gap-8 items-center">
             <div class="flex-center gap-2">
                 <div>
                     <Guest />

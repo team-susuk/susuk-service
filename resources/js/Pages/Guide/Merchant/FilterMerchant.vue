@@ -60,8 +60,8 @@
                         v-model="form.sort"
                     />
                 </div>
-                <OutlineBlue class="justify-center" x-on:click="popup=false" id="close-filter">
-                    Kembali
+                <OutlineBlue class="justify-center" :href="route('guide.merchants.index')">
+                    Reset
                 </OutlineBlue>
                 <SolidBlue
                     class="justify-center font-semibold"
@@ -70,6 +70,8 @@
                 >
                     Terapkan
                 </SolidBlue>
+
+                <a id="close-filter" x-on:click="popup=false" hidden></a>
             </div>
         </Popup>
     </section>

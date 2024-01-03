@@ -16,11 +16,12 @@ class NotificationService {
     public function getNotifications($type, $userId, $userRole = 'guest')
     {
         return $this->model::where("user_id", $userId)
+        ->where("role", $userRole)
         ->where("type", $type)
         ->where(function ($q) {
             $q->whereNull("expired_at")->orWhere("expired_at", ">=", Carbon::now());
         })
-        ->orderByDesc("created_at")
+        ->orderByDesc("id")
         ->paginate();
     }
 }
