@@ -28,11 +28,27 @@ class Order extends Model
      * @var array
      */
     protected $appends = [
-        'image_url'
+        'image_url',
+        'benefit_formated'
     ];
 
     public function getImageUrlAttribute()
     {
         return Susuk::showFile($this->image);
+    }
+
+    public function getBenefitFormatedAttribute()
+    {
+        switch ($this->benefit_type) {
+            case 'day':
+                return $this->benefit_value . ' Hari';
+                break;
+            case 'month':
+                return $this->benefit_value . ' Bulan';
+                break;
+            case 'product':
+                return $this->benefit_value . ' Produk';
+                break;
+        }
     }
 }

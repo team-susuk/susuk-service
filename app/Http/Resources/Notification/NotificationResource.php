@@ -22,7 +22,7 @@ class NotificationResource extends JsonResource
             "description" => $this->description,
             "data" => $this->data,
             "broadcast" => $this->broadcast,
-            "time" => Carbon::parse($this->created_at)->format("H:i")
+            "time" => Carbon::parse($this->created_at)->format("d M Y H.i"),
         ];
     }
 }

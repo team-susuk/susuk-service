@@ -7,8 +7,10 @@ use App\Enums\GuestType;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
+use App\Enums\NotificationType;
 use App\Models\Data\Reservation;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\Notification\Notification;
 use Illuminate\Validation\ValidationException;
 
 class ReservationService
@@ -69,13 +71,25 @@ class ReservationService
 
         }
 
-        $this->model::create([
+        $reservation = $this->model::create([
             'merchant_id' => $id,
             'user_id' => $userId,
             'guest_number' => $request->total_guest,
             'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
             'time_arrival' => $timeArrival,
             'scan_by' => 'guest'
+        ]);
+
+        $user = User::whereId($userId)->first();
+        Carbon::setLocale("id");
+        $date = Carbon::parse($reservation->created_at)->format("d M Y H.i");
+
+        Notification::create([
+            'user_id' => $id,
+            'role' => 'merchant',
+            'type' => NotificationType::Information,
+            'title' => 'Reservasi',
+            'description' => "Guide {$user->name} melakukan reservasi pada tanggal {$date}"
         ]);
     }
 

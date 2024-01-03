@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Helpers\Susuk;
 use App\Enums\UserStatus;
 use App\Models\User\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Utils\ResetPassword;
 use Illuminate\Support\Facades\Hash;
@@ -95,7 +96,7 @@ class LoginAction {
     {
         $number = $request->phone_number;
         $user = User::wherePhoneNumber($number)->first();
-        if ($user->name != $request->name) {
+        if (Str::lower($user->name) != Str::lower($request->name)) {
             throw ValidationException::withMessages([
                 'name' => "Maaf untuk Nama dan No Wa yang telah anda masukan tidak sesuai"
             ]);

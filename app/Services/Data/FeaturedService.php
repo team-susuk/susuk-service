@@ -18,6 +18,7 @@ class FeaturedService {
     public function getProductList($type, $limit = 0)
     {
         $data = $this->product::join("featured_products", "featured_products.product_id", "=", "products.id")
+        ->select("products.*")
         ->where("featured_products.category", $type)->whereDate("featured_products.start_at", "<=", Carbon::now())->whereDate("featured_products.expired_at", ">=", Carbon::now());
 
         if ($limit == 0) {
@@ -30,6 +31,7 @@ class FeaturedService {
     public function getMerchantList($type, $limit = 0)
     {
         $data = $this->merchant::join("featured_merchants", "featured_merchants.merchant_id", "=", "merchants.id")
+        ->select("merchants.*")
         ->where("merchants.status", "active")
         ->where("featured_merchants.category", $type)->whereDate("featured_merchants.start_at", "<=", Carbon::now())->whereDate("featured_merchants.expired_at", ">=", Carbon::now());
 

@@ -1,23 +1,23 @@
 <template>
-    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3" v-bind:class="class">
+    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3 flex-col md:flex-row" v-bind:class="class">
         <img
-            :src="data.merchant?.profile_url" 
+            :src="data.merchant?.image" 
             class="w-36 object-cover rounded-lg h-fit"
         >
         <div class="w-full">
-            <div class="flex items-center justify-between">
-                <p class="text-sm font-semibold">{{ data.merchant?.name }}</p>
-                <p class="text-xs font-medium text-neutral-gray">{{ time }}</p>
+            <div class="flex flex-col gap-2">
+                <p class="text-xs font-medium text-neutral-gray w-1/4">{{ time }}</p>
+                <p class="text-sm font-semibold w-3/4 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
             </div>
             <div class="flex justify-between my-2">
                 <p class="max-w-[75%] text-neutral-gray-2 text-xs">
-                    {{ data.merchant?.full_address }}
+                    {{ data.merchant?.address }}
                 </p>
                 <div>
                     <Maps class="w-7" />
                 </div>
             </div>
-            <div class="flex mt-2 gap-1">
+            <!-- <div class="flex mt-2 gap-1">
                 <div class="flex gap-2">
                     <div class="flex-center gap-1">
                         <div>
@@ -39,23 +39,28 @@
 
                 <div class="ms-auto">
                     <OutlineOrange class="!font-semibold !text-xxs !px-0 !w-24 !h-6 justify-center !rounded-full !cursor-default">
-                        Komisi: {{ data.merchant?.full_commission }}
+                        Komisi: {{ data.merchant?.commission }}
                     </OutlineOrange>
                 </div>
-            </div>
+            </div> -->
             <div class="flex gap-3 mt-4">
                 <OutlineBlue
-                    :href="route('guide.merchants.detail', data.merchant?.uuid)"
+                    :href="route('guide.merchants.detail', {
+                        id: data.merchant?.uuid,
+                        _query: {
+                            back_url: route('guide.inbox.merchant')
+                        }
+                    })"
                     class="!font-semibold !text-xs md:!text-sm !h-8 justify-center !w-fit"
                 >
                     Detail
                 </OutlineBlue>
-                <SolidBlue
+                <!-- <SolidBlue
                     @click="confirmAction"
                     class="!font-semibold !text-xs md:!text-sm !h-8 justify-center !w-fit"
                 >
                     Booking
-                </SolidBlue>
+                </SolidBlue> -->
             </div>
         </div>
     </div>

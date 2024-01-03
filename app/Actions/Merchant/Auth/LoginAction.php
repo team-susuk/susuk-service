@@ -102,6 +102,11 @@ class LoginAction {
     {
         $number = $request->phone_number;
         $user = Merchant::whereWhatsappNumber($number)->first();
+        if (Str::lower($user->name) != Str::lower($request->name)) {
+            throw ValidationException::withMessages([
+                'name' => "Maaf untuk Nama atau No Wa yang telah anda masukan tidak sesuai"
+            ]);
+        }
 
         ResetPassword::create([
             'user_id' => $user->id,

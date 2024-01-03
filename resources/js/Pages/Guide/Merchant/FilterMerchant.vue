@@ -3,7 +3,7 @@
         <a x-on:click="popup=true" id="popup-filter"></a>
         <Popup title="Filter Merchant">
             <div class="grid grid-cols-2 gap-x-3">
-                <div>
+                <div class="col-span-2 md:col-span-1">
                     <Single
                         v-if="regions"
                         placeholder="Pilih Provinsi"
@@ -15,7 +15,7 @@
                         :popup="true"
                     />
                 </div>
-                <div>
+                <div class="col-span-2 md:col-span-1">
                     <Single
                         v-if="hasCity"
                         placeholder="Pilih Kabupaten"

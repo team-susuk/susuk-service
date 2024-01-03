@@ -4,7 +4,7 @@
             class="text-[12px] text-dark mb-1 block"
             v-if="label"
         >
-            {{ label }}
+            {{ label }} {{ min }}
             <span class="text-red" v-if="$attrs.required">*</span>
         </label>
 
@@ -54,6 +54,7 @@ onMounted(() => {
         defaultDate: props.default,
         enableTime: true,
         noCalendar: true,
+        minDate: props.min ?? '',
         onChange: (selectedDates, dateStr) => {
             emit("update:modelValue", dateStr);
         },

@@ -122,6 +122,7 @@ class UserService extends AdminService
         $guide->province_id = $user->province?->id;
         $guide->city_id = $user->city?->id;
         $guide->subdistrict_id = $user->subdistrict?->id;
+        $guide->languages = $user->languages;
 
         session()->put(config('services.session-guide-prefix'), (object) $guide);
     }

@@ -15,7 +15,7 @@
                 v-for="product in paginate.data.value"
                 :data="product"
                 :href="route('guide.merchants.detail', product.merchant_id)"
-                back_url="guide.home"
+                :back_url="route('guide.home')"
             />
         </div>
 

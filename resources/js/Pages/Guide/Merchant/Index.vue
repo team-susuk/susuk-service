@@ -22,6 +22,7 @@
                     <CardMerchant
                         v-if="paginate && !paginate?.loading.value"
                         :data="merchant"
+                        :back_url="route('guide.merchants.index')+backUrl()"
                     />
                 </template>
             </div>
@@ -42,7 +43,7 @@
 
     import CardMerchant from '@/Components/Card/CardMerchant.vue'
     import HeaderBlue from '@/Components/Navigation/HeaderBlue.vue'
-    import { clickId } from '@/plugins/functions/global';
+    import { clickId, getAllQueryParameter } from '@/plugins/functions/global';
 
     import { usePaginate } from '@/hooks/pagination';
 
@@ -54,5 +55,9 @@
     const paginate = usePaginate({
         route: route('guide.merchants.index-data')
     })
+
+    const backUrl = () => {
+        return "?" + new URL(window.location.href).search.substring(1);
+    }
 
 </script>
