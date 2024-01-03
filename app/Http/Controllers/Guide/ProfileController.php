@@ -44,7 +44,7 @@ class ProfileController extends Controller
     {
         $this->userService->updateProfile($request, guide()->uuid);
 
-        return back()->with(["popup_success" => "Profile Berhasil di Ubah"]);
+        return to_route("guide.profile.detail")->with(["popup_success" => "Profile Berhasil di Ubah"]);
     }
 
     public function changePassword(ChangePasswordRequest $changePasswordRequest)

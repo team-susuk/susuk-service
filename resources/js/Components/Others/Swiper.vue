@@ -2,7 +2,7 @@
     <Swiper :navigation="true" :pagination="true" :modules="modules" class="mySwiper">
         <template v-for="image in images">
             <SwiperSlide>
-                <Link :href="route('guide.merchants.detail', image.user_id)" v-if="image.user_id">
+                <Link :href="route('guide.merchants.detail', image.merchant_id)" v-if="image.merchant_id">
                     <img class="swiper-image" :src="image.image" alt="">
                 </Link>
                 <img class="swiper-image" :src="image.image" alt="" v-else>

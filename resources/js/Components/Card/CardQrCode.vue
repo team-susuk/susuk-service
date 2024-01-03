@@ -8,9 +8,9 @@
                 >
             </div>
             <div class="flex flex-col gap-1">
-                <p class="text-xxs text-neutral-gray-2 font-medium">
+                <!-- <p class="text-xxs text-neutral-gray-2 font-medium">
                     Kedatangan {{ data.time_arrival }}
-                </p>
+                </p> -->
                 <p class="text-sm font-semibold">
                     {{ data.merchant.name }}
                 </p>
@@ -18,11 +18,11 @@
                     {{ data.merchant.full_address }}
                 </p>
 
-                <p class="text-xxs text-neutral-gray-2 font-medium mt-2">
-                    Dibooking {{ data.created_at }}
+                <p class="text-xxs text-neutral-gray-2 font-medium flex items-center gap-2 mt-2">
+                    <Booking /> Dibooking {{ data.time_arrival }}
                 </p>
-                <p class="text-xxs text-neutral-gray-2 font-medium" v-if="data.confirm_at">
-                    Discan {{ data.confirm_at }}
+                <p class="text-xxs text-neutral-gray-2 font-medium flex items-center gap-2" v-if="data.confirm_at">
+                    <Scan /> Discan {{ data.confirm_at }}
                 </p>
             </div>
         </div>
@@ -51,6 +51,9 @@
 
     import Guest from "../Icon/Etc/Guest.vue";
     import GlobalSearch from "../Icon/Etc/GlobalSearch.vue";
+
+    import Booking from "../Icon/Etc/Booking.vue";
+    import Scan from "../Icon/Etc/Scan.vue";
 
     defineProps<{
         class?: any,

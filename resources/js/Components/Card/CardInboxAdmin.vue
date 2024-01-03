@@ -4,7 +4,10 @@
             <Info />
         </div>
         <div class="flex flex-col gap-1">
-            <p class="text-neutral-gray-3 text-xs font-light">Informasi</p>
+            <div class="flex items-center justify-between">
+                <p class="text-neutral-gray-3 text-xs font-light">Informasi</p>
+                <p class="text-neutral-gray-3 text-xs font-light">{{ data.time }}</p>
+            </div>
             <p class="text-base font-semibold">{{ data.title }}</p>
             <p class="text-neutral-gray-2 text-sm">{{ data.description }}</p>
             <img

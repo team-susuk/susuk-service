@@ -1,21 +1,21 @@
 <template>
-    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3" v-bind:class="class">
+    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3 flex-col md:flex-row" v-bind:class="class">
         <img
-            :src="data.product?.profile_url" 
+            :src="data.product?.image" 
             class="w-36 object-cover rounded-lg h-fit"
         >
         <div class="w-full">
-            <div class="flex items-center justify-between">
-                <div class="flex items-start justify-start gap-2">
+            <div class="flex flex-col gap-2">
+                <p class="text-xs font-medium text-neutral-gray w-1/4">{{ time }}</p>
+                <div class="flex items-start justify-start">
                     <div>
                         <MerchantFill class="w-5" />
                     </div>
                     <p class="mb-0 font-semibold text-sm text-blue-2 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
                 </div>
-                <p class="text-xs font-medium text-neutral-gray">{{ time }}</p>
             </div>
             <p class="text-neutral-gray-2 text-xs my-2">
-                {{ data.merchant?.full_address }}
+                {{ data.merchant?.address }}
             </p>
             <div class="flex mt-2 gap-1">
                 <div class="flex gap-2">
@@ -45,7 +45,7 @@
                     </OutlineOrange>
                 </div>
             </div>
-            <p class="text-sm font-bold">Rp150.000</p>
+            <p class="text-sm font-bold">Rp{{ formatPrice(data.product?.price) }}</p>
             <div class="flex gap-3 mt-4">
                 <SolidBlue
                     @click="confirmAction"
@@ -73,5 +73,9 @@
         emit("action", () => {
 
         });
+    }
+
+    const formatPrice = (value: any) => {
+        return Number(value).toLocaleString("id-ID")
     }
 </script>

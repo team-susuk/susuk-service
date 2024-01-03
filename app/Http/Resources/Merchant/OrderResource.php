@@ -26,6 +26,8 @@ class OrderResource extends JsonResource
             'expired_at' => Carbon::parse($this->expired_at)->format("d M Y"),
             'price' => 'Rp'.number_format($this->price, 0, ',', '.'),
             'type' => $this->type?->label(),
+            'benefit_formated' => $this->benefit_formated,
+            'benefit_type' => $this->benefit_type,
             'status' => $this->status,
             'image_url' => $image,
             'status_formated' => $this->status?->label(),

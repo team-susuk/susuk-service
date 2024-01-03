@@ -7,6 +7,7 @@ use App\Enums\UserStatus;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use App\Models\Master\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laililmahfud\Adminportal\Services\AdminService;
@@ -164,7 +165,7 @@ class MerchantService extends AdminService
                                         ->orWhereRelation("city", "name", "LIKE", "%$search%")
                                         ->orWhereRelation("province", "name", "LIKE", "%$search%")
                             )
-            ->orderBy("created_at", "desc");
+            ->orderBy(($sort == 'incentives_amount' ? DB::raw('JSON_UNQUOTE(JSON_EXTRACT(commission, "$.end"))') : "created_at"), "desc");
         if ($paginate) {
             return $data->paginate();
         } else {

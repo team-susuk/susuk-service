@@ -132,7 +132,7 @@
                         v-model="formOrder.image"
                         v-if="hasPackageImage"
                         :error="formOrder.errors.image"
-                        help="Rasio foto 16:9"
+                        v-bind:help="formOrder.type == 'ads-banner' ? 'Catatan: mohon upload foto dengan rasio foto 16:9 untuk hasil yang lebih maksimal' : 'Catatan: mohon upload foto dengan rasio foto 9:16 untuk hasil yang lebih maksimal'"
                     />
                     
                     <div class="flex-center w-full gap-4">

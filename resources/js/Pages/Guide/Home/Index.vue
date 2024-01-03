@@ -82,7 +82,7 @@
                     class="w-screen-3xs"
                     v-for="merchant in new_merchants"
                     :data="merchant"
-                    back_url="guide.home"
+                    :back_url="route('guide.home')"
                 />
             </div>
         </section>
@@ -104,7 +104,7 @@
                     v-for="product in special_products"
                     :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
-                    back_url="guide.home"
+                    :back_url="route('guide.home')"
                 />
             </div>
         </section>
@@ -126,7 +126,7 @@
                     v-for="product in favorite_products"
                     :data="product"
                     :href="route('guide.merchants.detail', product.merchant_id)"
-                    back_url="guide.home"
+                    :back_url="route('guide.home')"
                 />
             </div>
         </section>
@@ -186,7 +186,7 @@
         props.banners.map((row: any) => {
             popupBanners.value.push({
                 image: row.image,
-                user_id: row.user_id
+                merchant_id: row.merchant_id
             })
         })
 

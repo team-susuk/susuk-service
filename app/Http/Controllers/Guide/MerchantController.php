@@ -51,7 +51,7 @@ class MerchantController extends Controller
         }
         return Inertia::render('Guide/Merchant/Detail', [
             'data' => $this->merchantService->findAndCountByUUid($id),
-            'back_url' => url()->previous()
+            'back_url' => request()->back_url ?? url()->previous()
         ]);
     }
 

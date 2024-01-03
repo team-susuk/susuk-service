@@ -3,17 +3,17 @@
     <AuthLayout>
         <HeaderBlue title="Total Member" />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        <div class="grid grid-cols-3 gap-4 mb-5">
             <div
                 v-for="user in usersType"
                 :key="user.name"
-                class="shadow-card rounded-lg bg-white p-3 flex gap-3"
+                class="shadow-card rounded-lg bg-white p-3 flex gap-3 flex-col md:flex-row items-center md:items-start"
             >
                 <div>
                     <component :is="user.icon"></component>
                 </div>
-                <div>
-                    <p class="text-lg md:text-xl font-semibold">
+                <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
+                    <p class="text-base md:text-xl font-semibold">
                         {{
                             user.name == 'Guide' ?
                             users.guide
@@ -24,7 +24,7 @@
                             )
                         }}
                     </p>
-                    <p class="text-sm text-neutral-gray-3">
+                    <p class="text-xs text-neutral-gray-3">
                         {{ user.name }}
                     </p>
                 </div>

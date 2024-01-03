@@ -1,7 +1,7 @@
 <template>
     <AuthLayout :hide-nav="true">
         <Head :title="'Detail Merchant '+data.name" />
-        <HeaderDetail :backUrl="back_url ? route('guide.home') : route('guide.merchants.index')" title="Detail Merchant" />
+        <HeaderDetail :backUrl="back_url ? back_url : route('guide.merchants.index')" title="Detail Merchant" />
         <img
             :src="data.profile_url" 
             class="w-full h-64 object-cover rounded-lg aspect-video"
