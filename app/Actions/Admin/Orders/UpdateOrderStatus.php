@@ -155,15 +155,27 @@ class UpdateOrderStatus
                ->get();
 
 
+          $merchantAddress = [
+               $merchant->address,
+               $merchant->subdistrict?->name,
+               $merchant->city?->name,
+               $merchant->province?->name,
+          ];
+          $merchantCommission = $merchant->commission;
+          if(@$merchantCommission['start'] == @$merchantCommission['end']){
+               $merchantCommission = @$merchantCommission['start'] ."%";
+          }else{
+               $merchantCommission = @$merchantCommission['start'] ." - ".@$merchantCommission['end']."%";
+          }
           $merchantInformation = [
                'id' => $merchant->id,
                'uuid' => $merchant->uuid,
                'name' => $merchant->name,
-               'image' => asset($merchant->image),
-               'address' => $merchant->address,
+               'image' => asset($merchant->profile),
+               'address' => implode(', ',$merchantAddress),
                'pic_name' => $merchant->pic_name,
                'phone_number' => $merchant->phone_number,
-               'commission' => $merchant->commission,
+               'commission' => $merchantCommission,
           ];
 
           if ($type === 'merchant') {
