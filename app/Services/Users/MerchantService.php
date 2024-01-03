@@ -155,8 +155,9 @@ class MerchantService extends AdminService
 
         $data = $this->model::
             when($province, fn($q) => $q->where("province_id", $province))
-            ->where("is_member", 1)
-            ->where("expired_member_at", ">=", Carbon::now())
+            ->where("status", "active")
+            // ->where("is_member", 1)
+            // ->where("expired_member_at", ">=", Carbon::now())
             ->when($city, fn($q) => $q->where("city_id", $city))
             ->when($categories, fn($q) => $q->whereIn("category_id", $categories))
             ->when($search, fn($q) => $q->where("name", "LIKE", "%$search%")
