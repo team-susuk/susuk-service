@@ -133,8 +133,7 @@ class MerchantService extends AdminService
     {
         $category = Category::where("uuid", $categoryUuid)->firstOrFail();
         $data = $this->model::where("category_id", $category->id)
-                            ->where("is_member", 1)
-                            ->where("expired_member_at", ">=", Carbon::now())
+                            ->where("status", "active")
                             ->orderBy("created_at", "desc");
 
         if ($isPaginate) {
