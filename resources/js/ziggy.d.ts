@@ -92,6 +92,11 @@ declare module 'ziggy-js' {
     "guide.qrcode.histories.booking-data": [],
     "guide.inbox.merchant": [],
     "guide.inbox.admin": [],
+    "guide.inbox.detail": [
+        {
+            "name": "id"
+        }
+    ],
     "guide.inbox.merchant-data": [],
     "guide.inbox.admin-data": [],
     "guide.profile.index": [],
