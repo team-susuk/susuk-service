@@ -30,6 +30,7 @@ Route::prefix("merchant")
             Route::post("/edit", [HomeController::class, 'editStore'])->name("home.edit.store");
             Route::get("/inbox", [InboxController::class, 'index'])->name("inbox.index");
             Route::get("/inbox-data", [InboxController::class, 'indexData'])->name("inbox.index-data");
+            Route::get("/inbox/{id}", [InboxController::class, 'detail'])->name("inbox.detail");
             Route::get("/member", [MemberController::class, 'index'])->name("member.index");
             Route::get("/member-data", [MemberController::class, 'indexData'])->name("member.index-data");
             Route::post("/logout", [LoginController::class, 'logout'])->name("logout");

@@ -27,4 +27,12 @@ class NotificationService {
         ->orderByDesc("id")
         ->paginate();
     }
+
+    public function getDetail($userId, $id)
+    {
+        $data = $this->model::where("user_id", $userId)->where("uuid", $id)->firstOrFail();
+        $data->time = Carbon::parse($data->created_at)->format("d M Y H.i");
+
+        return $data;
+    }
 }
