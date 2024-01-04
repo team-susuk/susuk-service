@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guide;
 
 use Inertia\Inertia;
 use App\Helpers\Susuk;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Enums\CategoryMerchant;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,7 @@ class MerchantController extends Controller
 
     public function detail($id)
     {
-        if ($data = $this->merchantService->findAndCheckById($id)) {
+        if (!Str::contains($id, '-') && $data = $this->merchantService->findAndCheckById($id)) {
             return redirect()->to(
                 route('guide.merchants.detail', [
                     'id' => $data->uuid,
