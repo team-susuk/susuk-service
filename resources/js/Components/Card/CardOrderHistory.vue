@@ -27,9 +27,13 @@
                         <p class="text-xxs text-neutral-dark-gray mb-[6px]">Harga</p>
                         <p class="text-sm font-semibold">{{ data.price }}</p>
                     </div>
-                    <div class="ms-auto">
+                    <div class="ms-auto" v-if="data.benefit_type != 'product'">
                         <p class="text-xxs text-neutral-dark-gray mb-[6px]">Expired</p>
                         <p class="text-sm font-semibold">{{ data.expired_at }}</p>
+                    </div>
+                    <div class="ms-auto" v-if="data.benefit_type == 'product'">
+                        <p class="text-xxs text-neutral-dark-gray mb-[6px]">Jumlah Produk</p>
+                        <p class="text-sm font-semibold">{{ data.benefit_formated }}</p>
                     </div>
                 </div>
                 <div class="mt-3" v-if="data.image_url">
@@ -52,7 +56,7 @@
                             {{ data.benefit_formated }}
                         </p>
                     </div>
-                    <div class="flex-center flex-col gap-1">
+                    <div class="flex-center flex-col gap-1" v-if="data.benefit_type != 'product'">
                         <p class="text-neutral-gray-3 text-xs">
                             Expired
                         </p>

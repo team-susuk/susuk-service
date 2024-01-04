@@ -14,7 +14,7 @@
                 v-if="paginate && !paginate?.loading.value"
                 v-for="merchant in paginate.data.value"
                 :data="merchant"
-                :back_url="route('guide.home')"
+                :back_url="route('guide.merchants.category', id)"
             />
         </div>
 

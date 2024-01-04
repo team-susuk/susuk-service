@@ -1,22 +1,22 @@
 <template>
-    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3 flex-col md:flex-row" v-bind:class="class">
+    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3" v-bind:class="class">
         <img
             :src="data.merchant?.image" 
-            class="w-36 object-cover rounded-lg h-fit"
+            class="w-14 md:w-36 object-cover rounded-lg h-fit"
         >
         <div class="w-full">
             <div class="flex flex-col gap-2">
                 <p class="text-xs font-medium text-neutral-gray w-1/4">{{ time }}</p>
                 <p class="text-sm font-semibold w-3/4 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
             </div>
-            <div class="flex justify-between my-2">
+            <!-- <div class="flex justify-between my-2">
                 <p class="max-w-[75%] text-neutral-gray-2 text-xs">
                     {{ data.merchant?.address }}
                 </p>
                 <div>
                     <Maps class="w-7" />
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="flex mt-2 gap-1">
                 <div class="flex gap-2">
                     <div class="flex-center gap-1">
@@ -53,7 +53,7 @@
                     })"
                     class="!font-semibold !text-xs md:!text-sm !h-8 justify-center !w-fit"
                 >
-                    Detail
+                    Lihat Merchant
                 </OutlineBlue>
                 <!-- <SolidBlue
                     @click="confirmAction"

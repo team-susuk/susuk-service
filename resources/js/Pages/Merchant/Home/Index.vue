@@ -241,6 +241,7 @@
                                 v-model="formOrder.city"
                                 :selected="formOrder.city"
                                 :popup="true"
+                                :allOptions="true"
                             />
                         </div>
                         <div class="col-span-2 mb-3">
@@ -250,6 +251,7 @@
                                 id="languages"
                                 :popup="true"
                                 v-model="formOrder.languages"
+                                :allOptions="true"
                             />
                         </div>
                     </div>
@@ -321,7 +323,7 @@
     const selectedPackages: any = ref([])
     const hasPackageImage = ref(true)
     const hasCity = ref(true)
-    const cities = ref([])
+    const cities = ref<any>([])
 
     const checkMaxProduct = () => {
         return props.products?.length >= props.max_products
@@ -357,7 +359,7 @@
         props.regions.filter((row: any) => {
             if (row.id == formOrder.province) {
                 let city = formOrder.city
-                cities.value = row.cities
+                cities.value = [{ id: 'all', name: 'Semua' }, ...row.cities]
                 formOrder.city = ''
                 cities.value.map((subrow: any) => {
                     if (subrow.id == city) {

@@ -21,7 +21,6 @@
                 v-bind:class="name"
                 placeholder="00:00"
                 class="bg-white rounded-lg placeholder:text-neutral-gray px-4 text-sm min-h-[42px] outline-none py-2 w-full mb-2 border-light-gray font-medium focus:ring-0 focus:border-light-gray"
-                :value="'14:00'"
             />
             <i
                 class="isax icon-clock absolute right-4 top-3 pointer-events-none"

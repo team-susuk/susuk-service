@@ -32,16 +32,10 @@ class LoginController extends Controller
 
     public function forgotPassword(ForgotRequest $request, LoginAction $loginAction)
     {
-        try {
-            $loginAction->requestPassword($request);
-            return redirect()->back()->with([
-                'popup_success' => 'Mohon Tunggu',
-                'popup_success_subtitle' => 'Admin akan segera mengirimkan password baru ke nomor wa anda'
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with([
-                'error' => $th->getMessage()
-            ]);
-        }
+        $loginAction->requestPassword($request);
+        return redirect()->back()->with([
+            'popup_success' => 'Mohon Tunggu',
+            'popup_success_subtitle' => 'Admin akan segera mengirimkan password baru ke nomor wa anda'
+        ]);
     }
 }

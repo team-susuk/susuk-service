@@ -115,7 +115,7 @@
                     class="font-bold text-lg"
                 >Favorite Produk</h2>
 
-                <Link :href="route('guide.products.category', 'favorite-produk')" class="font-medium text-blue flex items-center gap-2 text-sm">
+                <Link :href="route('guide.products.category', 'favorite-product')" class="font-medium text-blue flex items-center gap-2 text-sm">
                     Lihat Semua
                     <i class="isax icon-arrow-right-1 text-xl"></i>
                 </Link>
@@ -191,7 +191,10 @@
         })
 
         props.top_advertisements.map((row: any) => {
-            advertisement.value.push(row.image_url)
+            advertisement.value.push({
+                image: row.image_url,
+                user_id: row.user_id
+            })
         })
 
         setTimeout(() => {
@@ -208,7 +211,8 @@
     const closeAndOpenAds = (id: number) => {
         let openPlan = window.localStorage.getItem("susuk-popup") 
         let element = document.getElementById('popup-advertisement-'+(id+1)) as any
-        if (element) {
+        if (element && !openPlan) {
+            window.localStorage.setItem("susuk-popup", "open")
             element?.click()
         } else {
             if (!usePage().props.auth.guide.is_member && !openPlan) {

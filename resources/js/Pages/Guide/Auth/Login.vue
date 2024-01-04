@@ -66,6 +66,7 @@
                     id="forgot_name"
                     name="forgot_name"
                     v-model="formForgot.name"
+                    :error="formForgot.errors.name"
                 />
                 <InputNumber
                     label="Nomor WA"
@@ -74,6 +75,7 @@
                     id="forgot_phone"
                     name="forgot_phone"
                     v-model="formForgot.phone_number"
+                    :error="formForgot.errors.phone_number"
                 />
 
                 <ButtonSolidBlue
@@ -96,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-    import { Head, Link, router, useForm } from '@inertiajs/vue3';
+    import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
     import Logo from '@/Components/Icon/Etc/Logo.vue';
     import ButtonOutline from '@/Components/Button/Outline.vue';
     import ButtonSolidBlue from '@/Components/Button/SolidBlue.vue';
@@ -123,7 +125,9 @@
         if (!formForgot.processing) {
             formForgot.post(route('guide.login.forgot-password'), {
                 onSuccess: () => {
-                    clickId('close-forgot')
+                    if (usePage().props.flash.popup_success) {
+                        clickId('close-forgot')
+                    }
                 }
             })
         }

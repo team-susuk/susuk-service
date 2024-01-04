@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User\Merchant;
 use App\Models\Master\Profession;
 use App\Models\Utils\PriceConfig;
+use App\Services\Master\LanguageService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -151,11 +152,12 @@ class OrderAction {
             }
 
             if ($request->type == 'blast') {
+
                 $profession = Profession::where("name", $request->profession)->first();
                 $data['data'] = (object)[
-                    'languages' => $request->languages,
+                    'languages' => $request->languages[0] == 'all' ? null : $request->languages,
                     'province_id' => $request->province,
-                    'city_id' => $request->city,
+                    'city_id' => $request->city == 'all' ? null : $request->city,
                     'profession' => $request->profession,
                     'profession_id' => $profession ? $profession->id : '',
                     'product_id' => $id

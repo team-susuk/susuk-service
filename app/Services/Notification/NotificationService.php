@@ -2,6 +2,7 @@
 
 namespace App\Services\Notification;
 
+use App\Enums\NotificationType;
 use Carbon\Carbon;
 use App\Models\User\User;
 use App\Models\User\Merchant;
@@ -18,8 +19,10 @@ class NotificationService {
         return $this->model::where("user_id", $userId)
         ->where("role", $userRole)
         ->where("type", $type)
-        ->where(function ($q) {
-            $q->whereNull("expired_at")->orWhere("expired_at", ">=", Carbon::now());
+        ->where(function ($q) use ($type) {
+            if ($type == NotificationType::Blast) {
+                $q->orWhere("expired_at", ">=", Carbon::now());
+            }
         })
         ->orderByDesc("id")
         ->paginate();

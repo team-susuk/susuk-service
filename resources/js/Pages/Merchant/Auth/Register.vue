@@ -64,7 +64,7 @@
                 :selected="form.province"
                 :error="form.errors.province"
             />
-            <div class="grid grid-cols-2 gap-x-4 mb-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mb-2">
                 <div>
                     <Single
                         v-if="hasCity"

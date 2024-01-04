@@ -165,7 +165,7 @@ class MerchantService extends AdminService
                                         ->orWhereRelation("city", "name", "LIKE", "%$search%")
                                         ->orWhereRelation("province", "name", "LIKE", "%$search%")
                             )
-            ->orderBy(($sort == 'incentives_amount' ? DB::raw('JSON_UNQUOTE(JSON_EXTRACT(commission, "$.end"))') : "created_at"), "desc");
+            ->orderBy(($sort == 'incentives_amount_highest' || $sort == 'incentives_amount_lowest' ? DB::raw('JSON_UNQUOTE(JSON_EXTRACT(commission, "$.end"))') : "created_at"), ($sort == 'incentives_amount_lowest' ? "asc" : "desc"));
         if ($paginate) {
             return $data->paginate();
         } else {

@@ -7,7 +7,7 @@
             :paginate="paginate"
             :loading="shallowReactive(CardNotificationLoading)"
         >
-            <div v-for="row in paginate.data.value" class="mt-4">
+            <div v-for="row in paginate.data.value">
                 <CardInboxAdmin class="mb-3" :data="row" />
             </div>
         </WithPaginate>

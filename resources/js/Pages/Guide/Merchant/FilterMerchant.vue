@@ -39,10 +39,10 @@
                     />
                 </div>
                 <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
-                    <label for="merchant" class="w-full text-sm text-dark font-medium">Sort By Merchant</label>
+                    <label for="incentives_amount_highest" class="w-full text-sm text-dark font-medium">Sort By Incentives Amount (Highest)</label>
                     <input
-                        id="merchant"
-                        value="merchant"
+                        id="incentives_amount_highest"
+                        value="incentives_amount_highest"
                         name="sort"
                         type="radio"
                         class="w-5 h-5 text-white bg-white border-gray-600 300 focus:ring-green focus:ring-1 cursor-pointer transition-all checked:text-green"
@@ -50,10 +50,10 @@
                     />
                 </div>
                 <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
-                    <label for="incentives_amount" class="w-full text-sm text-dark font-medium">Sort By Incentives Amount</label>
+                    <label for="incentives_amount_lowest" class="w-full text-sm text-dark font-medium">Sort By Incentives Amount (Lowest)</label>
                     <input
-                        id="incentives_amount"
-                        value="incentives_amount"
+                        id="incentives_amount_lowest"
+                        value="incentives_amount_lowest"
                         name="sort"
                         type="radio"
                         class="w-5 h-5 text-white bg-white border-gray-600 300 focus:ring-green focus:ring-1 cursor-pointer transition-all checked:text-green"

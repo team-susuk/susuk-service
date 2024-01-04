@@ -107,25 +107,41 @@ const props = defineProps<{
     id?: string;
     category: Array<any>;
     selected?: Array<any>;
-    popup?: boolean
+    popup?: boolean,
+    allOptions?: boolean
 }>();
 
 const search = ref("");
 const selected = ref([]);
 const dropdownWidth = ref("auto")
 const bottomPlacement = ref(true)
+const categoryFiltered = ref<any>([])
 
 const addItem = (row: any) => {
     const selectedIds = selected.value.map((val: any) => val.id);
-    if (!selectedIds.includes(row.id)) {
-        (selected.value as any).push({
-            id: row.id,
-            name: row.name,
-        });
+    if (row.id == 'all') {
+        (selected.value as any) = [
+            {
+                id: 'all',
+                name: row.name
+            }
+        ]
         emit(
             "update:modelValue",
             selected.value.map((row: any) => row.name)
         );
+    } else {
+        removeItem('all')
+        if (!selectedIds.includes(row.id)) {
+            (selected.value as any).push({
+                id: row.id,
+                name: row.name,
+            });
+            emit(
+                "update:modelValue",
+                selected.value.map((row: any) => row.name)
+            );
+        }
     }
 };
 
@@ -154,10 +170,16 @@ const updateDropdownWidth = () => {
 }
 
 onMounted(() => {
+    if (props.allOptions) {
+        categoryFiltered.value = [{id: 'all', name: 'Semua'}, ...props.category]
+    } else {
+        categoryFiltered.value = props.category
+    }
+
     if (props.selected) {
         const itemSelected: any = [];
         const selectedId = JSON.parse(JSON.stringify(props.selected))
-        props.category.forEach((row: any) => {
+        categoryFiltered.value.forEach((row: any) => {
             if (selectedId.includes(row.name)) {
                 itemSelected.push({
                     id: row.id,
@@ -176,7 +198,7 @@ onMounted(() => {
 
 const filterCategory = () => {
     let searchValue = search.value.toLowerCase()
-    return props.category.filter(function (row: any) {
+    return categoryFiltered.value.filter(function (row: any) {
         return row.name.toLowerCase().includes(searchValue);
     });
 }

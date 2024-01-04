@@ -14,7 +14,7 @@
                     <p class="mb-0 font-semibold text-sm text-blue-2 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
                 </div>
             </div>
-            <p class="text-neutral-gray-2 text-xs my-2">
+            <!-- <p class="text-neutral-gray-2 text-xs my-2">
                 {{ data.merchant?.address }}
             </p>
             <div class="flex mt-2 gap-1">
@@ -36,7 +36,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="flex gap-2 justify-between items-center pt-2 border-t border-silver mt-2">
                 <p class="text-sm font-medium">{{ data.product?.name }}</p>
                 <div class="ms-auto">
