@@ -27,4 +27,11 @@ class InboxController extends Controller
             $this->notificationService->getNotifications(NotificationType::Information, merchant()->id, 'merchant')
         );
     }
+
+    public function detail($id)
+    {
+        return Inertia::render("Merchant/Inbox/Detail", [
+            "data" => $this->notificationService->getDetail(merchant()->id, $id)
+        ]);
+    }
 }

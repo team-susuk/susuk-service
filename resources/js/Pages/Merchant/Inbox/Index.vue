@@ -8,7 +8,7 @@
             :loading="shallowReactive(CardNotificationLoading)"
         >
             <div v-for="row in paginate.data.value">
-                <CardInboxAdmin class="mb-3" :data="row" />
+                <CardInboxAdmin class="mb-3" :data="row" :back_url="route('merchant.inbox.detail', row.uuid)" />
             </div>
         </WithPaginate>
 

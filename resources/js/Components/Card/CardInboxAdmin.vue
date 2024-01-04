@@ -1,5 +1,5 @@
 <template>
-    <div class="border-b border-silver p-3 flex gap-3">
+    <div class="border-b border-silver p-3 flex gap-3 cursor-pointer" @click="clickBackUrl">
         <div>
             <Info />
         </div>
@@ -28,8 +28,16 @@
 <script setup lang="ts">
     import Info from '../Icon/Etc/Info.vue';
     import File from '../Icon/Etc/File.vue';
+    import { router } from '@inertiajs/vue3';
 
-    defineProps([
-        "data"
+    const props = defineProps([
+        "data",
+        "back_url"
     ])
+
+    const clickBackUrl = () => {
+        if (props.back_url) {
+            router.visit(props.back_url)
+        }
+    }
 </script>

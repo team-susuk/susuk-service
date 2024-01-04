@@ -39,4 +39,11 @@ class InboxController extends Controller
             $this->notificationService->getNotifications(NotificationType::Information, guide()->id)
         );
     }
+
+    public function detail($id)
+    {
+        return Inertia::render("Guide/Inbox/Detail", [
+            "data" => $this->notificationService->getDetail(guide()->id, $id)
+        ]);
+    }
 }
