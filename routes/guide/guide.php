@@ -83,6 +83,7 @@ Route::prefix("guide")
             ->group(function () {
                 Route::get('/merchant', 'merchant')->name("merchant");
                 Route::get('/admin', 'admin')->name("admin");
+                Route::get('/detail/{id}', 'detail')->name("detail");
 
                 Route::get('/merchant-data', 'merchantData')->name("merchant-data");
                 Route::get('/admin-data', 'adminData')->name("admin-data");
