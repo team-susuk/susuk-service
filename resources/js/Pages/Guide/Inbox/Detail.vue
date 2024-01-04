@@ -1,7 +1,7 @@
 <template>
     <AuthLayout :hide-nav="true">
         <Head title="Detail Pesan" />
-        <HeaderDetail :backUrl="route('merchant.inbox.index')" title="Detail Pesan" />
+        <HeaderDetail :backUrl="route('guide.inbox.admin')" title="Detail Pesan" />
 
         <div class="py-3 flex gap-3 w-full items-center">
             <div>
