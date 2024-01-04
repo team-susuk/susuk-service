@@ -71,7 +71,8 @@ class CreateBroadcastNotification
                     'title' => $title,
                     'description' => $description,
                     'broadcast_id' => $broadcast->id,
-                    'data' => json_encode($notificationData)
+                    'data' => json_encode($notificationData),
+                    'created_at' => now()
                ])->values()->toArray();
                Notification::insert($notificationItems);
           });
