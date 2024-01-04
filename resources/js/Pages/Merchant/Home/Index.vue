@@ -219,7 +219,7 @@
                                 Asal Guide
                             </label>
                         </div>
-                        <div>
+                        <div class="col-span-2">
                             <Single
                                 v-if="regions"
                                 placeholder="Pilih Provinsi"
@@ -231,7 +231,7 @@
                                 :popup="true"
                             />
                         </div>
-                        <div>
+                        <div class="col-span-2">
                             <Single
                                 v-if="hasCity"
                                 placeholder="Pilih Kabupaten"
