@@ -39,6 +39,7 @@
             <CardMerchant
                 v-for="merchant in merchantCategories"
                 :data="merchant"
+                :back_url="route('guide.home')+'?category='+merchantCategory"
             />
         </div>
 
@@ -158,7 +159,7 @@
     import Swiper from '@/Components/Others/Swiper.vue'
     import PopupHome from '@/Components/Popup/PopupHome.vue';
     import PopupBank from '@/Components/Popup/PopupBank.vue';
-    import { clickId } from '@/plugins/functions/global';
+    import { clickId, getQueryParam } from '@/plugins/functions/global';
     import axios from 'axios';
     
 
@@ -181,7 +182,20 @@
     const search = ref("")
 
     onMounted(() => {
-        merchantCategory.value = props.categories.length > 0 ? props.categories[0].uuid : ''
+        let category = ''
+        let paramCategory = getQueryParam('category')
+        if (props.categories.length > 0) {
+            for (let row of props.categories) {
+                if (paramCategory == row.uuid) {
+                    category = row.uuid
+                    break
+                } else {
+                    category = props.categories[0].uuid
+                }
+            }
+
+        }
+        merchantCategory.value = category
 
         props.banners.map((row: any) => {
             popupBanners.value.push({

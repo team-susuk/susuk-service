@@ -29,10 +29,7 @@
                 class="relative w-full py-4 px-6 flex-center flex-col gap-2"
             >
                 <CloseWhite class="cursor-pointer" x-on:click="popup=false" @click="confirmAction" />
-                <Link :href="route('guide.merchants.index', image.user_id)" v-if="image.user_id">
-                    <img :src="image.image" alt="" class="h-[75vh] max-w-[95%] object-contain">
-                </Link>
-                <img :src="image.image" alt="" class="h-[75vh] max-w-[95%] object-contain" v-else>
+                <img :src="image.image" alt="" class="h-[75vh] max-w-[95%] object-contain" @click="redirect">
             </div>
         </div>
     </div>
@@ -40,11 +37,11 @@
 </template>
 
 <script setup lang="ts">
-    import { Link } from '@inertiajs/vue3';
+    import { Link, router } from '@inertiajs/vue3';
     import CloseWhite from '../Icon/Etc/CloseWhite.vue';
 
     const emit = defineEmits(["action"]);
-    defineProps<{
+    const props = defineProps<{
         image: any,
         id: any
     }>()
@@ -53,5 +50,11 @@
         setTimeout(() => {
             emit("action", () => {});
         }, 20);
+    }
+
+    const redirect = () => {
+        if (props.image.user_id) {
+            router.visit(route('guide.merchants.detail', props.image.user_id))
+        }
     }
 </script>

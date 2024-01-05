@@ -15,7 +15,7 @@
                 <i class="isax icon-eye text-base"></i> {{ merchant.viewer }} viewers
             </span>
         </div>
-        <div class="flex justify-between mt-4">
+        <div class="flex justify-between mt-2">
             <p class="max-w-[75%] text-neutral-gray-2 text-sm">
                 {{ merchant.full_address }}
             </p>
@@ -49,7 +49,7 @@
                 Komisi: {{ merchant.full_commission }}
             </OutlineOrange>
 
-            <Link :href="route('merchant.home.edit')" class="bg-[#CBE4FF] rounded-md px-4 py-2 text-sm font-semibold text-blue flex-center gap-1 ms-auto">
+            <Link :href="route('merchant.home.edit')" class="bg-[#CBE4FF] rounded-md px-4 py-2 text-xs md:text-sm font-semibold text-blue flex-center gap-1 ms-auto">
                 <i class="isax-b icon-edit-2 text-xl"></i> Ubah Toko
             </Link>
         </div>
@@ -98,7 +98,7 @@
         <section class="mt-8">
             <div class="flex items-center justify-between mb-4">
                 <h2
-                    class="font-bold text-lg"
+                    class="font-bold text-base"
                 >List Produk</h2>
 
                 <OutlineBlue
@@ -111,7 +111,7 @@
             <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2"
                 v-if="checkMaxProduct()"
             >
-                <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Maximal 9 item produk, untuk lebih dari 9 silahkan membeli paket “Tambah Produk”</span>
+                <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Untuk Tambah produk, silahkan anda untuk membeli paket tambah produk terlebih dahulu</span>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <CardProduct
@@ -294,7 +294,7 @@
     import BlastInfo from '@/Components/Icon/Image/BlastInfo.vue';
     import TopMerchant from '@/Components/Icon/Image/TopMerchant.vue';
     import NewMerchant from '@/Components/Icon/Image/NewMerchant.vue';
-    import { watch, ref } from 'vue'
+    import { watch, ref, onMounted } from 'vue'
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import CardProduct from '@/Components/Card/CardProduct.vue'
     import EmptyState from '@/Components/Icon/Image/EmptyState.vue';
@@ -413,4 +413,10 @@
             }, 100)
         }
     }
+
+    onMounted(() => {
+        if (formOrder.city) {
+            setCities()
+        }
+    })
 </script>

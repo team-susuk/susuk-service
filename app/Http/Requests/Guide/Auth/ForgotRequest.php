@@ -26,4 +26,16 @@ class ForgotRequest extends FormRequest
             'phone_number' => 'required|exists:users,phone_number'
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'phone_number.exists' => 'Nomor WA yang telah anda masukan tidak terdaftar'
+        ];
+    }
 }

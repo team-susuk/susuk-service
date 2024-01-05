@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'phone_number.exists' => 'Phone Number does not exist.'
+            'phone_number.exists' => 'Nomor WA yang telah anda masukan tidak terdaftar'
         ];
     }
 }

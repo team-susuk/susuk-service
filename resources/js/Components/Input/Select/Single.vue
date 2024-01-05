@@ -43,7 +43,7 @@
             </p>
         </div>
         <div
-            class="fixed w-full z-10"
+            class="w-full z-10"
             x-transition:enter="transition ease-out duration-50"
             x-transition:enter-start="opacity-0 -translate-y-1"
             x-transition:enter-end="opacity-100"

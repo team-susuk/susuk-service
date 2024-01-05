@@ -1,7 +1,7 @@
 <template>
     <AuthLayout :hide-nav="true">
         <Head title="Detail Pesan" />
-        <HeaderDetail :backUrl="route('merchant.inbox.index')" title="Detail Pesan" />
+        <HeaderDetail :backUrl="back_url" title="Detail Pesan" />
 
         <div class="py-3 flex gap-3 w-full items-center">
             <div>
@@ -35,6 +35,6 @@
     import Info from '@/Components/Icon/Etc/Info.vue';
     import File from '@/Components/Icon/Etc/File.vue';
 
-    const props = defineProps(["data"])
+    const props = defineProps(["data", "back_url"])
 
 </script>

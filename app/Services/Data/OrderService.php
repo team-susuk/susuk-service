@@ -79,8 +79,8 @@ class OrderService extends AdminService
 
     public function checkMaximumProducts($merchantUuid)
     {
-        $getMaximumProducts = $this->getMaximumProducts($merchantUuid);
         $product = Product::where("merchant_id", $merchantUuid)->count();
+        $getMaximumProducts = $this->getMaximumProducts($merchantUuid, $product);
         if ($product >= $getMaximumProducts) {
             return false;
         }

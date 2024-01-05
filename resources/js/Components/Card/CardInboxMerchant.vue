@@ -1,13 +1,13 @@
 <template>
-    <div class="rounded-[14px] border border-silver p-[14px] flex gap-3" v-bind:class="class">
+    <div class="rounded-[14px] border border-silver p-[14px] items-start flex gap-3" v-bind:class="class">
         <img
             :src="data.merchant?.image" 
             class="w-14 md:w-36 object-cover rounded-lg h-fit"
         >
         <div class="w-full">
-            <div class="flex flex-col gap-2">
-                <p class="text-xs font-medium text-neutral-gray w-1/4">{{ time }}</p>
+            <div class="flex justify-between gap-2">
                 <p class="text-sm font-semibold w-3/4 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
+                <p class="text-xs font-medium text-neutral-gray min-w-max">{{ time }}</p>
             </div>
             <!-- <div class="flex justify-between my-2">
                 <p class="max-w-[75%] text-neutral-gray-2 text-xs">

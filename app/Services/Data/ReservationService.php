@@ -84,12 +84,14 @@ class ReservationService
         Carbon::setLocale("id");
         $date = Carbon::parse($reservation->created_at)->format("d M Y H.i");
 
+        $description = "Guide {$user->name} telah melakukan reservasi untuk kedatangan tanggal {$date} dengan jumlah tamu {$request->total_guest} orang/ {$request->type}";
+
         Notification::create([
             'user_id' => $id,
             'role' => 'merchant',
             'type' => NotificationType::Information,
             'title' => 'Reservasi',
-            'description' => "Guide {$user->name} melakukan reservasi pada tanggal {$date}"
+            'description' => $description
         ]);
     }
 

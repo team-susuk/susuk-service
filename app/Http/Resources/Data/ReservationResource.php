@@ -24,7 +24,7 @@ class ReservationResource extends JsonResource
             "guest_number" => $this->guest_number,
             "guest_type" => $this->guest_type == 'domestic' ? 'Lokal' : 'Asing',
             "scan_by" => $this->scan_by,
-            "confirm_at" => Carbon::parse($this->confirm_at)->format("d M Y H.i"),
+            "confirm_at" => $this->confirm_at ? '' : Carbon::parse($this->confirm_at)->format("d M Y H.i"),
             "created_at" => Carbon::parse($this->created_at)->format("d M Y H.i")
         ];
     }

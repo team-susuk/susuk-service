@@ -22,11 +22,11 @@
         </div>
 
         <div class="flex gap-2 mb-4" x-data="{popup: false}">
-            <Link :href="route('merchant.products.edit', product.uuid)" class="bg-blue rounded-md px-4 py-2 text-sm font-semibold text-white flex-center gap-1 my-4 w-fit">
+            <Link :href="route('merchant.products.edit', product.uuid)" class="bg-blue rounded-md px-4 py-2 text-xs font-semibold text-white flex-center gap-1 my-4 w-fit">
                 <i class="isax-b icon-edit-2 text-xl"></i> Ubah Produk
             </Link>
 
-            <a class="bg-red rounded-md px-4 py-2 text-sm font-semibold text-white flex-center gap-1 my-4 w-fit cursor-pointer" x-on:click="popup=true">
+            <a class="bg-red rounded-md px-4 py-2 text-xs font-semibold text-white flex-center gap-1 my-4 w-fit cursor-pointer" x-on:click="popup=true">
                 <i class="isax-b icon-trash text-xl"></i> Hapus Produk
             </a>
             <Popup>

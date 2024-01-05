@@ -29,7 +29,7 @@ class LoginAction {
 
         if (!$user) {
             throw ValidationException::withMessages([
-                'phone_number' => "The selected phone number does not exist."
+                'phone_number' => "Nomor WA yang telah anda masukan tidak terdaftar"
             ]);
         }
 
@@ -104,7 +104,7 @@ class LoginAction {
         $user = Merchant::whereWhatsappNumber($number)->first();
         if (Str::lower($user->name) != Str::lower($request->name)) {
             throw ValidationException::withMessages([
-                'name' => "Maaf untuk Nama atau No Wa yang telah anda masukan tidak sesuai"
+                'name' => "Maaf, Nama yang telah anda masukan masih belum sesuai"
             ]);
         }
 

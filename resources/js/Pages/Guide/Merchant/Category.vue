@@ -14,7 +14,7 @@
                 v-if="paginate && !paginate?.loading.value"
                 v-for="merchant in paginate.data.value"
                 :data="merchant"
-                :back_url="route('guide.merchants.category', id)"
+                :back_url="props.type == 'category' ? route('guide.merchants.category', id) : route('guide.merchants.featured', id)"
             />
         </div>
 

@@ -14,14 +14,21 @@ class NotificationService {
     ) {
     }
 
-    public function getNotifications($type, $userId, $userRole = 'guest')
+    public function getNotifications($type, $userId, $userRole = 'guest', $isAdmin = false)
     {
         return $this->model::where("user_id", $userId)
         ->where("role", $userRole)
         ->where("type", $type)
-        ->where(function ($q) use ($type) {
+        ->where(function ($q) use ($type, $userRole, $isAdmin) {
             if ($type == NotificationType::Blast) {
                 $q->orWhere("expired_at", ">=", Carbon::now());
+            }
+            if ($userRole == 'merchant') {
+                if ($isAdmin) {
+                    $q->whereNotNull("broadcast_id");
+                } else {
+                    $q->whereNull("broadcast_id");
+                }
             }
         })
         ->orderByDesc("id")

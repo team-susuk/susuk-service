@@ -2,6 +2,7 @@
     <Head title="Pesan" />
     <AuthLayout>
         <HeaderBlue title="Pesan" />
+        <TabMenu active="admin" />
 
         <WithPaginate
             :paginate="paginate"
@@ -24,9 +25,10 @@
     import CardNotificationLoading from '@/Components/Card/CardNotificationLoading.vue';
     import { shallowReactive } from 'vue';
     import { usePaginate } from '@/hooks/pagination';
+    import TabMenu from './TabMenu.vue';
 
     const paginate = usePaginate({
-        route: route("merchant.inbox.index-data")
+        route: route("merchant.inbox.admin-data")
     })
 
 </script>

@@ -112,16 +112,18 @@ declare module 'ziggy-js' {
     "merchant.home": [],
     "merchant.home.edit": [],
     "merchant.home.edit.store": [],
-    "merchant.inbox.index": [],
-    "merchant.inbox.index-data": [],
+    "merchant.member.index": [],
+    "merchant.member.index-data": [],
+    "merchant.logout": [],
+    "merchant.inbox.guide": [],
+    "merchant.inbox.admin": [],
     "merchant.inbox.detail": [
         {
             "name": "id"
         }
     ],
-    "merchant.member.index": [],
-    "merchant.member.index-data": [],
-    "merchant.logout": [],
+    "merchant.inbox.guide-data": [],
+    "merchant.inbox.admin-data": [],
     "merchant.products.add": [],
     "merchant.products.store": [],
     "merchant.products.detail": [

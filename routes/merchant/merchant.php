@@ -28,12 +28,22 @@ Route::prefix("merchant")
             Route::get("/", [HomeController::class, 'index'])->name("home");
             Route::get("/edit", [HomeController::class, 'edit'])->name("home.edit");
             Route::post("/edit", [HomeController::class, 'editStore'])->name("home.edit.store");
-            Route::get("/inbox", [InboxController::class, 'index'])->name("inbox.index");
-            Route::get("/inbox-data", [InboxController::class, 'indexData'])->name("inbox.index-data");
-            Route::get("/inbox/{id}", [InboxController::class, 'detail'])->name("inbox.detail");
+
             Route::get("/member", [MemberController::class, 'index'])->name("member.index");
             Route::get("/member-data", [MemberController::class, 'indexData'])->name("member.index-data");
             Route::post("/logout", [LoginController::class, 'logout'])->name("logout");
+
+            Route::controller(InboxController::class)
+            ->prefix("inbox")
+            ->name("inbox.")
+            ->group(function () {
+                Route::get('/guide', 'guide')->name("guide");
+                Route::get('/admin', 'admin')->name("admin");
+                Route::get('/detail/{id}', 'detail')->name("detail");
+
+                Route::get('/guide-data', 'guideData')->name("guide-data");
+                Route::get('/admin-data', 'adminData')->name("admin-data");
+            });
 
             Route::controller(ProductController::class)
             ->prefix("products")

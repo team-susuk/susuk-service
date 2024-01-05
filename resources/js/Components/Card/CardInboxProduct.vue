@@ -5,14 +5,14 @@
             class="w-36 object-cover rounded-lg h-fit"
         >
         <div class="w-full">
-            <div class="flex flex-col gap-2">
-                <p class="text-xs font-medium text-neutral-gray w-1/4">{{ time }}</p>
+            <div class="flex gap-2 justify-between">
                 <div class="flex items-start justify-start">
                     <div>
                         <MerchantFill class="w-5" />
                     </div>
                     <p class="mb-0 font-semibold text-sm text-blue-2 whitespace-pre-wrap">{{ data.merchant?.name }}</p>
                 </div>
+                <p class="text-xs font-medium text-neutral-gray min-w-max">{{ time }}</p>
             </div>
             <!-- <p class="text-neutral-gray-2 text-xs my-2">
                 {{ data.merchant?.address }}

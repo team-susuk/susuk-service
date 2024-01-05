@@ -45,7 +45,7 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'phone_number.unique' => 'This phone number has been used before, please use other phone number or contact our admin.'
+            'phone_number.unique' => 'Nomor WA telah digunakan, silahkan gunakan nomor lain atau hubungi admin'
         ];
     }
 }

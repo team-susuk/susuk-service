@@ -52,7 +52,7 @@
     }
 
     .nav-bottom-center {
-        @apply h-[58px] w-[58px] bg-blue rounded-full flex-center absolute -top-8 outline outline-[10px] outline-white cursor-pointer;
+        @apply h-[58px] w-[58px] bg-blue rounded-full flex-center absolute -top-8 outline outline-[10px] outline-transparent cursor-pointer;
         box-shadow: 0px -20px 20px 0px rgba(197, 204, 205, 0.22);
     }
 
