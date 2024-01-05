@@ -38,7 +38,7 @@
                         :popup="true"
                     />
                 </div>
-                <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
+                <!-- <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
                     <label for="incentives_amount_highest" class="w-full text-sm text-dark font-medium">Sort by Incentive Amount (High to Low)</label>
                     <input
                         id="incentives_amount_highest"
@@ -48,7 +48,7 @@
                         class="w-5 h-5 text-white bg-white border-gray-600 300 focus:ring-green focus:ring-1 cursor-pointer transition-all checked:text-green"
                         v-model="form.sort"
                     />
-                </div>
+                </div> -->
                 <!-- <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg col-span-2 mb-4" >
                     <label for="incentives_amount_lowest" class="w-full text-sm text-dark font-medium">Sort By Incentives Amount (Lowest)</label>
                     <input

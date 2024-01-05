@@ -161,11 +161,12 @@ class MerchantService extends AdminService
             ->when($city, fn($q) => $q->where("city_id", $city))
             ->when($categories, fn($q) => $q->whereIn("category_id", $categories))
             ->when($search, fn($q) => $q->where("name", "LIKE", "%$search%")
-                                        ->orWhereRelation("subdistrict", "name", "LIKE", "%$search%")
-                                        ->orWhereRelation("city", "name", "LIKE", "%$search%")
-                                        ->orWhereRelation("province", "name", "LIKE", "%$search%")
-                            )
-            ->orderBy(($sort == 'incentives_amount_highest' || $sort == 'incentives_amount_lowest' ? DB::raw('JSON_UNQUOTE(JSON_EXTRACT(commission, "$.end"))') : "created_at"), ($sort == 'incentives_amount_lowest' ? "asc" : "desc"));
+                ->orWhereRelation("subdistrict", "name", "LIKE", "%$search%")
+                ->orWhereRelation("city", "name", "LIKE", "%$search%")
+                ->orWhereRelation("province", "name", "LIKE", "%$search%")
+            )
+            ->orderByRaw('CAST(JSON_EXTRACT(commission, "$.end") AS UNSIGNED) ' . "desc");
+
         if ($paginate) {
             return $data->paginate();
         } else {

@@ -48,12 +48,13 @@ class Merchant extends Model
     {
         parent::boot();
         static::creating(function (Merchant $user) {
-            $date = now()->format('Ymd');
-            $totalUser = Merchant::whereDate("created_at", now()->format("Y-m-d"))->count() + 1;
-            if(!$user->status){
-                $user->status = UserStatus::Waiting_Approval;
-            }
-            $user->code = "M-$date-" . str_pad($totalUser, 3, '0', STR_PAD_LEFT);
+            // $date = now()->format('Ymd');
+            // $totalUser = Merchant::whereDate("created_at", now()->format("Y-m-d"))->count() + 1;
+            // if(!$user->status){
+            //     $user->status = UserStatus::Waiting_Approval;
+            // }
+            // $user->code = "M-$date-" . str_pad($totalUser, 3, '0', STR_PAD_LEFT);
+            $user->code = "M-".Str::random();
             $user->register_at = now();
             $user->uuid = Str::uuid();
         });
