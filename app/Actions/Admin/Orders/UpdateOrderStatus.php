@@ -149,14 +149,12 @@ class UpdateOrderStatus
           $languages = @$orderData['languages'] ?: null;
           $users = User::query()
                ->where('province_id', @$orderData['province_id'])
-               ->where('city_id', $cityId)
                ->where('profession_id', @$orderData['profession_id'])
-               ->when($cityId,fn($query)=>$query->where('city_id',$cityId))
-               ->when($languages,fn($query)=>$query->whereJsonContains('languages',  $languages))
+               ->when($cityId && $cityId!=='all',fn($query)=>$query->where('city_id',$cityId))
+               ->when($languages && !in_array('Semua',$languages),fn($query)=>$query->whereJsonContains('languages',  $languages))
                ->where('status', UserStatus::Active)
                ->select(['id'])
                ->get();
-
 
           $merchantAddress = [
                $merchant->address,
