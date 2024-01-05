@@ -145,11 +145,14 @@ class UpdateOrderStatus
      {
           $data = null;
           $merchant = Merchant::findOrFail($userId);
+          $cityId = @$orderData['city_id'] ?: null;
+          $languages = @$orderData['languages'] ?: null;
           $users = User::query()
                ->where('province_id', @$orderData['province_id'])
-               ->where('city_id', @$orderData['city_id'])
+               ->where('city_id', $cityId)
                ->where('profession_id', @$orderData['profession_id'])
-               ->whereJsonContains('languages', @$orderData['languages'] ?: [])
+               ->when($cityId,fn($query)=>$query->where('city_id',$cityId))
+               ->when($languages,fn($query)=>$query->whereJsonContains('languages',  $languages))
                ->where('status', UserStatus::Active)
                ->select(['id'])
                ->get();

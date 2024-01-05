@@ -17,6 +17,7 @@
             {{ $row->name }}
         </td>
         <td>{{ $row->nick_name }}</td>
+        <td>{{ $row->profession?->name }}</td>
         <td>{{ $row->code }}</td>
         <td>{{ $row->phone_number }}</td>
         <td>{{ $row->province_name }}</td>

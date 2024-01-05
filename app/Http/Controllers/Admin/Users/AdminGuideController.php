@@ -21,6 +21,7 @@ class AdminGuideController extends AdminController
         ["label" => "Foto", "name" => "users.profile"],
         ["label" => "Nama Lengkap", "name" => "users.name"],
         ["label" => "Nama Panggilan", "name" => "users.nick_name"],
+        ["label" => "Profesi", "name" => "users.profession_id"],
         ["label" => "ID Guide", "name" => "users.code"],
         ["label" => "Nomor Whatsapp", "name" => "users.phone_number"],
         ["label" => "Provinsi", "name" => "users.province_id"],
