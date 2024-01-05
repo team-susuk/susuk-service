@@ -9,6 +9,7 @@ use App\Models\Data\Order;
 use App\Models\Data\Product;
 use Illuminate\Http\Request;
 use App\Models\User\Merchant;
+use Illuminate\Support\Facades\DB;
 use Laililmahfud\Adminportal\Services\AdminService;
 
 class OrderService extends AdminService
@@ -24,13 +25,27 @@ class OrderService extends AdminService
 
         $query = $this->model::query()
             ->join('merchants', 'merchants.id', 'orders.user_id')
-            ->where('orders.user_role','merchant')
+            ->leftJoin('products', 'products.id', DB::Raw("CAST(orders.data->'$.product_id' AS UNSIGNED)"))
+            ->leftJoin('provinces', 'provinces.id', DB::Raw("CAST(orders.data->'$.province_id' AS UNSIGNED)"))
+            ->leftJoin('cities', 'cities.id', DB::Raw("CAST(orders.data->'$.city_id' AS UNSIGNED)"))
+            ->leftJoin('professions', 'professions.id', DB::Raw("CAST(orders.data->'$.profession_id' AS UNSIGNED)"))
+            ->where('orders.user_role', 'merchant')
             ->where(function ($q) use ($search) {
                 $q->orWhere("orders.user_role", "like", "%" . $search . "%");
                 $q->orWhere("orders.type", "like", "%" . $search . "%");
                 $q->orWhere("orders.status", "like", "%" . $search . "%");
             })
-            ->select('orders.*',  'merchants.name as user_name');
+            ->select([
+                'orders.*',
+                'merchants.name as user_name',
+                'products.name as product_name',
+                'products.image as product_image',
+                'products.price as product_price',
+                'products.commission as product_commission',
+                'provinces.name as province_name',
+                'cities.name as city_name',
+                'professions.name as profession_name'
+            ]);
         if ($perPage) {
             return $query->datatable($perPage, "orders.created_at");
         } else {
@@ -57,7 +72,8 @@ class OrderService extends AdminService
     public function getMaximumProducts($merchantUuid, $currentProduct = 9)
     {
         $count = 0;
-        if ($currentProduct >= config('services.max-products')) $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
+        if ($currentProduct >= config('services.max-products'))
+            $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
         return config('services.max-products') + $count;
     }
 
