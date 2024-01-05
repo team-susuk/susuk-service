@@ -3,6 +3,7 @@
         <tr>
             <th>Nama Lengkap</th>
             <th>Nama Panggilan</th>
+            <th>Profesi</th>
             <th>ID Guide</th>
             <th>Tanggal Lahir</th>
             <th>Nomor Whatsapp</th>
@@ -18,6 +19,7 @@
             <tr>
                 <td>{{ $row->name }}</td>
                 <td>{{ $row->nick_name }}</td>
+                <td>{{ $row->profession?->name }}</td>
                 <td>{{ $row->code }}</td>
                 <td>{{ $row->birthday }}</td>
                 <td>{{ $row->phone_number }}</td>

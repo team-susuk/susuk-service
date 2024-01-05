@@ -23,6 +23,7 @@ class UserService extends AdminService
     {
         $search = $request->search ?? '';
         $query = $this->model::query()
+        ->with(['profession:id,name'])
         ->leftJoin('provinces','provinces.id','users.province_id')
         ->leftJoin('cities','cities.id','users.city_id')
         ->leftJoin('subdistricts','subdistricts.id','users.subdistrict_id')
