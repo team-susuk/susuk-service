@@ -104,7 +104,7 @@ class ReservationService
                 'guest_number' => $request->total_guest,
                 'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
                 'scan_by' => 'merchant',
-                'confirm_at' => Carbon::now()
+                'confirm_at' => Carbon::now()->format("Y-m-d H:i:s")
             ]);
         } else {
             $this->model::create([
@@ -114,7 +114,7 @@ class ReservationService
                 'guest_type' => $request->type == 'lokal' ? GuestType::Domestic : GuestType::Foreign,
                 'time_arrival' => $timeArrival,
                 'scan_by' => 'merchant',
-                'confirm_at' => Carbon::now()
+                'confirm_at' => Carbon::now()->format("Y-m-d H:i:s")
             ]);
         }
     }

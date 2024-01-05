@@ -2,7 +2,7 @@
     <div class="rounded-[14px] border border-silver p-[14px] items-start flex gap-3" v-bind:class="class">
         <img
             :src="data.merchant?.image" 
-            class="w-14 md:w-36 object-cover rounded-lg h-fit"
+            class="w-24 md:w-36 object-cover rounded-lg min-h-fit max-h-36"
         >
         <div class="w-full">
             <div class="flex justify-between gap-2">

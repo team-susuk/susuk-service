@@ -43,9 +43,10 @@ class User extends Model
     {
         parent::boot();
         static::creating(function (User $user) {
-            $tanggal = now()->format('Ymd');
-            $nomorUrutan = User::whereDate("created_at", now()->format("Y-m-d"))->count() + 1;
-            $user->code = "G-$tanggal-" . str_pad($nomorUrutan, 3, '0', STR_PAD_LEFT);
+            // $tanggal = now()->format('Ymd');
+            // $nomorUrutan = User::whereDate("created_at", now()->format("Y-m-d"))->count() + 1;
+            // $user->code = "G-$tanggal-" . str_pad($nomorUrutan, 3, '0', STR_PAD_LEFT);
+            $user->code = "G-".Str::random();
             $user->register_at = Carbon::now();
             $user->uuid = Str::uuid()->toString();
         });

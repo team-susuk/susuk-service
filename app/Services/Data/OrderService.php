@@ -72,8 +72,8 @@ class OrderService extends AdminService
     public function getMaximumProducts($merchantUuid, $currentProduct = 9)
     {
         $count = 0;
-        if ($currentProduct >= config('services.max-products'))
-            $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->count();
+        // if ($currentProduct >= config('services.max-products'))
+            $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->sum("benefit_value");
         return config('services.max-products') + $count;
     }
 
@@ -81,7 +81,7 @@ class OrderService extends AdminService
     {
         $product = Product::where("merchant_id", $merchantUuid)->count();
         $getMaximumProducts = $this->getMaximumProducts($merchantUuid, $product);
-        if ($product >= $getMaximumProducts) {
+        if ($product > $getMaximumProducts) {
             return false;
         }
 

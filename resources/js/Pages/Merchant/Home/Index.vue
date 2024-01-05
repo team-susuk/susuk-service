@@ -41,17 +41,21 @@
                 </span>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4 border border-neutral-gray-3 bg-[#E4EBF4] text-neutral-dark-gray">
-                {{ $page.props.auth.merchant.category }}
-            </span>
-            <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full mt-4 !cursor-default">
-                Komisi: {{ merchant.full_commission }}
-            </OutlineOrange>
+        <div class="flex md:items-center gap-3 flex-col md:flex-row mt-4">
+            <div class="flex items-center gap-3">
+                <span class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full border border-neutral-gray-3 bg-[#E4EBF4] text-neutral-dark-gray">
+                    {{ $page.props.auth.merchant.category }}
+                </span>
+                <OutlineOrange class="!font-semibold !text-xs md:!text-sm !px-4 !py-1 justify-center !rounded-full !cursor-default">
+                    Komisi: {{ merchant.full_commission }}
+                </OutlineOrange>
+            </div>
 
-            <Link :href="route('merchant.home.edit')" class="bg-[#CBE4FF] rounded-md px-4 py-2 text-xs md:text-sm font-semibold text-blue flex-center gap-1 ms-auto">
-                <i class="isax-b icon-edit-2 text-xl"></i> Ubah Toko
-            </Link>
+            <div class="md:ms-auto mt-2 md:mt-0">
+                <Link :href="route('merchant.home.edit')" class="bg-[#CBE4FF] rounded-md px-4 py-1 text-xs md:text-sm font-semibold text-blue flex-center gap-1">
+                    <i class="isax-b icon-edit-2 text-xl"></i> Ubah Toko
+                </Link>
+            </div>
         </div>
 
         <div class="bg-[#F2F6FE] h-[1px] w-full my-3"></div>

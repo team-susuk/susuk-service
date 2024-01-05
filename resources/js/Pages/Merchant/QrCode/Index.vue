@@ -181,11 +181,10 @@
                             dateEditable.value = true
                         }
 
+                        form.id = passData.id
                         form.user_id = passData.user_id
                         form.show = true
                         clickId("show-popup-edit-reservation")
-
-
                     }
                 }
             })
@@ -221,7 +220,6 @@
         form.show = false
         let passData = usePage().props.flash.pass_data
         if (passData) {
-            console.log(passData)
             if (passData?.time || passData?.date) {
                 form.type = passData.type
                 form.total_guest = passData.guest_number
@@ -231,8 +229,8 @@
             } else {
                 dateEditable.value = true
             }
-            console.log(dateEditable.value)
             form.user_id = passData.user_id
+            form.id = passData.id
             
             form.show = true
         }

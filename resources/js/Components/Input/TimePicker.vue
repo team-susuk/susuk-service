@@ -51,7 +51,7 @@ onMounted(() => {
     datePicker.value = flatpickr(`.${props.name}`, {
         dateFormat: "H:i",
         time_24hr: true,
-        defaultDate: props.default,
+        defaultDate: props.default ?? '00:00',
         enableTime: true,
         noCalendar: true,
         minDate: props.min ?? '',
