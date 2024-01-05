@@ -23,6 +23,7 @@ class AdminOrderMerchantController extends AdminController
         ["label" => "Paket", "name" => "benefit_value"],
         ["label" => "Price", "name" => "price"],
         ["label" => "Image", "name" => "image"],
+        ["label" => "Detail", "name" => "data"],
         ["label" => "Status", "name" => "status"],
         ["label" => "Pay At", "name" => "pay_at"],
         ["label" => "Expired At", "name" => "expired_at"],

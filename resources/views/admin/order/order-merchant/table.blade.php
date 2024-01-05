@@ -14,6 +14,9 @@
                 </a>
             @endif
         </td>
+        <td>
+            {!! $row->dataDetail !!}
+        </td>
         <td>{{ $row->status->label() }}</td>
         <td>{{ $row->pay_at }}</td>
         <td>{{ $row->expired_at }}</td>
