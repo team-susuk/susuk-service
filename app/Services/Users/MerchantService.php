@@ -165,7 +165,7 @@ class MerchantService extends AdminService
                 ->orWhereRelation("city", "name", "LIKE", "%$search%")
                 ->orWhereRelation("province", "name", "LIKE", "%$search%")
             )
-            ->orderByRaw('CAST(JSON_EXTRACT(commission, "$.end") AS UNSIGNED) ' . "desc");
+            ->orderByRaw('CAST(JSON_EXTRACT(commission, "$.start") AS UNSIGNED) ' . "desc");
 
         if ($paginate) {
             return $data->paginate();
