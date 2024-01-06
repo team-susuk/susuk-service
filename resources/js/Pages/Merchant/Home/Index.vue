@@ -119,16 +119,16 @@
                 <i class="isax-b icon-info-circle text-md"></i> <span class="text-[11px] font-medium">Tersisa {{ slot_products }} kuota produk</span>
             </div>
             <div
-                class="mb-4 rounded-full py-2 px-4 bg-blue-thin-2 border border-blue text-blue flex items-center w-full gap-2"
-                v-if="products.length"
-            >
-                <i class="isax-b icon-box text-md"></i> <span class="text-[11px] font-medium">Terdapat {{ products.length }} produk</span>
-            </div>
-            <div
                 class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2"
                 v-if="checkMaxProduct()"
             >
                 <i class="isax-b icon-danger text-md"></i> <span class="text-[11px] font-medium">Untuk Tambah produk, silahkan anda untuk membeli paket tambah produk terlebih dahulu</span>
+            </div>
+            <div
+                class="mb-4 rounded-full py-2 px-4 bg-blue-thin-2 border border-blue text-blue flex items-center w-full gap-2"
+                v-if="products.length"
+            >
+                <i class="isax-b icon-box text-md"></i> <span class="text-[11px] font-medium">Terdapat {{ products.length }} produk</span>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <CardProduct

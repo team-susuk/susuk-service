@@ -10,8 +10,8 @@
                 </div>
             </div>
             <p class="text-sm text-center mb-8">
-                Untuk bukti transfer bisa kirim ke WA Admin SUSUK 
-                <span class="font-semibold">{{ $page.props.bank.whatsapp }}</span> untuk verifikasi pembayaran atas pesanan anda.
+                Jika kamu sudah melakukan pembayaran, mohon bukti transfer dapat dikirim ke WA Admin
+                <span class="font-semibold">{{ $page.props.bank.whatsapp }}</span> agar pesanan anda dapat diproses lebih lanjut oleh Admin
             </p>
 
             <SolidBlue class="!px-10 mx-auto" x-on:click="popup=false">

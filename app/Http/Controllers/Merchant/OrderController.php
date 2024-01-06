@@ -19,14 +19,16 @@ class OrderController extends Controller
     {
         $orderAction->handleMerchant($request);
 
-        return redirect()->back()->with(["success" => "Jika kamu sudah melakukan pembayaran, mohon segera konfirmasi ke admin agar dapat diproses. Terimakasih"]);
+        // return redirect()->back()->with(["success" => "Jika kamu sudah melakukan pembayaran, mohon segera konfirmasi ke admin agar dapat diproses. Terimakasih"]);
+        return redirect()->back();
     }
 
     public function productOrder(Request $request, OrderAction $orderAction, $id)
     {
         $orderAction->handleProduct($request, $id);
 
-        return redirect()->back()->with(["success" => "Jika kamu sudah melakukan pembayaran, mohon segera konfirmasi ke admin agar dapat diproses. Terimakasih"]);
+        // return redirect()->back()->with(["success" => "Jika kamu sudah melakukan pembayaran, mohon segera konfirmasi ke admin agar dapat diproses. Terimakasih"]);
+        return redirect()->back();
     }
 
     public function merchantHistories()
