@@ -213,7 +213,8 @@ class UpdateOrderStatus
                'title' => 'BLAST FROM MERCHANT',
                'description' => 'BLAST NOTIFICATION FROM MERCHANT',
                'data' => json_encode($data),
-               'expired_at' => $expiredAt,
+               // 'expired_at' => $expiredAt,
+               'expired_at' => null,
                'created_at' => now()
           ])->values()->toArray();
           Notification::insert($notificationItems);

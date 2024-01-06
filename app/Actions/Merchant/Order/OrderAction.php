@@ -139,7 +139,7 @@ class OrderAction {
                 'price' => $price,
                 'status' => OrderStatus::Waiting_Payment,
                 'type' => $type,
-                'expired_at' => Carbon::now()->addDays($package->benefit_value),
+                'expired_at' => $request->type == 'blast' ? null : Carbon::now()->addDays($package->benefit_value),
                 'user_id' => merchant()->id,
                 'user_role' => 'merchant',
                 'data' => (object)[
