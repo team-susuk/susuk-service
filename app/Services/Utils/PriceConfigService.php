@@ -26,7 +26,6 @@ class PriceConfigService extends AdminService
             $q->orWhere("discount_type", "like", "%" . $search . "%");
             $q->orWhere("benefit_value", "like", "%" . $search . "%");
             $q->orWhere("benefit_type", "like", "%" . $search . "%");
-            ;
         })
             ->select("*")
             ->datatable($perPage, "price_configs.created_at");
@@ -36,45 +35,50 @@ class PriceConfigService extends AdminService
     public function store(Request $request)
     {
 
-        $data = $request->only(['name', 'description', 'type', 'price', 'discount', 'discount_type', 'benefit_value', 'benefit_type']);
+        $data = $request->only(['name', 'description', 'type', 'price', 'discount', 'discount_type']);
+        if ($request->benefit_period == 'period') {
+            $data['benefit_value'] = $request->benefit_value;
+            $data['benefit_type'] = $request->benefit_type;
+        }
         return $this->model::create($data);
     }
 
     public function update(Request $request, $uuid)
     {
-        $data = $request->only(['name', 'description', 'type', 'price', 'discount', 'discount_type', 'benefit_value', 'benefit_type']);
-
+        $data = $request->only(['name', 'description', 'type', 'price', 'discount', 'discount_type']);
+        $data['benefit_value'] = $request->benefit_period == 'period' ? $request->benefit_value : null;
+        $data['benefit_type'] = $request->benefit_period == 'period' ? $request->benefit_type : null;
         return $this->model::whereUuid($uuid)->update($data);
     }
 
     public function getPackageMerchant()
     {
         $data = [
-            (object)[
+            (object) [
                 'name' => 'Top Ads',
                 'description' => 'Iklan ini akan muncul setelah guide login ke aplikasi (Tampilan Iklan satu Layar)',
                 'type' => 'top-ads',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Ads Banner',
                 'description' => 'Iklan ini akan muncul di halaman utama beranda pada aplikasi guide',
                 'type' => 'ads-banner',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Blast Info Merchant',
                 'description' => 'Blast pesan ke semua guide yang dikehendaki',
                 'type' => 'blast',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Top Merchants',
                 'description' => 'Promosikan Tokomu sebagai Top Merchant agar dilihat semua guide',
                 'type' => 'top-merchants',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'New Merchants',
                 'description' => 'Promosikan Toko Baru Kamu agar dapat dilihat oleh semua guide.',
                 'type' => 'new-merchants',
@@ -108,31 +112,31 @@ class PriceConfigService extends AdminService
     public function getPackageProduct()
     {
         $data = [
-            (object)[
+            (object) [
                 'name' => 'Top Ads',
                 'description' => 'Iklan ini akan muncul setelah guide login ke aplikasi (Tampilan Iklan satu Layar)',
                 'type' => 'top-ads',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Ads Banner',
                 'description' => 'Iklan ini akan muncul di halaman utama beranda pada aplikasi guide',
                 'type' => 'ads-banner',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Blast Info Merchant',
                 'description' => 'Blast pesan ke semua guide yang dikehendaki',
                 'type' => 'blast',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Favorite Produk',
                 'description' => 'Promosikan Produk Best Sellermu.',
                 'type' => 'favorite-product',
                 'packages' => []
             ],
-            (object)[
+            (object) [
                 'name' => 'Special This Month',
                 'description' => 'Produk special yang mau kamu tawarkan bulan ini.',
                 'type' => 'special-this-month',

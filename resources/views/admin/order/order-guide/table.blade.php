@@ -16,7 +16,7 @@
         </td>
         <td>{{ $row->status->label() }}</td>
         <td>{{ $row->pay_at }}</td>
-        <td>{{ $row->expired_at }}</td>
+        <td>{{ $row->expired_at ?: 'Lifetime' }}</td>
         <td class="text-end">
             @if (itcan('edit admin.guide') || itcan('delete admin.guide'))
                 <div class="btn-group">

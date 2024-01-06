@@ -19,7 +19,11 @@
             @endif
         </td>
         <td>
-            {{ $row->benefit_value }} {{ $row->benefit_type }}
+            @if($row->benefit_value)
+                {{ $row->benefit_value }} {{ $row->benefit_type }}
+            @else
+                Lifetime
+            @endif
         </td>
         <td class="text-end">
             @if (itcan('edit admin.price-configs') || itcan('delete admin.price-configs'))
