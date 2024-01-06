@@ -47,5 +47,8 @@
 </div>
 
 @push('js')
+<script>
+    const benefitPeriodValue = "period"
+</script>
     <script src="{{asset('admin/js/price-config.js')}}"></script>
 @endpush
