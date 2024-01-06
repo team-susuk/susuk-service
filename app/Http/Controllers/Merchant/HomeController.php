@@ -36,6 +36,7 @@ class HomeController extends Controller
             'regions' => $this->provinceService->getProvinces(),
             "languages" => $this->languageService->getLangs(),
             'max_products' => $this->orderService->getMaximumProducts(merchant()->id, count($products)),
+            'slot_products' => $this->orderService->getSlotProducts(merchant()->id),
             'product_package' => $this->priceConfigService->getAddProductPackage(),
         ]);
     }

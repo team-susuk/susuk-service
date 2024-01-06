@@ -132,7 +132,7 @@ export const showAlert = (message: string, type = 'success') => {
                 button.click()
                 alert.classList.remove(color)
             }
-        }, 8000);
+        }, 10000);
     }
 }
 

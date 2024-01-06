@@ -56,6 +56,14 @@
         box-shadow: 0px -20px 20px 0px rgba(197, 204, 205, 0.22);
     }
 
+    .wrapper-select .select-radio {
+        @apply h-4 w-4 rounded-full border border-blue m-3 transition-all;
+    }
+
+    .wrapper-select:hover .select-radio {
+        @apply bg-blue-thin;
+    }
+
 
     .line-clamp-2 {
         display: -webkit-box;

@@ -125,7 +125,7 @@
                 (document.getElementById(props.id) as HTMLInputElement).value = ""
                 dropzoneFile.value = undefined
                 emit("update:modelValue", null)
-                showAlert("Invalid image format. Please upload a PNG or JPEG image.", "error")
+                showAlert("Format foto tidak valid, harap unggah foto dengan format PNG atau JPEG.", "error")
             }
 
             if (dropzoneFile.value?.size) {

@@ -36,7 +36,8 @@ export default {
                 'orange': '#F86F03',
                 'orange-thin': 'rgba(248, 111, 3, 0.05)',
                 'red-thin': 'rgba(251, 65, 65, 0.10)',
-                'gray-stroke': '#F2F6FE'
+                'gray-stroke': '#F2F6FE',
+                'blue-thin': 'rgba(13, 92, 171, 0.5)'
             },
             fontSize: {
                 xxs: '0.625rem'
