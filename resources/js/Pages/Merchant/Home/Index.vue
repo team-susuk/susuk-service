@@ -147,7 +147,7 @@
         <section x-data="{popup: false}">
             <a hidden x-on:click="popup=!popup" id="show-select-package"></a>
             <Popup v-bind:title="promotionTitle" class="!max-w-xl md:!max-w-3xl">
-                <div class="flex flex-col md:flex-row gap-4 relative">
+                <div class="flex flex-col md:flex-row gap-4 justify-center relative">
                     <div v-if="formOrder.processing" class="absolute bg-white opacity-50 top-0 right-0 bottom-0 left-0 rounded-lg"></div>
                     <div v-if="formOrder.processing" class="absolute top-0 right-0 bottom-0 left-0 rounded-lg flex-center">
                         <LoadingButton class="text-blue" />

@@ -86,19 +86,19 @@ class PriceSeeder extends Seeder
                 'price' => 120000,
                 'discount' => 0,
                 'discount_type' => 'percent',
-                'benefit_value' => 5,
-                'benefit_type' => 'day'
+                'benefit_value' => null,
+                'benefit_type' => null
             ],
-            [
-                'name' => 'Paket Murah',
-                'description' => 'Kamu dapat memberikan iklan kepada guide yang akan masuk ke menu pesan',
-                'type' => PriceType::Blast_Merchant,
-                'price' => 150000,
-                'discount' => 0,
-                'discount_type' => 'percent',
-                'benefit_value' => 10,
-                'benefit_type' => 'day'
-            ],
+            // [
+            //     'name' => 'Paket Murah',
+            //     'description' => 'Kamu dapat memberikan iklan kepada guide yang akan masuk ke menu pesan',
+            //     'type' => PriceType::Blast_Merchant,
+            //     'price' => 150000,
+            //     'discount' => 0,
+            //     'discount_type' => 'percent',
+            //     'benefit_value' => 10,
+            //     'benefit_type' => 'day'
+            // ],
 
             [
                 'name' => 'Paket Happy',
@@ -171,19 +171,19 @@ class PriceSeeder extends Seeder
                 'price' => 120000,
                 'discount' => 0,
                 'discount_type' => 'percent',
-                'benefit_value' => 5,
-                'benefit_type' => 'day'
+                'benefit_value' => null,
+                'benefit_type' => null
             ],
-            [
-                'name' => 'Paket Murah',
-                'description' => 'Kamu dapat memberikan iklan kepada guide yang akan masuk ke menu pesan',
-                'type' => PriceType::Blast_Product,
-                'price' => 150000,
-                'discount' => 0,
-                'discount_type' => 'percent',
-                'benefit_value' => 10,
-                'benefit_type' => 'day'
-            ],
+            // [
+            //     'name' => 'Paket Murah',
+            //     'description' => 'Kamu dapat memberikan iklan kepada guide yang akan masuk ke menu pesan',
+            //     'type' => PriceType::Blast_Product,
+            //     'price' => 150000,
+            //     'discount' => 0,
+            //     'discount_type' => 'percent',
+            //     'benefit_value' => 10,
+            //     'benefit_type' => 'day'
+            // ],
 
             [
                 'name' => 'Paket Happy',
