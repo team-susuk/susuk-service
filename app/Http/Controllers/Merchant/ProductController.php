@@ -25,7 +25,9 @@ class ProductController extends Controller
 
     public function add()
     {
-        return Inertia::render("Merchant/Product/Add");
+        return Inertia::render("Merchant/Product/Add", [
+            'slot_products' => $this->orderService->getSlotProducts(merchant()->id),
+        ]);
     }
 
     public function store(ProductRequest $productRequest, ProductAction $productAction)

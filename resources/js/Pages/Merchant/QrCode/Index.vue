@@ -17,7 +17,23 @@
         <section x-data="{popup: false}">
             <a x-on:click="popup=!popup" id="show-popup-edit-reservation"></a>
             <Popup title="Kedatangan">
-                <form @submit.prevent="submit" v-if="form.show">
+                <div class="flex flex-col gap-3" v-if="scanned.length > 0">
+                    <template v-for="scan in scanned">
+                        <div
+                            class="border border-silver rounded-[14px] cursor-pointer hover:border-blue transition-all flex-center wrapper-select"
+                            @click="selectReservation(scan)"
+                        >
+                            <CardQrCodeMerchant
+                                :data="scan"
+                                class="border-none w-full"
+                            />
+                            <div class="flex">
+                                <span class="select-radio"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <form @submit.prevent="submit" v-if="form.show && scanned.length == 0">
                     <DatePicker
                         label="Tanggal kedatangan"
                         name="arrival_date"
@@ -142,15 +158,18 @@
     import OutlineBlue from '@/Components/Button/OutlineBlue.vue';
     import SolidBlue from '@/Components/Button/SolidBlue.vue';
     import Input from '@/Components/Input/Index.vue';
-    import { clickId } from '@/plugins/functions/global';
+    import { clickId, showAlert } from '@/plugins/functions/global';
     import { onMounted } from 'vue';
     import moment from 'moment';
+    import CardQrCodeMerchant from '@/Components/Card/CardQrCodeMerchant.vue';
 
     const status = ref('')
     const dateEditable = ref(false)
     const formCheck = useForm({
         token: ''
     })
+
+    const scanned = ref([])
 
     const form = useForm({
         type: 'lokal',
@@ -171,18 +190,23 @@
                 onFinish: (res: any) => {
                     let passData = usePage().props.flash.pass_data
                     if (passData) {
-                        if (passData?.time || passData?.date) {
-                            form.type = passData.type
-                            form.total_guest = passData.guest_number
-                            form.arrival_time = passData.time
-                            form.arrival_date = passData.date
-                            dateEditable.value = false
-                        } else {
+                        scanned.value = passData.data?.data || []
+                        form.user_id = passData.user?.user_id
+                        // if (passData?.time || passData?.date) {
+                        //     form.type = passData.type
+                        //     form.total_guest = passData.guest_number
+                        //     form.arrival_time = passData.time
+                        //     form.arrival_date = passData.date
+                        //     dateEditable.value = false
+                        // } else {
+                        //     dateEditable.value = true
+                        // }
+
+                        // form.id = passData.id
+                        // form.user_id = passData.user_id
+                        if (scanned.value.length == 0) {
                             dateEditable.value = true
                         }
-
-                        form.id = passData.id
-                        form.user_id = passData.user_id
                         form.show = true
                         clickId("show-popup-edit-reservation")
                     }
@@ -220,20 +244,45 @@
         form.show = false
         let passData = usePage().props.flash.pass_data
         if (passData) {
-            if (passData?.time || passData?.date) {
-                form.type = passData.type
-                form.total_guest = passData.guest_number
-                form.arrival_time = passData.time
-                form.arrival_date = passData.date
-                dateEditable.value = false
-            } else {
+            scanned.value = passData.data?.data || []
+            form.user_id = passData.user?.user_id
+            // if (passData?.time || passData?.date) {
+            //     form.type = passData.type
+            //     form.total_guest = passData.guest_number
+            //     form.arrival_time = passData.time
+            //     form.arrival_date = passData.date
+            //     dateEditable.value = false
+            // } else {
+            //     dateEditable.value = true
+            // }
+            // form.user_id = passData.user_id
+            // form.id = passData.id
+            if (scanned.value.length == 0) {
                 dateEditable.value = true
             }
-            form.user_id = passData.user_id
-            form.id = passData.id
             
             form.show = true
         }
     })
+
+    const selectReservation = (data: any) => {
+        if (data) {
+            if (data?.time || data?.date) {
+                form.type = data.type
+                form.total_guest = data.guest_number
+                form.arrival_time = data.time
+                form.arrival_date = data.date
+                dateEditable.value = false
+            } else {
+                dateEditable.value = true
+            }
+    
+            form.id = data.id
+            form.show = true
+            scanned.value = []
+        } else {
+            showAlert("Data tidak valid", "error")
+        }
+    }
 
 </script>

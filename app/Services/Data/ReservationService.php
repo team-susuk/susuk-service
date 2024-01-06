@@ -56,6 +56,10 @@ class ReservationService
                 if ($type == 'scanned') {
                     $q->whereNotNull("confirm_at");
                 }
+                
+                if ($type == 'booked') {
+                    $q->whereNull("confirm_at");
+                }
             }
         )->orderByDesc("created_at")->paginate();
     }
@@ -82,7 +86,7 @@ class ReservationService
 
         $user = User::whereId($userId)->first();
         Carbon::setLocale("id");
-        $date = Carbon::parse($reservation->created_at)->format("d M Y H.i");
+        $date = Carbon::parse($reservation->timeArrival)->format("d M Y H.i");
 
         $description = "Guide {$user->name} telah melakukan reservasi untuk kedatangan tanggal {$date} dengan jumlah tamu {$request->total_guest} orang/ {$request->type}";
 

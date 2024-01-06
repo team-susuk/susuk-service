@@ -3,6 +3,11 @@
         <Head title="Tambah Produk" />
         <HeaderDetail :backUrl="route('merchant.home')" title="Tambah Produk" />
 
+        <div class="mb-4 rounded-full py-2 px-4 bg-orange-thin border border-orange text-orange flex items-center w-full gap-2"
+        >
+            <i class="isax-b icon-info-circle text-md"></i> <span class="text-[11px] font-medium">Tersisa {{ slot_products }} kuota produk</span>
+        </div>
+
         <form class="w-full flex flex-col" enctype="multipart/form-data" @submit.prevent="submit">
             <Input
                 label="Nama Produk"
@@ -83,6 +88,8 @@
     import DropZone from '@/Components/Input/DropZoneImage.vue';
     import Textarea from '@/Components/Input/Textarea.vue';
     import Input from '@/Components/Input/Index.vue';
+
+    defineProps(["slot_products"])
 
     const form = useForm({
         name: '',

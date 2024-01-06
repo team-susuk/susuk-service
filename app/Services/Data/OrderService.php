@@ -87,4 +87,14 @@ class OrderService extends AdminService
 
         return true;
     }
+
+    public function getSlotProducts($merchantUuid)
+    {
+        $count = 0;
+        // if ($currentProduct >= config('services.max-products'))
+        $count = $this->model::where("user_id", $merchantUuid)->where("type", OrderType::Add_Product)->where("status", OrderStatus::Paid)->sum("benefit_value");
+        $product = Product::where("merchant_id", $merchantUuid)->count();
+
+        return config('services.max-products') + $count - $product;
+    }
 }

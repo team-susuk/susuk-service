@@ -72,4 +72,14 @@ class Susuk {
             return $size;
         }
     }
+
+    public static function generateRandomSixDigitInt($exclude = []) {
+        $rand = rand(100000, 999999);
+
+        if (in_array($rand, $exclude)) {
+            return self::generateRandom($exclude);
+        }
+
+        return $rand;
+    }
 }

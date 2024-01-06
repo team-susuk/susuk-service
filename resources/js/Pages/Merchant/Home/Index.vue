@@ -112,6 +112,10 @@
                     Tambah Produk
                 </OutlineBlue>
             </div>
+            <div class="mb-4 rounded-full py-2 px-4 bg-orange-thin border border-orange text-orange flex items-center w-full gap-2"
+            >
+                <i class="isax-b icon-info-circle text-md"></i> <span class="text-[11px] font-medium">Tersisa {{ slot_products }} kuota produk</span>
+            </div>
             <div class="mb-4 rounded-full py-2 px-4 bg-red-thin border border-red text-red flex items-center w-full gap-2"
                 v-if="checkMaxProduct()"
             >
@@ -311,7 +315,7 @@
     import Select from '@/Components/Input/Select/Index.vue'
     import LoadingButton from '@/Components/Icon/Etc/LoadingButton.vue';
 
-    const props = defineProps(["products", "merchant", "packages", "regions", "languages", "max_products", "product_package"])
+    const props = defineProps(["products", "merchant", "packages", "regions", "languages", "max_products", "product_package", "slot_products"])
 
     const formOrder = useForm({
         type: '',

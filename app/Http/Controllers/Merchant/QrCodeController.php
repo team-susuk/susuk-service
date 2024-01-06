@@ -35,7 +35,12 @@ class QrCodeController extends Controller
     {
         try {
             $reservation = $this->reservationService->checkQrCode($checkQrCode);
-            return redirect()->back()->with(['pass_data' => $reservation]);
+            return redirect()->back()->with(['pass_data' => [
+                'user' => $reservation,
+                'data' => ReservationResource::collection(
+                            $this->reservationService->getHistories("merchant", merchant()->id, 'booked')
+                        )
+            ]]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(["error" => $th->getMessage()]);
         }
