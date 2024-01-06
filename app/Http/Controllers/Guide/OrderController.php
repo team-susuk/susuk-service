@@ -18,6 +18,6 @@ class OrderController extends Controller
     {
         $orderAction->handle($request);
 
-        return redirect()->back()->with(["success" => "Order telah berhasil, mohon untuk menunggu karena Admin akan segera melakukan konfirmasi"]);
+        return redirect()->back()->with(["success" => "Jika kamu sudah melakukan pembayaran, mohon segera konfirmasi ke admin agar dapat diproses. Terimakasih"]);
     }
 }
