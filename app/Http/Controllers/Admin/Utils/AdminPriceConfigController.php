@@ -30,8 +30,6 @@ class AdminPriceConfigController extends AdminController
         "price" => "required",
         "discount" => "required",
         "discount_type" => "required|min:3",
-        "benefit_value" => "required",
-        "benefit_type" => "required|min:3",
     ];
 
     public function create(Request $request)

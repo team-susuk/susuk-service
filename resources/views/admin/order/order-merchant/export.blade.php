@@ -28,7 +28,7 @@
                 </td>
                 <td>{{ $row->status }}</td>
                 <td>{{ $row->pay_at }}</td>
-                <td>{{ $row->expired_at }}</td>
+                <td>{{ $row->expired_at ?: 'Lifetime' }}</td>
 
             </tr>
         @endforeach

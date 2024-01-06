@@ -26,7 +26,11 @@
     </div>
 </div>
 
-<div class="form-group row ">
+<x-portal::input.select name="benefit_period" label="Benefit Period" horizontal class="select-input">
+    <option @selected($row->benefit_value) value="period">Period</option>
+    <option @selected(!$row->benefit_value) value="lifetime">Lifetime</option>
+</x-portal::input.select>
+<div class="form-group row d-none" id="group_benefit">
     <label for="" class="label col-sm-2">
         Benefit
         <span class="required">*</span>
@@ -42,3 +46,9 @@
         </select>
     </div>
 </div>
+@push('js')
+    <script>
+        const benefitPeriodValue = "{{$row->benefit_value ? 'period' : 'lifetime'}}"
+    </script>
+    <script src="{{asset('admin/js/price-config.js')}}"></script>
+@endpush
