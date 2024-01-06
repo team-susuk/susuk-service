@@ -64,7 +64,7 @@ class PriceConfig extends Model
                 return $this->benefit_value . ' Produk';
                 break;
             case null:
-                return 'Selamanya';
+                return 'Pesan';
                 break;
         }
     }

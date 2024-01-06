@@ -51,7 +51,7 @@ class Order extends Model
                 return $this->benefit_value . ' Produk';
                 break;
             case null:
-                return "Selamanya";
+                return "Order";
                 break;
         }
     }
