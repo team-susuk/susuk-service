@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-    import { showAlert } from "@/plugins/functions/global";
+    import { showAlert, compressImage } from "@/plugins/functions/global";
     import { ref, watch } from "vue";
     import icGalleryExport from "@/Components/Icon/Etc/GalleryExport.vue";
 
@@ -59,7 +59,8 @@
         error?: any;
         help?: any;
         modelValue: any,
-        defaultImage?: string
+        defaultImage?: string;
+        compress?: boolean;
     }>()
 
     const dropzoneFile = ref<File | undefined>(undefined);
@@ -99,11 +100,30 @@
         }
     };
 
-    const selectedFile = (event: Event) => {
+    const selectedFile = async (event: Event) => {
         const inputElement = event.target as HTMLInputElement;
         const files = inputElement.files;
         if (files && files.length > 0) {
-            dropzoneFile.value = files[0];
+            let fileValue = files[0]
+            if (props.compress) {
+                await compressImage(
+                    fileValue,
+                    2160,
+                    2160,
+                    "jpeg",
+                    0.8,
+                    function (compressed: any) {
+                        // const fileCompressed = new File([compressed], "image", {
+                        //     type: "image/jpeg",
+                        // });
+
+                        dropzoneFile.value = compressed
+                        emit("update:modelValue", compressed)
+                    }
+                );
+            } else {
+                dropzoneFile.value = fileValue;
+            }
             updateModel()
         }
     };
@@ -128,8 +148,8 @@
                 showAlert("Format foto tidak valid, harap unggah foto dengan format PNG atau JPEG atau JPG.", "error")
             }
 
-            if (dropzoneFile.value?.size) {
-                if (dropzoneFile.value.size > 2 * 1024 * 1024) {
+            if (dropzoneFile.value?.size) { 
+                if (!props.compress && dropzoneFile.value.size > 2 * 1024 * 1024) {
                     (document.getElementById(props.id) as HTMLInputElement).value = "";
                     dropzoneFile.value = undefined;
                     emit("update:modelValue", null);

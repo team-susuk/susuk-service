@@ -157,3 +157,53 @@ export const formatIndonesianPhoneNumber = (number: any) => {
     }
     return number;
 }
+
+
+export const compressImage = (file: any, maxWidth: any, maxHeight: any, outputFormat: any, quality: any, callback: any) => {
+    const reader = new FileReader();
+    reader.onload = function (event: any) {
+        const img: any = new Image();
+        img.src = URL.createObjectURL(file)
+
+        img.onload = function () {
+            // Calculate the new size to fit within the specified dimensions while maintaining the aspect ratio.
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+            if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+            }
+
+            // Create a canvas with the new size
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw the image on the canvas
+            const ctx: any = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Convert the canvas to a data URL with the specified output format and quality
+            const compressedImageData = canvas.toDataURL(`image/${outputFormat}`, quality);
+
+            // Call the callback function with the compressed image data URL
+            callback(dataURLtoBlob(compressedImageData));
+        };
+
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+const dataURLtoBlob = (dataurl: any) => {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type:mime});
+}
