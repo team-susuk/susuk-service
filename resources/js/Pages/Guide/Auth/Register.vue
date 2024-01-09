@@ -69,7 +69,7 @@
                 :selected="form.province"
                 :error="form.errors.province"
             />
-            <div class="grid grid-cols-2 gap-x-4 mb-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mb-2">
                 <div>
                     <Single
                         v-if="hasCity"
@@ -101,7 +101,7 @@
                 >
                     Profesi
                 </label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-x-3">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div class="flex items-center px-3 py-4 border border-light-gray rounded-lg" v-for="profession in professions" :key="profession.id">
                         <label :for="profession.id" class="w-full text-sm font-medium text-dark">{{ profession.name }}</label>
                         <input
