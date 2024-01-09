@@ -114,7 +114,7 @@
                     (document.getElementById(props.id) as HTMLInputElement).value = "";
                     dropzoneFile.value = undefined;
                     emit("update:modelValue", null);
-                    showAlert("File is too large. Please upload a file smaller than 2MB.", "error");
+                    showAlert("File terlalu besar, harap unggah file yang lebih kecil dari 2MB.", "error");
                     return;
                 }
             }
@@ -132,7 +132,7 @@
                 (document.getElementById(props.id) as HTMLInputElement).value = ""
                 dropzoneFile.value = undefined
                 emit("update:modelValue", null)
-                showAlert("Invalid image format. Please upload a PNG or JPEG image.", "error")
+                showAlert("Format file tidak valid, harap unggah file dengan format PNG atau JPEG atau JPG.", "error")
             }
         }
     };
@@ -148,7 +148,7 @@
         if (dropzoneFile.value) {
             return `${dropzoneFile.value.name} (${(dropzoneFile.value.size / 1024).toFixed(2)} KB)`;
         }
-        return 'No file selected';
+        return 'Tidak ada file yang dipilih';
     });
 
     // watch(dropzoneFile, validateImage);

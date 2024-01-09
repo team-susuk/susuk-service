@@ -133,7 +133,7 @@
                     (document.getElementById(props.id) as HTMLInputElement).value = "";
                     dropzoneFile.value = undefined;
                     emit("update:modelValue", null);
-                    showAlert("File is too large. Please upload a file smaller than 2MB.", "error");
+                    showAlert("Foto terlalu besar, harap unggah foto yang lebih kecil dari 2MB.", "error");
                     return;
                 }
             }

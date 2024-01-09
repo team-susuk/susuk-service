@@ -81,14 +81,14 @@ export const validateMinimumDateRange = (start: string, end: string, validate = 
         var startDate = new Date(start);
         var endDate = new Date(end);
         if (endDate < startDate) {
-            showAlert('The start date must be greater than the end date')
+            showAlert('Tanggal mulai harus lebih besar dari tanggal akhir')
             return false;
         }
 
         var Difference_In_Time = endDate.getTime() - startDate.getTime();
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         if (Difference_In_Days > validate) {
-            showAlert(`Maximum range date is ${validate}`)
+            showAlert(`Tanggal rentang maksimum adalah ${validate}`)
             return false;
         }
     }
