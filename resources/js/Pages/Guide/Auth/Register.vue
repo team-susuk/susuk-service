@@ -58,6 +58,7 @@
                 name="image"
                 v-model="form.image"
                 :error="form.errors.image"
+                :compress="true"
             />
             <Single
                 v-if="regions"
